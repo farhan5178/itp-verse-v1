@@ -31,7 +31,7 @@ export default function StatsRow({ stats }) {
         >
           <span className="text-base" role="img" aria-label={stat.label}>{stat.icon}</span>
           <div>
-            <p className="text-[10px] font-semibold text-slate-500 dark:text-zinc-500 leading-none tracking-wide uppercase">
+            <p className="text-[10px] font-semibold text-slate-500 dark:text-zinc-400 leading-none tracking-wide uppercase">
               {stat.label}
             </p>
             <p className="text-sm font-black text-[#f72585] leading-tight">{stat.value}</p>

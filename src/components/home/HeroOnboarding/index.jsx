@@ -137,8 +137,7 @@ export default function HeroOnboarding() {
       {/* Bottom fade */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, rgba(255,245,249,0.7), transparent)' }}
+        className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none bg-gradient-to-t from-[#fff5f9]/70 to-transparent dark:from-[#09090b]/80 dark:to-transparent"
       />
     </section>
   );
