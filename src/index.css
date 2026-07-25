@@ -1,0 +1,308 @@
+/* ─────────────────────────────────────────────
+   ITPverse — Global Design System
+   Primary: Hot Pink #f72585 (matches logo)
+   ───────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+/* ── Class-based dark mode (Tailwind v4) ── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ── Design Tokens ─────────────────────────── */
+@theme {
+  /* ── Brand — Hot Pink (logo match) ── */
+  --color-brand:         #f72585;
+  --color-brand-light:   #ff5fa0;
+  --color-brand-dark:    #c4006a;
+  --color-brand-muted:   #fde8f2;
+
+  /* ── Legacy brand aliases (used in Home/MockTest/Results) ── */
+  --color-brand-purple:  #8b5cf6;
+  --color-brand-blue:    #3b82f6;
+  --color-brand-cyan:    #06b6d4;
+  --color-brand-emerald: #10b981;
+
+  /* ── Accent — Deep Indigo ── */
+  --color-accent:        #4361ee;
+  --color-accent-light:  #748ffc;
+  --color-accent-dark:   #2a45c8;
+  --color-accent-muted:  #e8edff;
+
+  /* ── Light-mode surfaces ── */
+  --color-surface:       #ffffff;
+  --color-surface-2:     #f9fafb;
+  --color-surface-3:     #f3f4f6;
+
+  /* ── Dark-mode surfaces (new tokens) ── */
+  --color-dark-base:     #09090b;
+  --color-dark-surface:  #111116;
+  --color-dark-surface-2:#18181f;
+  --color-dark-border:   #27272a;
+
+  /* ── Legacy dark tokens (used in Home/MockTest/Results/Footer) ── */
+  --color-dark-900:      #09090b;   /* deepest bg */
+  --color-dark-850:      #0f0f12;
+  --color-dark-800:      #18181f;   /* card bg */
+  --color-dark-750:      #1f1f28;
+  --color-dark-700:      #27272a;   /* borders */
+  --color-dark-text:     #e4e4e7;   /* primary text on dark */
+  --color-dark-muted:    #71717a;   /* muted text */
+
+  /* ── Ink (text) tokens ── */
+  --color-ink:           #0f0f14;
+  --color-ink-2:         #374151;
+  --color-ink-muted:     #6b7280;
+  --color-ink-faint:     #9ca3af;
+
+  /* ── Status ── */
+  --color-success:       #10b981;
+  --color-warning:       #f59e0b;
+  --color-error:         #ef4444;
+  --color-info:          #3b82f6;
+}
+
+/* ── Base Layer ─────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply bg-surface text-ink dark:bg-dark-base dark:text-zinc-100 antialiased transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    @apply text-ink dark:text-white font-bold;
+  }
+
+  /* Text selection */
+  ::selection {
+    background: rgba(247, 37, 133, 0.15);
+    color: #f72585;
+  }
+}
+
+/* ── Custom Scrollbar ───────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-3 dark:bg-dark-surface-2;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-ink-faint dark:bg-dark-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f72585;
+}
+
+/* ── Utility Classes ────────────────────────── */
+
+/* Brand gradient — pink → indigo */
+.gradient-brand {
+  background: linear-gradient(135deg, #f72585 0%, #4361ee 100%);
+}
+
+.gradient-brand-text {
+  background: linear-gradient(135deg, #f72585 0%, #4361ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle pink glow for hero/accent elements */
+.glow-brand {
+  box-shadow: 0 0 40px rgba(247, 37, 133, 0.18), 0 0 80px rgba(67, 97, 238, 0.10);
+}
+
+.glow-brand-sm {
+  box-shadow: 0 4px 20px rgba(247, 37, 133, 0.20);
+}
+
+/* Glass panels */
+.glass {
+  @apply bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md border border-surface-3 dark:border-dark-border;
+}
+
+.glass-hover {
+  @apply hover:bg-white dark:hover:bg-dark-surface-2 hover:shadow-lg transition-all duration-300;
+}
+
+/* Card base */
+.card {
+  @apply bg-surface dark:bg-dark-surface rounded-2xl border border-surface-3 dark:border-dark-border shadow-sm transition-all duration-300;
+}
+
+.card-hover {
+  @apply hover:shadow-md hover:-translate-y-0.5 hover:border-brand/20 dark:hover:border-brand/30;
+}
+
+/* Primary button */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95;
+  background: linear-gradient(135deg, #f72585, #d91a70);
+  box-shadow: 0 4px 16px rgba(247, 37, 133, 0.30);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ff3d8f, #f72585);
+  box-shadow: 0 6px 24px rgba(247, 37, 133, 0.40);
+  transform: translateY(-1px);
+}
+
+/* Secondary button */
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-95 border;
+  @apply text-brand border-brand/30 bg-brand-muted dark:bg-brand/10 dark:border-brand/40;
+}
+
+.btn-secondary:hover {
+  @apply bg-brand/10 dark:bg-brand/20 border-brand/50;
+}
+
+/* Accent (indigo) button */
+.btn-accent {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95;
+  background: linear-gradient(135deg, #4361ee, #2a45c8);
+  box-shadow: 0 4px 16px rgba(67, 97, 238, 0.30);
+}
+
+.btn-accent:hover {
+  box-shadow: 0 6px 24px rgba(67, 97, 238, 0.40);
+  transform: translateY(-1px);
+}
+
+/* Pill badge */
+.badge-brand {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-muted text-brand dark:bg-brand/15 dark:text-brand-light;
+}
+
+.badge-accent {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-accent-muted text-accent dark:bg-accent/15 dark:text-accent-light;
+}
+
+/* Animated underline for nav links */
+.nav-link {
+  @apply relative text-ink-muted dark:text-zinc-400 text-sm font-semibold transition-colors duration-200 hover:text-brand dark:hover:text-brand-light;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 rounded-full transition-all duration-300;
+  background: #f72585;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  @apply w-full;
+}
+
+/* Section spacing helper */
+.section {
+  @apply py-16 md:py-24;
+}
+
+/* ── AI Avatar Keyframe Animations ───────────────── */
+
+/* Eye blink */
+@keyframes eyeBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  93%            { transform: scaleY(0.08); }
+}
+
+/* Right-arm wave (runs twice on entrance) */
+@keyframes armWave {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-35deg); }
+  50%  { transform: rotate(10deg); }
+  75%  { transform: rotate(-30deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Body idle float */
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* Antenna glow pulse */
+@keyframes antennaPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.25); }
+}
+
+/* Shadow shrink/grow with float */
+@keyframes shadowPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.4; }
+  50%      { transform: scaleX(0.7); opacity: 0.2; }
+}
+
+/* Typewriter cursor blink */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #f72585;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 0.8s step-end infinite;
+}
+
+/* Particle sparkle */
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+  50%      { transform: scale(1.4) rotate(180deg); opacity: 1; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+.bg-animated-gradient {
+  background: linear-gradient(135deg, #fff0f6, #ede9fe, #e0f2fe, #fdf4ff);
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.dark .bg-animated-gradient {
+  background: linear-gradient(135deg, #1a0010, #0d0020, #001a2e, #150020);
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(247, 37, 133, 0.2); }
+  50%       { box-shadow: 0 0 40px rgba(247, 37, 133, 0.5); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
