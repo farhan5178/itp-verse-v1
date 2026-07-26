@@ -38,20 +38,20 @@ export default function AIAvatar({ isReady }) {
         <svg viewBox="0 0 200 270" width="200" height="270" role="img" aria-label="ITPverse AI Assistant">
           <defs>
             <linearGradient id="hg"  x1="0%" y1="0%"  x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#6b8cff" />
-              <stop offset="100%" stopColor="#4361ee" />
+              <stop offset="0%"   stopColor="#f72585" />
+              <stop offset="100%" stopColor="#d91a70" />
             </linearGradient>
             <linearGradient id="bg2" x1="0%" y1="0%"  x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#3d5bd4" />
-              <stop offset="100%" stopColor="#2d45b8" />
+              <stop offset="0%"   stopColor="#d91a70" />
+              <stop offset="100%" stopColor="#b01358" />
             </linearGradient>
             <linearGradient id="sg"  x1="0%" y1="0%"  x2="100%" y2="100%">
               <stop offset="0%"   stopColor="#1a1a3e" />
               <stop offset="100%" stopColor="#0d0d2b" />
             </linearGradient>
             <linearGradient id="ag"  x1="0%" y1="0%"  x2="0%"   y2="100%">
-              <stop offset="0%"   stopColor="#6b8cff" />
-              <stop offset="100%" stopColor="#3651d4" />
+              <stop offset="0%"   stopColor="#f72585" />
+              <stop offset="100%" stopColor="#d91a70" />
             </linearGradient>
             <linearGradient id="vg"  x1="0%" y1="0%"  x2="100%" y2="100%">
               <stop offset="0%"   stopColor="rgba(255,255,255,0.22)" />

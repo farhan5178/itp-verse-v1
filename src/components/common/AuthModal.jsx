@@ -79,7 +79,7 @@ export default function AuthModal() {
           className="relative w-full max-w-md bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-3xl shadow-2xl overflow-hidden z-10"
         >
           {/* Header Graphic Gradient */}
-          <div className="relative p-6 bg-gradient-to-br from-[#f72585] via-[#8b5cf6] to-[#4361ee] text-white">
+          <div className="relative p-6 bg-gradient-to-br from-[#f72585] via-[#d91a70] to-[#b01358] text-white">
             <button
               onClick={closeAuthModal}
               className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all cursor-pointer"
@@ -206,7 +206,7 @@ export default function AuthModal() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f72585] to-[#4361ee] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:shadow-pink-500/35 transition-all cursor-pointer"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f72585] to-[#d91a70] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:shadow-pink-500/35 transition-all cursor-pointer"
               >
                 {mode === 'login' ? 'Sign In to Portal' : 'Create Account & Start'}
               </button>

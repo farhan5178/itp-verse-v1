@@ -7,7 +7,7 @@ const PARTICLE_DATA = Array.from({ length: 22 }, (_, i) => ({
   size: 2 + (i * 7 % 6),
   x: (i * 37 + 11) % 100,
   y: (i * 53 + 7)  % 100,
-  color: ['#f72585', '#4361ee', '#c77dff', '#ff9e00', '#48cae4'][i % 5],
+  color: ['#f72585', '#d91a70', '#c77dff', '#ff9e00', '#ff5fa0'][i % 5],
   opacity: 0.12 + (i % 5) * 0.06,
   duration: 3 + (i % 4),
   delay: (i * 0.35) % 3,

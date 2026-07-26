@@ -42,7 +42,7 @@ function PartnerBadge({ exam }) {
       <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
         <Sparkles className="w-3 h-3 text-[#f72585] animate-pulse" />
         <span>Official Partner of</span>
-        <span className="font-extrabold bg-gradient-to-r from-red-500 to-indigo-600 bg-clip-text text-transparent">idp</span>
+        <span className="font-extrabold bg-gradient-to-r from-[#f72585] to-[#d91a70] bg-clip-text text-transparent">idp</span>
         <span className="font-black text-slate-800 dark:text-zinc-100">IELTS</span>
       </div>
     );
@@ -50,9 +50,9 @@ function PartnerBadge({ exam }) {
   if (exam === 'TOEFL') {
     return (
       <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
-        <Sparkles className="w-3 h-3 text-teal-500 animate-pulse" />
+        <Sparkles className="w-3 h-3 text-[#f72585] animate-pulse" />
         <span>Official Partner of</span>
-        <span className="font-bold text-teal-600 dark:text-teal-400">ETS TOEFL Academy</span>
+        <span className="font-bold text-[#f72585] dark:text-[#ff5fa0]">ETS TOEFL Academy</span>
       </div>
     );
   }
@@ -111,7 +111,7 @@ export default function Navbar() {
             className="flex items-center cursor-pointer group flex-shrink-0 transition-transform active:scale-95"
           >
             <div className="flex items-center gap-1.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f72585] to-[#4361ee] flex items-center justify-center shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f72585] to-[#d91a70] flex items-center justify-center shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
                 <span className="text-white font-black text-xs tracking-tighter">ITP</span>
               </div>
               <span className="text-xl font-black tracking-tight leading-none">

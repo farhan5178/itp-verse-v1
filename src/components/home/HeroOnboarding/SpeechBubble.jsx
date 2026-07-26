@@ -14,7 +14,7 @@ export default function SpeechBubble({ displayed, done }) {
   const lineClass = (i) => {
     if (i === 0) return 'text-lg font-bold text-slate-900 dark:text-white';
     if (i === 1) return 'text-sm font-medium text-slate-600 dark:text-zinc-300';
-    return 'text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#f72585] via-[#ff5fa0] to-[#748ffc]';
+    return 'text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#f72585] via-[#ff5fa0] to-[#d91a70]';
   };
 
   return (
