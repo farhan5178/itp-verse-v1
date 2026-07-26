@@ -9,14 +9,14 @@ export default function Dashboard() {
   const stats = [
     { label: 'Overall Completion', value: '78%', icon: LineChart, color: 'text-brand-purple' },
     { label: 'Average Score', value: '84/100', icon: Trophy, color: 'text-brand-emerald' },
-    { label: 'Tests Attempted', value: '12', icon: BookOpen, color: 'text-brand-blue' },
-    { label: 'Time Practiced', value: '18.5 hrs', icon: Timer, color: 'text-brand-cyan' },
+    { label: 'Tests Attempted', value: '12', icon: BookOpen, color: 'text-[#f72585]' },
+    { label: 'Time Practiced', value: '18.5 hrs', icon: Timer, color: 'text-[#f72585]' },
   ];
 
   const subjects = [
     { name: 'Quantitative Reasoning', progress: 85, color: 'bg-brand-purple', count: '45 questions done' },
-    { name: 'Verbal Section', progress: 70, color: 'bg-brand-blue', count: '30 questions done' },
-    { name: 'Analytical Writing', progress: 60, color: 'bg-brand-cyan', count: '12 prompts practiced' },
+    { name: 'Verbal Section', progress: 70, color: 'bg-gradient-to-r from-[#f72585] to-[#d91a70]', count: '30 questions done' },
+    { name: 'Analytical Writing', progress: 60, color: 'bg-gradient-to-r from-[#f72585] to-[#d91a70]', count: '12 prompts practiced' },
   ];
 
   const activeTests = [
@@ -64,7 +64,7 @@ export default function Dashboard() {
         </div>
         <button
           onClick={() => navigate('/mock-test')}
-          className="px-5 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-blue text-sm font-semibold text-white shadow-lg shadow-brand-purple/10 hover:shadow-brand-purple/20 transition-all flex items-center space-x-2"
+          className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#f72585] to-[#d91a70] text-sm font-semibold text-white shadow-lg shadow-[#f72585]/20 hover:shadow-[#f72585]/30 transition-all flex items-center space-x-2"
         >
           <Play className="w-4 h-4 fill-white" />
           <span>Launch Practice Simulator</span>
@@ -102,7 +102,7 @@ export default function Dashboard() {
           <div className="glass-panel p-6 rounded-2xl">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-white">Active Mock Exams</h2>
-              <span className="text-xs text-brand-purple font-semibold hover:underline cursor-pointer">View All</span>
+              <span className="text-xs text-[#f72585] font-semibold hover:underline cursor-pointer">View All</span>
             </div>
             <div className="space-y-4">
               {activeTests.map((test, index) => (
@@ -143,7 +143,7 @@ export default function Dashboard() {
                     </div>
                     <button
                       onClick={() => navigate(`/mock-test?id=${test.id}`)}
-                      className="px-4 py-2.5 rounded-lg bg-dark-800 hover:bg-brand-purple hover:text-white border border-dark-700 hover:border-brand-purple text-sm font-medium text-white transition-all flex items-center space-x-1.5"
+                      className="px-4 py-2.5 rounded-lg bg-dark-800 hover:bg-[#f72585] hover:text-white border border-dark-700 hover:border-[#f72585] text-sm font-medium text-white transition-all flex items-center space-x-1.5"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Start</span>
@@ -186,14 +186,14 @@ export default function Dashboard() {
             <h2 className="text-xl font-bold text-white mb-4">Exam Timeline</h2>
             <div className="space-y-4">
               <div className="flex items-start space-x-3 p-3 bg-dark-900/40 rounded-xl">
-                <Calendar className="w-5 h-5 text-brand-purple mt-0.5" />
+                <Calendar className="w-5 h-5 text-[#f72585] mt-0.5" />
                 <div>
                   <h4 className="text-sm font-semibold text-white">Full Mock Simulation #4</h4>
                   <p className="text-xs text-dark-muted">Tomorrow at 10:00 AM</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 p-3 bg-dark-900/40 rounded-xl">
-                <Star className="w-5 h-5 text-brand-cyan mt-0.5" />
+                <Star className="w-5 h-5 text-[#f72585] mt-0.5" />
                 <div>
                   <h4 className="text-sm font-semibold text-white">Revision: Algebra & Verbal</h4>
                   <p className="text-xs text-dark-muted">Today, self-paced study</p>

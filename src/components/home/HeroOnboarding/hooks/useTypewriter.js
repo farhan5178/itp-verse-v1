@@ -16,11 +16,15 @@ export default function useTypewriter(lines, charSpeed = 42, lineDelay = 480, st
   const [displayed, setDisplayed] = useState([]);
   const [done, setDone]           = useState(false);
 
-  // Start after avatar walks in
+  // Reset and start after avatar walks in when lines change
   useEffect(() => {
+    setLineIdx(-1);
+    setCharIdx(0);
+    setDisplayed([]);
+    setDone(false);
     const t = setTimeout(() => setLineIdx(0), startDelay);
     return () => clearTimeout(t);
-  }, [startDelay]);
+  }, [lines, startDelay]);
 
   useEffect(() => {
     if (lineIdx < 0 || lineIdx >= lines.length) return;

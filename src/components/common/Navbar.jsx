@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon, User } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, Sparkles, LogIn, LogOut, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 
 // ── Sub-nav tab definitions per exam ──────────────────────────────
 const examTabs = {
@@ -38,23 +39,26 @@ const examTabs = {
 function PartnerBadge({ exam }) {
   if (exam === 'IELTS') {
     return (
-      <div className="hidden md:flex items-center space-x-1 text-xs font-medium text-slate-500 dark:text-zinc-400">
+      <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
+        <Sparkles className="w-3 h-3 text-[#f72585] animate-pulse" />
         <span>Official Partner of</span>
         <span className="font-extrabold bg-gradient-to-r from-red-500 to-indigo-600 bg-clip-text text-transparent">idp</span>
-        <span className="font-black text-slate-700 dark:text-zinc-200">IELTS</span>
+        <span className="font-black text-slate-800 dark:text-zinc-100">IELTS</span>
       </div>
     );
   }
   if (exam === 'TOEFL') {
     return (
-      <div className="hidden md:flex items-center space-x-1 text-xs font-medium text-slate-500 dark:text-zinc-400">
+      <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
+        <Sparkles className="w-3 h-3 text-teal-500 animate-pulse" />
         <span>Official Partner of</span>
         <span className="font-bold text-teal-600 dark:text-teal-400">ETS TOEFL Academy</span>
       </div>
     );
   }
   return (
-    <div className="hidden md:flex items-center space-x-1 text-xs font-medium text-slate-500 dark:text-zinc-400">
+    <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
+      <Sparkles className="w-3 h-3 text-orange-500 animate-pulse" />
       <span>Official Partner of</span>
       <span className="font-bold text-orange-500">Pearson PTE Global</span>
     </div>
@@ -67,6 +71,7 @@ export default function Navbar() {
   const [activeExam, setActiveExam] = useState('IELTS');
   const [activeTab, setActiveTab] = useState('home');
   const location = useLocation();
+  const { isLoggedIn, user, logout, openAuthModal, login } = useAuth();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -91,144 +96,205 @@ export default function Navbar() {
   const hiddenSubNav = location.pathname === '/community' || location.pathname === '/blog';
 
   return (
-    <header className="w-full bg-white dark:bg-zinc-950 shadow-sm dark:shadow-zinc-900/50 sticky top-0 z-50 transition-colors duration-300">
+    <header className="w-full sticky top-0 z-50 transition-colors duration-300 font-sans backdrop-blur-md bg-white/90 dark:bg-zinc-950/90 border-b border-slate-200/70 dark:border-zinc-800/80 shadow-sm">
 
       {/* ══ TIER 1 — Main bar ══ */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
 
-        {/* Left group: Logo + divider + Exam selector + divider + Partner */}
-        <div className="flex items-center space-x-4 sm:space-x-6">
+        {/* Left group: Logo + Exam selector segment + Partner Badge */}
+        <div className="flex items-center space-x-3 sm:space-x-5">
 
           {/* Logo */}
           <Link
             to="/"
             id="nav-logo"
-            className="flex items-center cursor-pointer group flex-shrink-0"
+            className="flex items-center cursor-pointer group flex-shrink-0 transition-transform active:scale-95"
           >
-            <span className="text-2xl font-black tracking-tight leading-none" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span style={{ color: '#f72585' }}>ITP</span>
-              <span className="text-slate-900 dark:text-white">verse</span>
-            </span>
+            <div className="flex items-center gap-1.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f72585] to-[#4361ee] flex items-center justify-center shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
+                <span className="text-white font-black text-xs tracking-tighter">ITP</span>
+              </div>
+              <span className="text-xl font-black tracking-tight leading-none">
+                <span style={{ color: '#f72585' }}>ITP</span>
+                <span className="text-slate-900 dark:text-white">verse</span>
+              </span>
+            </div>
           </Link>
 
           {/* Divider */}
-          <div className="h-5 w-px bg-slate-200 dark:bg-zinc-700 hidden sm:block" />
+          <div className="h-5 w-px bg-slate-200 dark:bg-zinc-800 hidden sm:block" />
 
-          {/* Exam Selector Pills */}
-          <div className="flex items-center space-x-1" id="exam-selector-container">
-            <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest mr-1 hidden sm:inline">
+          {/* Interactive Exam Selector Track */}
+          <div className="flex items-center bg-slate-100/90 dark:bg-zinc-900/90 p-1 rounded-full border border-slate-200/70 dark:border-zinc-800" id="exam-selector-container">
+            <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider px-2 hidden xl:inline">
               Exam:
             </span>
-            {['IELTS', 'TOEFL', 'PTE'].map((exam) => (
-              <button
-                key={exam}
-                id={`btn-exam-${exam}`}
-                onClick={() => handleExamSwitch(exam)}
-                className={`px-3 py-1 text-xs font-black rounded-full transition-all duration-200 ${
-                  activeExam === exam
-                    ? 'text-white shadow-sm'
-                    : 'bg-surface-3 dark:bg-dark-surface-2 text-ink-muted dark:text-zinc-300 hover:bg-brand-muted dark:hover:bg-brand/10 hover:text-brand'
-                }`}
-                style={activeExam === exam ? { background: 'linear-gradient(135deg,#f72585,#d91a70)', boxShadow: '0 4px 12px rgba(247,37,133,0.30)' } : {}}
-              >
-                {exam}
-              </button>
-            ))}
+            {['IELTS', 'TOEFL', 'PTE'].map((exam) => {
+              const isSelected = activeExam === exam;
+              return (
+                <button
+                  key={exam}
+                  id={`btn-exam-${exam}`}
+                  onClick={() => handleExamSwitch(exam)}
+                  className={`relative px-3.5 py-1 text-xs font-extrabold rounded-full transition-colors duration-200 z-10 ${
+                    isSelected
+                      ? 'text-white'
+                      : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="activeExamIndicator"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#f72585] to-[#d91a70] shadow-md shadow-pink-500/25 -z-10"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  {exam}
+                </button>
+              );
+            })}
           </div>
-
-          {/* Divider */}
-          <div className="h-5 w-px bg-slate-200 dark:bg-zinc-700 hidden md:block" />
 
           {/* Partner Badge */}
           <PartnerBadge exam={activeExam} />
         </div>
 
-        {/* Right group: Reviews, Blog, Community, Plans, Profile, Theme */}
-        <div className="hidden lg:flex items-center space-x-3 sm:space-x-4">
-          <button
-            onClick={() => setActiveTab('reviews')}
-            className="text-ink-muted dark:text-zinc-400 hover:text-brand dark:hover:text-brand-light text-xs font-semibold tracking-wide transition-colors cursor-pointer"
-          >
-            Reviews
-          </button>
-          <Link
-            to="/blog"
-            className="text-ink-muted dark:text-zinc-400 hover:text-brand dark:hover:text-brand-light text-xs font-semibold tracking-wide transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            to="/community"
-            className="text-ink-muted dark:text-zinc-400 hover:text-brand dark:hover:text-brand-light text-xs font-semibold tracking-wide transition-colors"
-          >
-            Community
-          </Link>
+        {/* Right group: Navigation Links, CTA, Profile, Theme Toggle */}
+        <div className="hidden md:flex items-center space-x-3 xl:space-x-4">
+          <div className="flex items-center space-x-1 bg-slate-100/60 dark:bg-zinc-900/60 p-1 rounded-full border border-slate-200/50 dark:border-zinc-800/60">
+            <button
+              onClick={() => setActiveTab('reviews')}
+              className="px-3 py-1 text-xs font-semibold text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer rounded-full hover:bg-white dark:hover:bg-zinc-800"
+            >
+              Reviews
+            </button>
+            <Link
+              to="/blog"
+              className="px-3 py-1 text-xs font-semibold text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-full hover:bg-white dark:hover:bg-zinc-800"
+            >
+              Blog
+            </Link>
+            <Link
+              to="/community"
+              className="px-3 py-1 text-xs font-semibold text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-full hover:bg-white dark:hover:bg-zinc-800"
+            >
+              Community
+            </Link>
+          </div>
 
-          {/* Plans CTA */}
+          {/* Plans CTA Button */}
           <button
             id="purchase-btn"
             onClick={() => setActiveTab('plans')}
-            className="btn-primary text-xs px-5 py-2 cursor-pointer"
+            className="relative group overflow-hidden px-5 py-2 rounded-full text-xs font-bold text-white transition-all duration-200 active:scale-95 cursor-pointer shadow-md shadow-pink-500/25 hover:shadow-lg hover:shadow-pink-500/35"
+            style={{ background: 'linear-gradient(135deg, #f72585, #d91a70)' }}
           >
-            Plans
+            <span className="relative z-10 flex items-center gap-1.5">
+              <span>Plans</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full">🏷️</span>
+            </span>
           </button>
 
-          {/* Profile Icon */}
-          <button
-            id="profile-btn"
-            className="w-8 h-8 rounded-full border border-slate-200 dark:border-zinc-700 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-slate-800 dark:hover:text-white transition-colors"
-          >
-            <User className="w-4 h-4" />
-          </button>
+          {/* User Auth Profile / Login Button */}
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{user?.name?.split(' ')[0] || 'Student'}</span>
+              </div>
+              <button
+                onClick={logout}
+                title="Sign Out"
+                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 flex items-center justify-center text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-all cursor-pointer"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              id="profile-btn"
+              onClick={openAuthModal}
+              className="px-4 py-2 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-pink-500/50 hover:text-[#f72585] dark:hover:text-[#ff5fa0] transition-all flex items-center gap-1.5 cursor-pointer"
+            >
+              <LogIn className="w-3.5 h-3.5 text-[#f72585]" />
+              <span>Sign In</span>
+            </button>
+          )}
 
-          {/* Theme Toggle */}
+          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="w-8 h-8 rounded-full border border-slate-200 dark:border-zinc-700 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors"
+            className="w-9 h-9 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 flex items-center justify-center text-slate-600 dark:text-zinc-300 hover:border-pink-500/50 hover:text-[#f72585] dark:hover:text-[#ff5fa0] transition-all cursor-pointer"
             aria-label="Toggle theme"
           >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4 text-amber-400" />}
           </button>
         </div>
 
-        {/* Mobile right controls */}
-        <div className="lg:hidden flex items-center space-x-2">
+        {/* Mobile controls */}
+        <div className="md:hidden flex items-center space-x-2">
+          {isLoggedIn ? (
+            <button
+              onClick={logout}
+              className="p-2 rounded-full bg-slate-100 dark:bg-zinc-900 text-slate-600 dark:text-zinc-300 hover:text-red-500"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              onClick={openAuthModal}
+              className="px-3 py-1 rounded-full bg-[#f72585] text-white text-xs font-bold"
+            >
+              Sign In
+            </button>
+          )}
+
           <button
             onClick={toggleTheme}
-            className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-all"
+            className="p-2 rounded-full bg-slate-100 dark:bg-zinc-900 text-slate-600 dark:text-zinc-300"
           >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4 text-amber-400" />}
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-1.5 rounded-lg text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="p-2 rounded-full bg-slate-100 dark:bg-zinc-900 text-slate-700 dark:text-zinc-300"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* ══ TIER 2 — Sub-nav tabs (context based) ══ */}
+      {/* ══ TIER 2 — Contextual Sub-nav tabs ══ */}
       {!hiddenSubNav && (
-        <div className="w-full bg-surface dark:bg-dark-base border-t border-surface-3 dark:border-dark-border transition-colors duration-300">
+        <div className="w-full bg-slate-50/80 dark:bg-zinc-950/80 border-t border-slate-200/60 dark:border-zinc-900 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav
               id="nav-tabs"
-              className="flex space-x-6 h-11 items-center overflow-x-auto scrollbar-none"
+              className="flex space-x-1 h-11 items-center overflow-x-auto scrollbar-none py-1"
             >
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex-shrink-0 text-xs font-semibold pb-0.5 border-b-2 transition-all duration-200 whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'border-brand text-brand dark:text-brand-light dark:border-brand-light'
-                      : 'border-transparent text-ink-muted dark:text-zinc-400 hover:text-ink dark:hover:text-zinc-200 hover:border-surface-3 dark:hover:border-zinc-600'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+              {tabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`relative flex-shrink-0 text-xs font-bold px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? 'text-[#f72585] dark:text-[#ff5fa0]'
+                        : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 hover:bg-slate-200/50 dark:hover:bg-zinc-900/50'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeSubNavTab"
+                        className="absolute inset-0 rounded-full bg-pink-500/10 dark:bg-pink-500/15 border border-pink-500/30"
+                        transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                      />
+                    )}
+                    <span className="relative z-10">{tab.label}</span>
+                  </button>
+                );
+              })}
             </nav>
           </div>
         </div>
@@ -241,46 +307,58 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800 overflow-hidden"
+            className="md:hidden bg-white/95 dark:bg-zinc-950/95 border-b border-slate-200 dark:border-zinc-800 overflow-hidden backdrop-blur-lg"
           >
-            <div className="px-4 pt-3 pb-5 space-y-1">
-              {/* Exam Pills on Mobile */}
-              <div className="flex items-center space-x-2 pb-3 border-b border-slate-100 dark:border-zinc-800">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Exam:</span>
-                {['IELTS', 'TOEFL', 'PTE'].map((exam) => (
+            <div className="px-4 pt-3 pb-6 space-y-3">
+              {/* Exam Switcher in Mobile Drawer */}
+              <div className="flex items-center justify-between p-2 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800">
+                <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-widest px-2">Exam:</span>
+                <div className="flex items-center space-x-1">
+                  {['IELTS', 'TOEFL', 'PTE'].map((exam) => (
+                    <button
+                      key={exam}
+                      onClick={() => { handleExamSwitch(exam); setIsOpen(false); }}
+                      className={`px-3 py-1.5 text-xs font-extrabold rounded-xl transition-all ${
+                        activeExam === exam
+                          ? 'bg-[#f72585] text-white shadow-md shadow-pink-500/30'
+                          : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800'
+                      }`}
+                    >
+                      {exam}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sub-nav tab links in Mobile Drawer */}
+              <div className="grid grid-cols-2 gap-1.5 pt-1">
+                {tabs.map((tab) => (
                   <button
-                    key={exam}
-                    onClick={() => { handleExamSwitch(exam); setIsOpen(false); }}
-                    className={`px-3 py-1 text-xs font-black rounded-full transition-all ${
-                      activeExam === exam
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300'
+                    key={tab.id}
+                    onClick={() => { setActiveTab(tab.id); setIsOpen(false); }}
+                    className={`text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                      activeTab === tab.id
+                        ? 'bg-pink-50 dark:bg-pink-950/40 text-[#f72585] dark:text-[#ff5fa0] border border-pink-200 dark:border-pink-900/50'
+                        : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900'
                     }`}
                   >
-                    {exam}
+                    {tab.label}
                   </button>
                 ))}
               </div>
 
-              {/* Tab links on Mobile */}
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => { setActiveTab(tab.id); setIsOpen(false); }}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-                    activeTab === tab.id
-                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600'
-                      : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-
+              {/* Additional Actions */}
               <div className="pt-3 flex flex-col space-y-2 border-t border-slate-100 dark:border-zinc-800">
-                <Link to="/blog" onClick={() => setIsOpen(false)} className="px-4 py-2 text-sm font-semibold text-slate-600 dark:text-zinc-300">Blog</Link>
-                <Link to="/community" onClick={() => setIsOpen(false)} className="px-4 py-2 text-sm font-semibold text-slate-600 dark:text-zinc-300">Community</Link>
-                <button className="mx-4 bg-blue-600 text-white py-2 rounded-full text-sm font-bold">Plans</button>
+                <div className="flex items-center justify-between px-2">
+                  <Link to="/blog" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#f72585]">Blog</Link>
+                  <Link to="/community" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#f72585]">Community</Link>
+                </div>
+                <button
+                  onClick={() => { setActiveTab('plans'); setIsOpen(false); }}
+                  className="w-full bg-gradient-to-r from-[#f72585] to-[#d91a70] text-white py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-pink-500/25"
+                >
+                  Plans 🏷️
+                </button>
               </div>
             </div>
           </motion.div>

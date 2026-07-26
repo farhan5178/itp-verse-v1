@@ -6,35 +6,25 @@ import Particles    from './Particles';
 import AIAvatar     from './AIAvatar';
 import SpeechBubble from './SpeechBubble';
 import StatsRow     from './StatsRow';
-
-/* ─────────────────────────────────────────────────
-   USER DATA  (TODO backend: GET /api/user/profile)
-   ───────────────────────────────────────────────── */
-const USER = {
-  name:    'Abdullah Masud',
-  target:  'Band 8+',
-  exam:    'IELTS',
-};
-
-const USER_STATS = [
-  { label: 'Current Band', value: '6.5', icon: '📊' },
-  { label: 'Target',       value: '8.0', icon: '🎯' },
-  { label: 'Streak',       value: '12d', icon: '🔥' },
-];
+import { useAuth }  from '../../../context/AuthContext';
 
 /* ─────────────────────────────────────────────────
    HERO ONBOARDING — root component
    ───────────────────────────────────────────────── */
 export default function HeroOnboarding() {
+  const { user } = useAuth();
   const [avatarLanded, setAvatarLanded] = useState(false);
   const [showCTA,      setShowCTA]      = useState(false);
 
-  /* Greeting lines — TODO backend: personalise from user profile */
+  const userName = user?.name || 'Abdullah Masud';
+  const userTarget = user?.targetScore ? `Band ${user.targetScore}` : 'Band 8.0+';
+
+  /* Greeting lines — personalized from auth user profile */
   const greetingLines = useMemo(() => [
-    `👋  Hi, ${USER.name}!`,
+    `👋  Hi, ${userName}!`,
     `Welcome back to ITPverse.`,
-    `Ready to reach ${USER.target}? 🎯`,
-  ], []);
+    `Ready to reach ${userTarget}? 🎯`,
+  ], [userName, userTarget]);
 
   const { displayed, done: typingDone } = useTypewriter(
     greetingLines,
@@ -43,6 +33,13 @@ export default function HeroOnboarding() {
     1000,  // startDelay ms  ← reduced: avatar is faster now
   );
 
+  const userStats = useMemo(() => [
+    { label: 'Current Band', value: '6.5', icon: '📊' },
+    { label: 'Target',       value: user?.targetScore || '8.0', icon: '🎯' },
+    { label: 'Streak',       value: '12d', icon: '🔥' },
+  ], [user]);
+
+  /* Show CTA & stats after typing finishes */
   useEffect(() => {
     if (!typingDone) return;
     const t = setTimeout(() => setShowCTA(true), 450);
@@ -51,7 +48,7 @@ export default function HeroOnboarding() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative py-12 md:py-20 min-h-[70vh] flex items-center justify-center overflow-hidden"
       aria-label="Welcome onboarding"
     >
       {/* ── Background — explicit light & dark colours ──────── */}
@@ -120,7 +117,7 @@ export default function HeroOnboarding() {
                 animate={{ opacity: 1, y: 0,  scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 240, damping: 22 }}
-                className="btn-primary text-sm px-8 py-3.5 mt-1 tracking-wide"
+                className="btn-primary text-sm px-8 py-3.5 mt-1 tracking-wide cursor-pointer"
               >
                 Let's Continue Learning →
               </motion.button>
@@ -129,7 +126,7 @@ export default function HeroOnboarding() {
 
           {/* Stats row */}
           <AnimatePresence>
-            {showCTA && <StatsRow stats={USER_STATS} />}
+            {showCTA && <StatsRow stats={userStats} />}
           </AnimatePresence>
         </div>
       </div>
