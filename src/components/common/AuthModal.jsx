@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, Lock, User, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, Mail, Lock, User, GraduationCap, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AuthModal() {
@@ -87,7 +87,7 @@ export default function AuthModal() {
               <X className="w-4 h-4" />
             </button>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-xs font-bold mb-3 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5" />
+              <GraduationCap className="w-3.5 h-3.5" />
               <span>Edwaay Student Portal</span>
             </div>
             <h2 className="text-2xl font-black tracking-tight">
@@ -136,7 +136,7 @@ export default function AuthModal() {
                 onClick={handleFarhanLogin}
                 className="py-2.5 px-3 rounded-xl bg-[#E6F5F7] dark:bg-[#0097B2]/20 border border-[#0097B2]/30 text-[#0097B2] dark:text-[#1AB0CB] text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-[#0097B2]/15 transition-all cursor-pointer shadow-sm"
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <User className="w-3.5 h-3.5" />
                 <span>farhan@gmail.com</span>
               </button>
               <button
@@ -144,7 +144,7 @@ export default function AuthModal() {
                 onClick={handleDemoLogin}
                 className="py-2.5 px-3 rounded-xl bg-[#E6F5F7] dark:bg-[#004B59]/30 border border-[#004B59]/40 text-[#004B59] dark:text-[#1AB0CB] text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-[#004B59]/20 transition-all cursor-pointer shadow-sm"
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <User className="w-3.5 h-3.5" />
                 <span>Sarah (Demo)</span>
               </button>
             </div>
