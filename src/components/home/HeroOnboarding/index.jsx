@@ -22,7 +22,7 @@ export default function HeroOnboarding() {
   /* Greeting lines — personalized from auth user profile */
   const greetingLines = useMemo(() => [
     `👋  Hi, ${userName}!`,
-    `Welcome back to ITPverse.`,
+    `Welcome back to Edwaay.`,
     `Ready to reach ${userTarget}? 🎯`,
   ], [userName, userTarget]);
 

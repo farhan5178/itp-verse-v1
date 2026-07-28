@@ -1,6 +1,7 @@
 import React from 'react';
 import { Globe, Share2, Link2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import EdwaayLogo from './EdwaayLogo';
 
 export default function Footer() {
   return (
@@ -10,10 +11,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="col-span-1 md:col-span-2 space-y-4">
             <Link to="/" className="flex items-center">
-              <span className="text-xl font-black tracking-tight leading-none">
-                <span style={{ color: '#0097B2' }}>ITP</span>
-                <span className="text-slate-900 dark:text-white">verse</span>
-              </span>
+              <EdwaayLogo size="md" />
             </Link>
             <p className="text-sm text-dark-muted max-w-sm">
               State-of-the-art academic preparation and mock testing environment designed to assist students in achieving peak performance.
@@ -51,13 +49,13 @@ export default function Footer() {
               </a>
             </div>
             <p className="text-xs text-dark-muted">
-              &copy; {new Date().getFullYear()} ITPverse. All rights reserved.
+              &copy; {new Date().getFullYear()} Edwaay. All rights reserved.
             </p>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-dark-700/30 text-center text-xs text-dark-muted">
-          <p>&copy; {new Date().getFullYear()} ITPverse. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Edwaay. All rights reserved.</p>
         </div>
       </div>
     </footer>

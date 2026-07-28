@@ -52,7 +52,7 @@ export default function AuthModal() {
   const handleDemoLogin = () => {
     login({
       name: 'Sarah Connor',
-      email: 'sarah.c@itpverse.com',
+      email: 'sarah.c@edwaay.com',
       targetExam: 'IELTS',
       targetScore: '8.5',
     });
@@ -88,7 +88,7 @@ export default function AuthModal() {
             </button>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-xs font-bold mb-3 backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>ITPverse Student Portal</span>
+              <span>Edwaay Student Portal</span>
             </div>
             <h2 className="text-2xl font-black tracking-tight">
               {mode === 'login' ? 'Welcome Back!' : 'Create Your Account'}

@@ -35,7 +35,7 @@ export default function AIAvatar({ isReady }) {
 
       {/* Floating body wrapper */}
       <div style={{ animation: isReady ? 'avatarFloat 3.5s ease-in-out infinite' : 'none' }}>
-        <svg viewBox="0 0 200 270" width="200" height="270" role="img" aria-label="ITPverse AI Assistant">
+        <svg viewBox="0 0 200 270" width="200" height="270" role="img" aria-label="Edwaay AI Assistant">
           <defs>
             <linearGradient id="hg"  x1="0%" y1="0%"  x2="100%" y2="100%">
               <stop offset="0%"   stopColor="#0097B2" />

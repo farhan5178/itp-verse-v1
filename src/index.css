@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────
-   ITPverse — Global Design System (Academic Clarity)
+   Edwaay — Global Design System (Academic Clarity)
    Primary:   #0097B2 (Teal)
    Secondary: #004B59 (Navy Teal)
    Tertiary:  #E6F5F7 (Ice Teal)
@@ -142,6 +142,11 @@
 }
 
 /* ── Utility Classes ────────────────────────── */
+
+/* Codec Pro font helper */
+.font-codec {
+  font-family: 'Codec Pro', 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+}
 
 /* Brand gradient — Teal #0097B2 → Deep Navy Teal #004B59 */
 .gradient-brand {
