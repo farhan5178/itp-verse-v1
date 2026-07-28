@@ -7,17 +7,17 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const stats = [
-    { label: 'Estimated IELTS Band', value: '7.5 / 9.0', icon: Trophy, color: 'text-[#f72585]' },
+    { label: 'Estimated IELTS Band', value: '7.5 / 9.0', icon: Trophy, color: 'text-[#0097B2]' },
     { label: 'Modules Completed', value: '28 Tests', icon: BookOpen, color: 'text-amber-500' },
     { label: 'Practice Time', value: '34.5 hrs', icon: Timer, color: 'text-emerald-500' },
-    { label: 'Target Band Goal', value: 'Band 8.0', icon: LineChart, color: 'text-[#a855f7]' },
+    { label: 'Target Band Goal', value: 'Band 8.0', icon: LineChart, color: 'text-[#004B59]' },
   ];
 
   const ieltsModules = [
-    { name: 'Listening Module', progress: 85, band: 'Band 8.0', color: 'bg-[#a855f7]', count: '45 sections completed • 40 Qs average', icon: Headphones },
+    { name: 'Listening Module', progress: 85, band: 'Band 8.0', color: 'bg-[#004B59]', count: '45 sections completed • 40 Qs average', icon: Headphones },
     { name: 'Reading Module', progress: 78, band: 'Band 7.5', color: 'bg-emerald-500', count: '18 academic passages done • 60 mins avg', icon: BookOpen },
-    { name: 'Writing Task 1 & 2', progress: 65, band: 'Band 7.0', color: 'bg-gradient-to-r from-[#f72585] to-[#7c3aed]', count: '14 AI graded essays • Lexical feedback ready', icon: PenTool },
-    { name: 'Speaking Cue Cards', progress: 80, band: 'Band 7.5', color: 'bg-[#f72585]', count: '22 AI audio simulations • Fluency 8.0', icon: Mic },
+    { name: 'Writing Task 1 & 2', progress: 65, band: 'Band 7.0', color: 'bg-gradient-to-r from-[#0097B2] to-[#004B59]', count: '14 AI graded essays • Lexical feedback ready', icon: PenTool },
+    { name: 'Speaking Cue Cards', progress: 80, band: 'Band 7.5', color: 'bg-[#0097B2]', count: '22 AI audio simulations • Fluency 8.0', icon: Mic },
   ];
 
   const activeTests = [
@@ -68,9 +68,9 @@ export default function Dashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="glass-panel p-6 sm:p-8 rounded-3xl mb-8 relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border border-slate-200/80 dark:border-zinc-800"
       >
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[#f72585]/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#0097B2]/10 rounded-full blur-3xl -z-10" />
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f72585]/10 border border-[#f72585]/20 text-xs font-bold text-[#f72585] mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/20 text-xs font-bold text-[#0097B2] mb-3">
             <span>🎧 IDP IELTS Academic Prep</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-2">
@@ -82,7 +82,7 @@ export default function Dashboard() {
         </div>
         <button
           onClick={() => navigate('/mock-test')}
-          className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#f72585] via-[#a855f7] to-[#7c3aed] text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 hover:scale-[1.02] active:scale-95 transition-all flex items-center space-x-2 cursor-pointer"
+          className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-[#0097B2]/25 hover:shadow-[#0097B2]/40 hover:scale-[1.02] active:scale-95 transition-all flex items-center space-x-2 cursor-pointer"
         >
           <Play className="w-4 h-4 fill-white" />
           <span>Launch IELTS Simulator</span>
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 <h2 className="text-xl font-black text-slate-900 dark:text-white">Active IELTS Mock Exams</h2>
                 <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">Real IDP test pattern with instant AI band scores</p>
               </div>
-              <span className="text-xs text-[#f72585] font-bold hover:underline cursor-pointer">View All</span>
+              <span className="text-xs text-[#0097B2] font-bold hover:underline cursor-pointer">View All</span>
             </div>
 
             <div className="space-y-4">
@@ -137,7 +137,7 @@ export default function Dashboard() {
                 >
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#f72585]/10 text-[#f72585]">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0097B2]/10 text-[#0097B2]">
                         {test.subject}
                       </span>
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300">
@@ -147,7 +147,7 @@ export default function Dashboard() {
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">{test.title}</h3>
                     <div className="flex items-center space-x-4 text-xs text-slate-500 dark:text-zinc-400">
                       <span className="flex items-center space-x-1">
-                        <Timer className="w-3.5 h-3.5 text-[#f72585]" />
+                        <Timer className="w-3.5 h-3.5 text-[#0097B2]" />
                         <span>{test.duration}</span>
                       </span>
                       <span>{test.questions}</span>
@@ -161,7 +161,7 @@ export default function Dashboard() {
                     </div>
                     <button
                       onClick={() => navigate(`/mock-test?id=${test.id}`)}
-                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#f72585] to-[#7c3aed] text-xs font-bold text-white shadow-md shadow-pink-500/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center space-x-1.5 cursor-pointer"
+                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] text-xs font-bold text-white shadow-md shadow-[#0097B2]/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center space-x-1.5 cursor-pointer"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Start Test</span>
@@ -186,10 +186,10 @@ export default function Dashboard() {
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-slate-900 dark:text-white font-bold flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-[#f72585]" />
+                        <Icon className="w-4 h-4 text-[#0097B2]" />
                         <span>{sub.name}</span>
                       </span>
-                      <span className="text-[#f72585] font-black text-xs px-2 py-0.5 rounded-md bg-[#f72585]/10">{sub.band}</span>
+                      <span className="text-[#0097B2] font-black text-xs px-2 py-0.5 rounded-md bg-[#0097B2]/10">{sub.band}</span>
                     </div>
                     <div className="w-full bg-slate-100 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
                       <motion.div
@@ -211,10 +211,10 @@ export default function Dashboard() {
             <h2 className="text-xl font-black text-slate-900 dark:text-white mb-4">Official IELTS Schedule</h2>
             <div className="space-y-3">
               <div className="flex items-start space-x-3 p-3 bg-slate-50 dark:bg-zinc-900/60 rounded-xl border border-slate-200/60 dark:border-zinc-800">
-                <Calendar className="w-5 h-5 text-[#f72585] mt-0.5" />
+                <Calendar className="w-5 h-5 text-[#0097B2] mt-0.5" />
                 <div>
                   <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">Official IDP IELTS Exam</h4>
-                  <p className="text-[11px] text-[#f72585] font-bold">Target Date: August 15, 2026</p>
+                  <p className="text-[11px] text-[#0097B2] font-bold">Target Date: August 15, 2026</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 p-3 bg-slate-50 dark:bg-zinc-900/60 rounded-xl border border-slate-200/60 dark:border-zinc-800">

@@ -14,9 +14,9 @@ const sectionIcons = {
 const sectionColors = {
   Reading:  { bg: 'bg-blue-50 dark:bg-blue-500/10', text: 'text-blue-500', badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
   Listening:{ bg: 'bg-indigo-50 dark:bg-indigo-500/10', text: 'text-indigo-500', badge: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20' },
-  Speaking: { bg: 'bg-[#f72585]/5 dark:bg-[#f72585]/10', text: 'text-[#f72585]', badge: 'bg-[#f72585]/10 text-[#f72585] border-[#f72585]/20' },
+  Speaking: { bg: 'bg-[#0097B2]/5 dark:bg-[#0097B2]/10', text: 'text-[#0097B2]', badge: 'bg-[#0097B2]/10 text-[#0097B2] border-[#0097B2]/20' },
   Writing:  { bg: 'bg-amber-50 dark:bg-amber-500/10', text: 'text-amber-500', badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
-  'Speaking & Writing': { bg: 'bg-[#f72585]/5 dark:bg-[#f72585]/10', text: 'text-[#f72585]', badge: 'bg-[#f72585]/10 text-[#f72585] border-[#f72585]/20' },
+  'Speaking & Writing': { bg: 'bg-[#0097B2]/5 dark:bg-[#0097B2]/10', text: 'text-[#0097B2]', badge: 'bg-[#0097B2]/10 text-[#0097B2] border-[#0097B2]/20' },
 };
 
 /* ── Full exam data ── */
@@ -27,7 +27,7 @@ const examData = {
     duration: '2 hours 40 mins',
     description: (
       <>
-        <strong>IELTS (International English Language Testing System)</strong> is one of the globally recognized English proficiency tests taken by millions worldwide for education and immigration purposes. IELTS offers two modules: <strong className="text-[#1a2b4a] dark:text-white underline decoration-[#f72585]/40 underline-offset-2">IELTS Academic</strong> (for undergraduate or postgraduate study) and <strong>IELTS General Training</strong> (for work or immigration). Additionally, <strong>IELTS for UKVI</strong> (United Kingdom Visa &amp; Immigration) is specifically for proving English proficiency for UK visa and immigration purposes. The IELTS Academic module consists of four sections and takes approximately <span className="font-black text-[#f72585]">2 hours and 40 minutes</span> to complete.
+        <strong>IELTS (International English Language Testing System)</strong> is one of the globally recognized English proficiency tests taken by millions worldwide for education and immigration purposes. IELTS offers two modules: <strong className="text-[#1a2b4a] dark:text-white underline decoration-[#0097B2]/40 underline-offset-2">IELTS Academic</strong> (for undergraduate or postgraduate study) and <strong>IELTS General Training</strong> (for work or immigration). Additionally, <strong>IELTS for UKVI</strong> (United Kingdom Visa &amp; Immigration) is specifically for proving English proficiency for UK visa and immigration purposes. The IELTS Academic module consists of four sections and takes approximately <span className="font-black text-[#0097B2]">2 hours and 40 minutes</span> to complete.
       </>
     ),
     modules: [
@@ -43,7 +43,7 @@ const examData = {
     duration: 'approx. 2 hours',
     description: (
       <>
-        <strong>TOEFL iBT (Test of English as a Foreign Language – Internet Based Test)</strong> is the trusted academic English evaluation accepted by more than 12,000 universities worldwide. Fully computer-delivered with synchronized task combinations mimicking physical university lectures. The TOEFL iBT measures your ability to use and understand English at the university level and evaluates how well you combine your <strong>listening, reading, speaking, and writing</strong> skills. The test takes approximately <span className="font-black text-[#f72585]">2 hours</span> to complete.
+        <strong>TOEFL iBT (Test of English as a Foreign Language – Internet Based Test)</strong> is the trusted academic English evaluation accepted by more than 12,000 universities worldwide. Fully computer-delivered with synchronized task combinations mimicking physical university lectures. The TOEFL iBT measures your ability to use and understand English at the university level and evaluates how well you combine your <strong>listening, reading, speaking, and writing</strong> skills. The test takes approximately <span className="font-black text-[#0097B2]">2 hours</span> to complete.
       </>
     ),
     modules: [
@@ -59,7 +59,7 @@ const examData = {
     duration: 'approx. 2 hours',
     description: (
       <>
-        <strong>PTE Academic (Pearson Test of English)</strong> is a faster, highly convenient computer-based test trusted by governments and colleges globally. It utilizes state-of-the-art unbiased automated AI scoring mechanics to evaluate all key English skills. PTE Academic measures your <strong>speaking, writing, reading, and listening</strong> abilities in a single session. Results are typically available within <span className="font-black text-[#f72585]">2 business days</span>, making it one of the fastest standardized English tests.
+        <strong>PTE Academic (Pearson Test of English)</strong> is a faster, highly convenient computer-based test trusted by governments and colleges globally. It utilizes state-of-the-art unbiased automated AI scoring mechanics to evaluate all key English skills. PTE Academic measures your <strong>speaking, writing, reading, and listening</strong> abilities in a single session. Results are typically available within <span className="font-black text-[#0097B2]">2 business days</span>, making it one of the fastest standardized English tests.
       </>
     ),
     modules: [
@@ -90,7 +90,7 @@ export default function ExamOverview() {
                 className={`
                   px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer
                   ${activeExam === tab
-                    ? 'bg-gradient-to-r from-[#f72585] to-[#d91a70] text-white shadow-md shadow-pink-500/20'
+                    ? 'bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white shadow-md shadow-[#0097B2]/20'
                     : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-zinc-800'
                   }
                 `}
@@ -112,7 +112,7 @@ export default function ExamOverview() {
             {/* ── Header ── */}
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-8">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f72585] mb-2">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0097B2] mb-2">
                   Exam Overview
                 </p>
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">

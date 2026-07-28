@@ -56,7 +56,7 @@ export default function GuestHero() {
     <section className="relative overflow-hidden pt-4 pb-12 bg-slate-50/50 dark:bg-[#09090b]">
 
       {/* ── Soft Ambient Glow ── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] h-[480px] bg-gradient-to-b from-[#f72585]/12 via-[#a855f7]/8 to-transparent rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] h-[480px] bg-gradient-to-b from-[#0097B2]/15 via-[#004B59]/10 to-transparent rounded-full blur-3xl -z-10 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 flex flex-col items-center text-center">
 
@@ -68,7 +68,7 @@ export default function GuestHero() {
           className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-xs mb-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)] dark:shadow-none"
         >
           <span className="text-xs">🎧</span>
-          <span className="font-extrabold text-[#f72585]">idp</span>
+          <span className="font-extrabold text-[#0097B2]">idp</span>
           <span className="font-black text-slate-900 dark:text-white">IELTS</span>
           <span className="text-slate-300 dark:text-zinc-600">•</span>
           <span className="text-xs">😎</span>
@@ -86,7 +86,7 @@ export default function GuestHero() {
         >
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">
             Targeting your score in 2 months?{' '}
-            <span className="bg-gradient-to-r from-[#f72585] via-[#f72585] to-[#8b5cf6] bg-clip-text text-transparent inline-block">
+            <span className="bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] bg-clip-text text-transparent inline-block">
               Just Follow ITPverse!
             </span>
           </h1>
@@ -110,7 +110,7 @@ export default function GuestHero() {
               alt="ITPverse graduation cap & app dashboard"
               className="w-[220px] sm:w-[270px] h-auto object-contain drop-shadow-2xl"
             />
-            <div className="absolute inset-0 top-3 -z-10 bg-gradient-to-t from-[#f72585]/20 via-[#a855f7]/10 to-transparent rounded-full blur-2xl scale-110" />
+            <div className="absolute inset-0 top-3 -z-10 bg-gradient-to-t from-[#0097B2]/20 via-[#004B59]/10 to-transparent rounded-full blur-2xl scale-110" />
           </motion.div>
 
           {/* ── 4 Premium Floating Cards (Glassmorphism & Crisp Light Mode Shadows) ── */}
@@ -141,7 +141,7 @@ export default function GuestHero() {
             rotate={3}
           >
             <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-zinc-800 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.09)] dark:shadow-black/60 flex items-center gap-2.5">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#f72585] via-[#f72585] to-[#8b5cf6] flex items-center justify-center text-white shadow-md shadow-pink-500/25">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#0097B2] via-[#00788E] to-[#004B59] flex items-center justify-center text-white shadow-md shadow-[#0097B2]/25">
                 <TrendingUp className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <div className="text-left">
@@ -177,12 +177,12 @@ export default function GuestHero() {
             rotate={2}
           >
             <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-zinc-800 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.09)] dark:shadow-black/60 flex items-center gap-2.5">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#f72585]/10 border border-[#f72585]/20 flex items-center justify-center text-[#f72585] shadow-xs">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#0097B2]/10 border border-[#0097B2]/20 flex items-center justify-center text-[#0097B2] shadow-xs">
                 <Mic className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <div className="text-left">
                 <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400">Speaking</p>
-                <p className="text-xs sm:text-sm font-black text-[#f72585] leading-none">7.5 <span className="text-[9px] font-bold text-slate-400">/ 9.0</span></p>
+                <p className="text-xs sm:text-sm font-black text-[#0097B2] leading-none">7.5 <span className="text-[9px] font-bold text-slate-400">/ 9.0</span></p>
               </div>
             </div>
           </FloatingCard>
@@ -199,7 +199,7 @@ export default function GuestHero() {
           {/* Primary CTA: Premium Gradient Button with Top Inner Sheen */}
           <button
             onClick={openAuthModal}
-            className="relative group px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#f72585] via-[#ff2a8d] to-[#8b5cf6] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_30px_-5px_rgba(247,37,133,0.4)] hover:shadow-[0_18px_36px_-5px_rgba(247,37,133,0.55)] hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2.5 cursor-pointer border-t border-white/30 overflow-hidden"
+            className="relative group px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_30px_-5px_rgba(0,151,178,0.4)] hover:shadow-[0_18px_36px_-5px_rgba(0,151,178,0.55)] hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center gap-2.5 cursor-pointer border-t border-white/30 overflow-hidden"
           >
             <div className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
             <Zap className="w-4 h-4 text-yellow-300 fill-yellow-300" />
@@ -212,8 +212,8 @@ export default function GuestHero() {
             href="#demo-section"
             className="px-7 py-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-900 dark:text-zinc-100 font-extrabold text-xs sm:text-sm shadow-[inset_0_1px_0_rgba(255,255,255,1),0_4px_16px_rgba(0,0,0,0.06)] hover:bg-slate-50 dark:hover:bg-zinc-800 hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)] hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
           >
-            <div className="w-6 h-6 rounded-lg bg-[#f72585]/10 flex items-center justify-center">
-              <Play className="w-3.5 h-3.5 text-[#f72585] fill-[#f72585] ml-0.5" />
+            <div className="w-6 h-6 rounded-lg bg-[#0097B2]/10 flex items-center justify-center">
+              <Play className="w-3.5 h-3.5 text-[#0097B2] fill-[#0097B2] ml-0.5" />
             </div>
             <span>Watch Demo</span>
           </a>
@@ -251,8 +251,8 @@ export default function GuestHero() {
                   className={`
                     relative p-3 sm:p-4 rounded-2xl text-center cursor-pointer transition-all duration-300
                     ${isSelected
-                      ? 'bg-white dark:bg-zinc-900 border-2 border-[#f72585] dark:border-[#f72585] shadow-[0_12px_28px_-6px_rgba(247,37,133,0.25)] scale-[1.03]'
-                      : 'bg-white/80 dark:bg-zinc-900/40 border border-slate-200/80 dark:border-zinc-800 shadow-sm hover:border-[#f72585]/40 hover:bg-white hover:shadow-md'
+                      ? 'bg-white dark:bg-zinc-900 border-2 border-[#0097B2] dark:border-[#0097B2] shadow-[0_12px_28px_-6px_rgba(0,151,178,0.25)] scale-[1.03]'
+                      : 'bg-white/80 dark:bg-zinc-900/40 border border-slate-200/80 dark:border-zinc-800 shadow-sm hover:border-[#0097B2]/40 hover:bg-white hover:shadow-md'
                     }
                   `}
                 >
@@ -269,7 +269,7 @@ export default function GuestHero() {
                     {range.band}
                   </h3>
                   <p className={`text-[8px] sm:text-[9.5px] font-extrabold uppercase tracking-wider ${
-                    isSelected ? 'text-[#f72585]' : 'text-slate-400 dark:text-zinc-500'
+                    isSelected ? 'text-[#0097B2]' : 'text-slate-400 dark:text-zinc-500'
                   }`}>
                     {range.level}
                   </p>

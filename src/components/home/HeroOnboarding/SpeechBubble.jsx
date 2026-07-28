@@ -14,7 +14,7 @@ export default function SpeechBubble({ displayed, done }) {
   const lineClass = (i) => {
     if (i === 0) return 'text-lg font-bold text-slate-900 dark:text-white';
     if (i === 1) return 'text-sm font-medium text-slate-600 dark:text-zinc-300';
-    return 'text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#f72585] via-[#ff5fa0] to-[#d91a70]';
+    return 'text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0097B2] via-[#1AB0CB] to-[#004B59]';
   };
 
   return (
@@ -34,7 +34,7 @@ export default function SpeechBubble({ displayed, done }) {
         'min-h-[100px]',
         'min-w-[280px] md:min-w-[340px]',
       ].join(' ')}
-      style={{ boxShadow: '0 8px 40px rgba(247,37,133,0.08), 0 2px 12px rgba(67,97,238,0.07)' }}
+      style={{ boxShadow: '0 8px 40px rgba(0,151,178,0.12), 0 2px 12px rgba(0,75,89,0.10)' }}
     >
       {/* Bubble tail — bottom-left corner pointing toward avatar */}
       <span

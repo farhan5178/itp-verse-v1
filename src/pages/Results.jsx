@@ -16,8 +16,8 @@ export default function Results() {
 
   const getScoreFeedback = (pct) => {
     if (pct >= 85) return { text: "Outstanding performance!", color: "text-brand-emerald" };
-    if (pct >= 70) return { text: "Great job! Keep practicing to secure an edge.", color: "text-brand-blue" };
-    if (pct >= 50) return { text: "Passed, but there is substantial room to improve.", color: "text-brand-purple" };
+    if (pct >= 70) return { text: "Great job! Keep practicing to secure an edge.", color: "text-[#004B59]" };
+    if (pct >= 50) return { text: "Passed, but there is substantial room to improve.", color: "text-[#0097B2]" };
     return { text: "Review the subject matter and retake the test.", color: "text-red-400" };
   };
 
@@ -31,7 +31,7 @@ export default function Results() {
         animate={{ opacity: 1, scale: 1 }}
         className="glass-panel p-8 rounded-3xl text-center mb-8 relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-purple/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#0097B2]/10 rounded-full blur-3xl -z-10" />
         <h1 className="text-3xl font-bold text-white mb-2">Test Performance Report</h1>
         <p className="text-dark-muted mb-6">Diagnostic Aptitude Simulation</p>
 
@@ -49,7 +49,7 @@ export default function Results() {
               cx="80"
               cy="80"
               r="68"
-              className="stroke-brand-purple fill-none"
+              className="stroke-[#0097B2] fill-none"
               strokeWidth="10"
               strokeDasharray={2 * Math.PI * 68}
               initial={{ strokeDashoffset: 2 * Math.PI * 68 }}
@@ -77,21 +77,21 @@ export default function Results() {
           </div>
           <div className="p-3 bg-dark-900/50 rounded-xl border border-dark-700/60">
             <p className="text-dark-muted">Total Questions</p>
-            <p className="text-lg font-bold text-brand-blue mt-1">{totalQuestions}</p>
+            <p className="text-lg font-bold text-[#004B59] mt-1">{totalQuestions}</p>
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={() => navigate('/dashboard')}
-            className="px-6 py-3 rounded-xl border border-dark-700 text-sm font-semibold text-white hover:bg-dark-800 transition-all flex items-center justify-center space-x-2"
+            className="px-6 py-3 rounded-xl border border-dark-700 text-sm font-semibold text-white hover:bg-dark-800 transition-all flex items-center justify-center space-x-2 cursor-pointer"
           >
             <LayoutDashboard className="w-4 h-4" />
             <span>Go to Dashboard</span>
           </button>
           <button
             onClick={handleRetake}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-blue text-sm font-semibold text-white shadow-md shadow-brand-purple/10 hover:shadow-brand-purple/20 transition-all flex items-center justify-center space-x-2"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] text-sm font-semibold text-white shadow-md shadow-[#0097B2]/10 hover:shadow-[#0097B2]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Retake Simulation</span>

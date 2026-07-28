@@ -8,23 +8,39 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: '#0097B2',
+        secondary: '#004B59',
+        tertiary: '#E6F5F7',
+        neutral: {
+          slate: '#545F61',
+          500: '#545F61',
+        },
         dark: {
-          900: '#09090b', // zinc-950
-          800: '#18181b', // zinc-900
-          700: '#27272a', // zinc-800
-          600: '#3f3f46', // zinc-700
-          text: '#f4f4f5', // zinc-100
-          muted: '#a1a1aa', // zinc-400
+          900: '#061317', // deep navy dark
+          850: '#091B20',
+          800: '#0D242B', // card bg dark
+          750: '#122D36',
+          700: '#1A3944', // borders dark
+          text: '#e6f5f7',
+          muted: '#84989d',
         },
         brand: {
-          purple: '#8b5cf6', // violet-500
-          blue: '#3b82f6', // blue-500
-          cyan: '#06b6d4', // cyan-500
-          emerald: '#10b981', // emerald-500
+          primary: '#0097B2',
+          secondary: '#004B59',
+          tertiary: '#E6F5F7',
+          neutral: '#545F61',
+          teal: '#0097B2',
+          navyTeal: '#004B59',
+          purple: '#0097B2',
+          blue: '#004B59',
+          cyan: '#0097B2',
+          emerald: '#10b981',
         }
       },
       fontFamily: {
-        sans: ['Google Sans Flex', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Source Sans 3', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        headline: ['Hanken Grotesk', 'sans-serif'],
+        label: ['Hanken Grotesk', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -32,8 +48,8 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 5px rgba(139, 92, 246, 0.2), 0 0 10px rgba(139, 92, 246, 0.2)' },
-          '100%': { boxShadow: '0 0 15px rgba(139, 92, 246, 0.6), 0 0 25px rgba(139, 92, 246, 0.4)' },
+          '0%': { boxShadow: '0 0 5px rgba(0, 151, 178, 0.2), 0 0 10px rgba(0, 151, 178, 0.2)' },
+          '100%': { boxShadow: '0 0 15px rgba(0, 151, 178, 0.6), 0 0 25px rgba(0, 151, 178, 0.4)' },
         }
       }
     },

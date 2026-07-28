@@ -1,9 +1,13 @@
 /* ─────────────────────────────────────────────
-   ITPverse — Global Design System
-   Primary: Hot Pink #f72585 (matches logo)
+   ITPverse — Global Design System (Academic Clarity)
+   Primary:   #0097B2 (Teal)
+   Secondary: #004B59 (Navy Teal)
+   Tertiary:  #E6F5F7 (Ice Teal)
+   Neutral:   #545F61 (Slate Gray)
+   Fonts:     Headline: Hanken Grotesk | Body: Source Sans 3
    ───────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap');
 
 @import "tailwindcss";
 
@@ -12,23 +16,31 @@
 
 /* ── Design Tokens ─────────────────────────── */
 @theme {
-  /* ── Brand — Hot Pink (logo match) ── */
-  --color-brand:         #f72585;
-  --color-brand-light:   #ff5fa0;
-  --color-brand-dark:    #c4006a;
-  --color-brand-muted:   #fde8f2;
+  /* ── Brand — Academic Clarity Palette ── */
+  --color-brand:         #0097B2;
+  --color-brand-light:   #1AB0CB;
+  --color-brand-dark:    #00788E;
+  --color-brand-muted:   #E6F5F7;
 
-  /* ── Legacy brand aliases (used in Home/MockTest/Results) ── */
-  --color-brand-purple:  #8b5cf6;
-  --color-brand-blue:    #3b82f6;
-  --color-brand-cyan:    #06b6d4;
+  /* ── Secondary & Accent Tokens ── */
+  --color-secondary:       #004B59;
+  --color-secondary-light: #00677B;
+  --color-secondary-dark:  #00323C;
+
+  --color-tertiary:        #E6F5F7;
+  --color-neutral-slate:   #545F61;
+
+  /* ── Legacy brand aliases ── */
+  --color-brand-purple:  #0097B2;
+  --color-brand-blue:    #004B59;
+  --color-brand-cyan:    #0097B2;
   --color-brand-emerald: #10b981;
 
-  /* ── Accent — Deep Indigo ── */
-  --color-accent:        #4361ee;
-  --color-accent-light:  #748ffc;
-  --color-accent-dark:   #2a45c8;
-  --color-accent-muted:  #e8edff;
+  /* ── Accent — Deep Navy Teal ── */
+  --color-accent:        #004B59;
+  --color-accent-light:  #00768C;
+  --color-accent-dark:   #00323C;
+  --color-accent-muted:  #E6F5F7;
 }
 
 /* Light‑mode fallbacks for dark utility classes */
@@ -39,7 +51,7 @@
   .bg-dark-800   { background-color: var(--color-surface-2); }
   .bg-dark-750   { background-color: var(--color-surface-3); }
   .bg-dark-700   { background-color: var(--color-surface); }
-  .bg-dark-800, .bg-dark-750, .bg-dark-700, .bg-dark-850, .bg-dark-900 { /* ensure Tailwind generates these */ }
+  .bg-dark-800, .bg-dark-750, .bg-dark-700, .bg-dark-850, .bg-dark-900 { }
   /* Text colors */
   .text-dark-text   { color: var(--color-ink); }
   .text-dark-muted  { color: var(--color-ink-muted); }
@@ -54,35 +66,35 @@
 @theme {
   /* ── Light-mode surfaces ── */
   --color-surface:       #ffffff;
-  --color-surface-2:     #f9fafb;
-  --color-surface-3:     #f3f4f6;
+  --color-surface-2:     #f4fafb;
+  --color-surface-3:     #e6f5f7;
 
-  /* ── Dark-mode surfaces (new tokens) ── */
-  --color-dark-base:     #09090b;
-  --color-dark-surface:  #111116;
-  --color-dark-surface-2:#18181f;
-  --color-dark-border:   #27272a;
+  /* ── Dark-mode surfaces ── */
+  --color-dark-base:     #061317;
+  --color-dark-surface:  #091b20;
+  --color-dark-surface-2:#0d242b;
+  --color-dark-border:   #1a3944;
 
-  /* ── Legacy dark tokens (used in Home/MockTest/Results/Footer) ── */
-  --color-dark-900:      #09090b;   /* deepest bg */
-  --color-dark-850:      #0f0f12;
-  --color-dark-800:      #18181f;   /* card bg */
-  --color-dark-750:      #1f1f28;
-  --color-dark-700:      #27272a;   /* borders */
-  --color-dark-text:     #e4e4e7;   /* primary text on dark */
-  --color-dark-muted:    #71717a;   /* muted text */
+  /* ── Dark tokens ── */
+  --color-dark-900:      #061317;   /* deepest bg */
+  --color-dark-850:      #091b20;
+  --color-dark-800:      #0d242b;   /* card bg */
+  --color-dark-750:      #122d36;
+  --color-dark-700:      #1a3944;   /* borders */
+  --color-dark-text:     #e6f5f7;   /* primary text on dark */
+  --color-dark-muted:    #84989d;   /* muted text */
 
   /* ── Ink (text) tokens ── */
-  --color-ink:           #0f0f14;
-  --color-ink-2:         #374151;
-  --color-ink-muted:     #6b7280;
-  --color-ink-faint:     #9ca3af;
+  --color-ink:           #0f1c20;
+  --color-ink-2:         #23353b;
+  --color-ink-muted:     #545F61;   /* Neutral slate */
+  --color-ink-faint:     #84989d;
 
   /* ── Status ── */
   --color-success:       #10b981;
   --color-warning:       #f59e0b;
   --color-error:         #ef4444;
-  --color-info:          #3b82f6;
+  --color-info:          #0097B2;
 }
 
 /* ── Base Layer ─────────────────────────────── */
@@ -98,19 +110,19 @@
   }
 
   body {
-    font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     @apply bg-surface text-ink dark:bg-dark-base dark:text-zinc-100 antialiased transition-colors duration-300;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     @apply text-ink dark:text-white font-bold;
   }
 
   /* Text selection */
   ::selection {
-    background: rgba(247, 37, 133, 0.15);
-    color: #f72585;
+    background: rgba(0, 151, 178, 0.2);
+    color: #0097B2;
   }
 }
 
@@ -126,35 +138,35 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #f72585;
+  background: #0097B2;
 }
 
 /* ── Utility Classes ────────────────────────── */
 
-/* Brand gradient — pink → indigo */
+/* Brand gradient — Teal #0097B2 → Deep Navy Teal #004B59 */
 .gradient-brand {
-  background: linear-gradient(135deg, #f72585 0%, #4361ee 100%);
+  background: linear-gradient(135deg, #0097B2 0%, #004B59 100%);
 }
 
 .gradient-brand-text {
-  background: linear-gradient(135deg, #f72585 0%, #4361ee 100%);
+  background: linear-gradient(135deg, #0097B2 0%, #004B59 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Subtle pink glow for hero/accent elements */
+/* Academic Clarity glow effects */
 .glow-brand {
-  box-shadow: 0 0 40px rgba(247, 37, 133, 0.18), 0 0 80px rgba(67, 97, 238, 0.10);
+  box-shadow: 0 0 40px rgba(0, 151, 178, 0.22), 0 0 80px rgba(0, 75, 89, 0.15);
 }
 
 .glow-brand-sm {
-  box-shadow: 0 4px 20px rgba(247, 37, 133, 0.20);
+  box-shadow: 0 4px 20px rgba(0, 151, 178, 0.25);
 }
 
 /* Glass panels */
 .glass {
-  @apply bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md border border-surface-3 dark:border-dark-border;
+  @apply bg-white/85 dark:bg-dark-surface/85 backdrop-blur-md border border-surface-3 dark:border-dark-border;
 }
 
 .glass-hover {
@@ -167,62 +179,69 @@
 }
 
 .card-hover {
-  @apply hover:shadow-md hover:-translate-y-0.5 hover:border-brand/20 dark:hover:border-brand/30;
+  @apply hover:shadow-md hover:-translate-y-0.5 hover:border-brand/30 dark:hover:border-brand/40;
 }
 
-/* Primary button */
+/* Primary button (#0097B2) */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95;
-  background: linear-gradient(135deg, #f72585, #d91a70);
-  box-shadow: 0 4px 16px rgba(247, 37, 133, 0.30);
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95 cursor-pointer;
+  font-family: 'Hanken Grotesk', sans-serif;
+  background: linear-gradient(135deg, #0097B2, #00788E);
+  box-shadow: 0 4px 16px rgba(0, 151, 178, 0.35);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #ff3d8f, #f72585);
-  box-shadow: 0 6px 24px rgba(247, 37, 133, 0.40);
+  background: linear-gradient(135deg, #1AB0CB, #0097B2);
+  box-shadow: 0 6px 24px rgba(0, 151, 178, 0.45);
   transform: translateY(-1px);
 }
 
-/* Secondary button */
+/* Secondary button (#004B59 / Ice Teal #E6F5F7) */
 .btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-95 border;
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-95 border cursor-pointer;
+  font-family: 'Hanken Grotesk', sans-serif;
   @apply text-brand border-brand/30 bg-brand-muted dark:bg-brand/10 dark:border-brand/40;
 }
 
 .btn-secondary:hover {
-  @apply bg-brand/10 dark:bg-brand/20 border-brand/50;
+  @apply bg-brand/15 dark:bg-brand/25 border-brand/60;
 }
 
-/* Accent (indigo) button */
+/* Accent (Deep Navy Teal #004B59) button */
 .btn-accent {
-  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95;
-  background: linear-gradient(135deg, #4361ee, #2a45c8);
-  box-shadow: 0 4px 16px rgba(67, 97, 238, 0.30);
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-200 active:scale-95 cursor-pointer;
+  font-family: 'Hanken Grotesk', sans-serif;
+  background: linear-gradient(135deg, #004B59, #00323C);
+  box-shadow: 0 4px 16px rgba(0, 75, 89, 0.35);
 }
 
 .btn-accent:hover {
-  box-shadow: 0 6px 24px rgba(67, 97, 238, 0.40);
+  background: linear-gradient(135deg, #00677B, #004B59);
+  box-shadow: 0 6px 24px rgba(0, 75, 89, 0.45);
   transform: translateY(-1px);
 }
 
 /* Pill badge */
 .badge-brand {
   @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-muted text-brand dark:bg-brand/15 dark:text-brand-light;
+  font-family: 'Hanken Grotesk', sans-serif;
 }
 
 .badge-accent {
-  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-accent-muted text-accent dark:bg-accent/15 dark:text-accent-light;
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-tertiary text-secondary dark:bg-secondary/20 dark:text-brand-light;
+  font-family: 'Hanken Grotesk', sans-serif;
 }
 
 /* Animated underline for nav links */
 .nav-link {
   @apply relative text-ink-muted dark:text-zinc-400 text-sm font-semibold transition-colors duration-200 hover:text-brand dark:hover:text-brand-light;
+  font-family: 'Hanken Grotesk', sans-serif;
 }
 
 .nav-link::after {
   content: '';
   @apply absolute bottom-0 left-0 w-0 h-0.5 rounded-full transition-all duration-300;
-  background: #f72585;
+  background: #0097B2;
 }
 
 .nav-link:hover::after,
@@ -280,7 +299,7 @@
   display: inline-block;
   width: 2px;
   height: 1.1em;
-  background: #f72585;
+  background: #0097B2;
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: cursorBlink 0.8s step-end infinite;
@@ -298,13 +317,13 @@
 }
 
 .bg-animated-gradient {
-  background: linear-gradient(135deg, #fff0f6, #ede9fe, #e0f2fe, #fdf4ff);
+  background: linear-gradient(135deg, #e6f5f7, #f0fbfe, #dff4f7, #eef9fb);
   background-size: 300% 300%;
   animation: gradientShift 8s ease infinite;
 }
 
 .dark .bg-animated-gradient {
-  background: linear-gradient(135deg, #1a0010, #0d0020, #001a2e, #150020);
+  background: linear-gradient(135deg, #061317, #091b20, #00252d, #092027);
   background-size: 300% 300%;
   animation: gradientShift 8s ease infinite;
 }
@@ -321,8 +340,8 @@
 
 /* Pulse glow */
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(247, 37, 133, 0.2); }
-  50%       { box-shadow: 0 0 40px rgba(247, 37, 133, 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 151, 178, 0.25); }
+  50%       { box-shadow: 0 0 40px rgba(0, 151, 178, 0.55); }
 }
 
 .animate-pulse-glow {

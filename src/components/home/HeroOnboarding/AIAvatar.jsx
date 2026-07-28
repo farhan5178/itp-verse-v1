@@ -26,7 +26,7 @@ export default function AIAvatar({ isReady }) {
           left:            '50%',
           transform:       'translateX(-50%)',
           borderRadius:    '50%',
-          background:      'radial-gradient(circle, rgba(247,37,133,0.30) 0%, rgba(67,97,238,0.20) 55%, transparent 100%)',
+          background:      'radial-gradient(circle, rgba(0,151,178,0.30) 0%, rgba(0,75,89,0.20) 55%, transparent 100%)',
           filter:          'blur(30px)',
           animation:       'antennaPulse 3s ease-in-out infinite',
           pointerEvents:   'none',
@@ -38,20 +38,20 @@ export default function AIAvatar({ isReady }) {
         <svg viewBox="0 0 200 270" width="200" height="270" role="img" aria-label="ITPverse AI Assistant">
           <defs>
             <linearGradient id="hg"  x1="0%" y1="0%"  x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#f72585" />
-              <stop offset="100%" stopColor="#d91a70" />
+              <stop offset="0%"   stopColor="#0097B2" />
+              <stop offset="100%" stopColor="#00788E" />
             </linearGradient>
             <linearGradient id="bg2" x1="0%" y1="0%"  x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#d91a70" />
-              <stop offset="100%" stopColor="#b01358" />
+              <stop offset="0%"   stopColor="#00788E" />
+              <stop offset="100%" stopColor="#004B59" />
             </linearGradient>
             <linearGradient id="sg"  x1="0%" y1="0%"  x2="100%" y2="100%">
-              <stop offset="0%"   stopColor="#1a1a3e" />
-              <stop offset="100%" stopColor="#0d0d2b" />
+              <stop offset="0%"   stopColor="#091b20" />
+              <stop offset="100%" stopColor="#061317" />
             </linearGradient>
             <linearGradient id="ag"  x1="0%" y1="0%"  x2="0%"   y2="100%">
-              <stop offset="0%"   stopColor="#f72585" />
-              <stop offset="100%" stopColor="#d91a70" />
+              <stop offset="0%"   stopColor="#0097B2" />
+              <stop offset="100%" stopColor="#004B59" />
             </linearGradient>
             <linearGradient id="vg"  x1="0%" y1="0%"  x2="100%" y2="100%">
               <stop offset="0%"   stopColor="rgba(255,255,255,0.22)" />
@@ -62,13 +62,13 @@ export default function AIAvatar({ isReady }) {
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </radialGradient>
             <filter id="avatar-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="5" stdDeviation="7" floodColor="rgba(67,97,238,0.35)" />
+              <feDropShadow dx="0" dy="5" stdDeviation="7" floodColor="rgba(0,75,89,0.35)" />
             </filter>
           </defs>
 
           {/* Ground shadow */}
           <ellipse cx="100" cy="265" rx="48" ry="7"
-            fill="rgba(67,97,238,0.15)"
+            fill="rgba(0,75,89,0.15)"
             style={{ animation: 'shadowPulse 3.5s ease-in-out infinite' }}
           />
 
@@ -84,7 +84,7 @@ export default function AIAvatar({ isReady }) {
           {/* Screen panel */}
           <rect x="70" y="160" width="60" height="42" rx="8" fill="url(#sg)" />
           {/* Status dots */}
-          <circle cx="85"  cy="175" r="5" fill="#f72585"
+          <circle cx="85"  cy="175" r="5" fill="#0097B2"
             style={{ animation: 'antennaPulse 1.6s ease-in-out infinite' }}
           />
           <circle cx="100" cy="175" r="5" fill="rgba(255,255,255,0.28)" />
@@ -92,7 +92,7 @@ export default function AIAvatar({ isReady }) {
             style={{ animation: 'antennaPulse 1.6s ease-in-out infinite 0.5s' }}
           />
           {/* Progress bars */}
-          <rect x="78" y="188" width="44" height="4" rx="2" fill="rgba(247,37,133,0.55)" />
+          <rect x="78" y="188" width="44" height="4" rx="2" fill="rgba(0,151,178,0.55)" />
           <rect x="78" y="196" width="28" height="4" rx="2" fill="rgba(255,255,255,0.18)" />
 
           {/* ── Left arm (static) ── */}
@@ -127,7 +127,7 @@ export default function AIAvatar({ isReady }) {
           <rect x="44"  y="75" width="10" height="22" rx="5" fill="url(#bg2)" />
           <rect x="146" y="75" width="10" height="22" rx="5" fill="url(#bg2)" />
           {/* Ear lights */}
-          <circle cx="49"  cy="86" r="3" fill="#f72585"
+          <circle cx="49"  cy="86" r="3" fill="#0097B2"
             style={{ animation: 'antennaPulse 2s ease-in-out infinite 0.3s' }}
           />
           <circle cx="151" cy="86" r="3" fill="#48cae4"
@@ -140,7 +140,7 @@ export default function AIAvatar({ isReady }) {
             animation: isReady ? 'eyeBlink 4.5s ease-in-out infinite 1.2s' : 'none',
           }}>
             <ellipse cx="82" cy="95" rx="13" ry="15" fill="white" />
-            <circle  cx="85" cy="97" r="8"  fill="#16103a" />
+            <circle  cx="85" cy="97" r="8"  fill="#091b20" />
             <circle  cx="83" cy="93" r="4"  fill="url(#eye-shine)" />
             <circle  cx="88" cy="100" r="2" fill="rgba(255,255,255,0.45)" />
           </g>
@@ -151,7 +151,7 @@ export default function AIAvatar({ isReady }) {
             animation: isReady ? 'eyeBlink 4.5s ease-in-out infinite 1.2s' : 'none',
           }}>
             <ellipse cx="118" cy="95" rx="13" ry="15" fill="white" />
-            <circle  cx="121" cy="97" r="8"  fill="#16103a" />
+            <circle  cx="121" cy="97" r="8"  fill="#091b20" />
             <circle  cx="119" cy="93" r="4"  fill="url(#eye-shine)" />
             <circle  cx="124" cy="100" r="2" fill="rgba(255,255,255,0.45)" />
           </g>
@@ -164,18 +164,18 @@ export default function AIAvatar({ isReady }) {
           />
 
           {/* ── Cheek blush ── */}
-          <ellipse cx="68"  cy="110" rx="8" ry="5" fill="rgba(247,37,133,0.22)" />
-          <ellipse cx="132" cy="110" rx="8" ry="5" fill="rgba(247,37,133,0.22)" />
+          <ellipse cx="68"  cy="110" rx="8" ry="5" fill="rgba(0,151,178,0.22)" />
+          <ellipse cx="132" cy="110" rx="8" ry="5" fill="rgba(0,151,178,0.22)" />
 
           {/* ── Antenna ── */}
           <line x1="100" y1="52" x2="100" y2="30"
             stroke="url(#hg)" strokeWidth="5" strokeLinecap="round"
           />
-          <circle cx="100" cy="22" r="11" fill="rgba(247,37,133,0.22)"
+          <circle cx="100" cy="22" r="11" fill="rgba(0,151,178,0.22)"
             style={{ animation: 'antennaPulse 2s ease-in-out infinite' }}
           />
-          <circle cx="100" cy="22" r="7" fill="#f72585" />
-          <circle cx="100" cy="22" r="4" fill="#ff5fa0" />
+          <circle cx="100" cy="22" r="7" fill="#0097B2" />
+          <circle cx="100" cy="22" r="4" fill="#1AB0CB" />
           <circle cx="98"  cy="20" r="1.5" fill="white" opacity="0.8" />
         </svg>
       </div>

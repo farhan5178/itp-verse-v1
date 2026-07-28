@@ -79,7 +79,7 @@ export default function AuthModal() {
           className="relative w-full max-w-md bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-3xl shadow-2xl overflow-hidden z-10"
         >
           {/* Header Graphic Gradient */}
-          <div className="relative p-6 bg-gradient-to-br from-[#f72585] via-[#d91a70] to-[#b01358] text-white">
+          <div className="relative p-6 bg-gradient-to-br from-[#0097B2] via-[#00788E] to-[#004B59] text-white">
             <button
               onClick={closeAuthModal}
               className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all cursor-pointer"
@@ -134,7 +134,7 @@ export default function AuthModal() {
               <button
                 type="button"
                 onClick={handleFarhanLogin}
-                className="py-2.5 px-3 rounded-xl bg-pink-50 dark:bg-pink-950/40 border border-pink-200 dark:border-pink-900/50 text-[#f72585] dark:text-[#ff5fa0] text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-pink-100 dark:hover:bg-pink-950/60 transition-all cursor-pointer shadow-sm"
+                className="py-2.5 px-3 rounded-xl bg-[#E6F5F7] dark:bg-[#0097B2]/20 border border-[#0097B2]/30 text-[#0097B2] dark:text-[#1AB0CB] text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-[#0097B2]/15 transition-all cursor-pointer shadow-sm"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>farhan@gmail.com</span>
@@ -142,7 +142,7 @@ export default function AuthModal() {
               <button
                 type="button"
                 onClick={handleDemoLogin}
-                className="py-2.5 px-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-900/50 text-purple-600 dark:text-purple-300 text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-purple-100 dark:hover:bg-purple-950/60 transition-all cursor-pointer shadow-sm"
+                className="py-2.5 px-3 rounded-xl bg-[#E6F5F7] dark:bg-[#004B59]/30 border border-[#004B59]/40 text-[#004B59] dark:text-[#1AB0CB] text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-[#004B59]/20 transition-all cursor-pointer shadow-sm"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Sarah (Demo)</span>
@@ -168,7 +168,7 @@ export default function AuthModal() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Alex Johnson"
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#f72585]"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#0097B2]"
                     />
                   </div>
                 </div>
@@ -184,7 +184,7 @@ export default function AuthModal() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="farhan@gmail.com"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#f72585]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#0097B2]"
                   />
                 </div>
               </div>
@@ -199,14 +199,14 @@ export default function AuthModal() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#f72585]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 text-xs font-medium text-slate-900 dark:text-white focus:outline-none focus:border-[#0097B2]"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f72585] to-[#d91a70] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:shadow-pink-500/35 transition-all cursor-pointer"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white text-xs font-black shadow-lg shadow-[#0097B2]/25 hover:shadow-[#0097B2]/35 transition-all cursor-pointer"
               >
                 {mode === 'login' ? 'Sign In to Portal' : 'Create Account & Start'}
               </button>

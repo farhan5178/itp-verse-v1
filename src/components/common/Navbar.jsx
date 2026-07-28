@@ -40,9 +40,9 @@ function PartnerBadge({ exam }) {
   if (exam === 'IELTS') {
     return (
       <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
-        <Sparkles className="w-3 h-3 text-[#f72585] animate-pulse" />
+        <Sparkles className="w-3 h-3 text-[#0097B2] animate-pulse" />
         <span>Official Partner of</span>
-        <span className="font-extrabold bg-gradient-to-r from-[#f72585] to-[#d91a70] bg-clip-text text-transparent">idp</span>
+        <span className="font-extrabold bg-gradient-to-r from-[#0097B2] to-[#004B59] bg-clip-text text-transparent">idp</span>
         <span className="font-black text-slate-800 dark:text-zinc-100">IELTS</span>
       </div>
     );
@@ -50,9 +50,9 @@ function PartnerBadge({ exam }) {
   if (exam === 'TOEFL') {
     return (
       <div className="hidden lg:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900/80 border border-slate-200/60 dark:border-zinc-800/80 text-xs font-medium text-slate-500 dark:text-zinc-400">
-        <Sparkles className="w-3 h-3 text-[#f72585] animate-pulse" />
+        <Sparkles className="w-3 h-3 text-[#0097B2] animate-pulse" />
         <span>Official Partner of</span>
-        <span className="font-bold text-[#f72585] dark:text-[#ff5fa0]">ETS TOEFL Academy</span>
+        <span className="font-bold text-[#0097B2] dark:text-[#1AB0CB]">ETS TOEFL Academy</span>
       </div>
     );
   }
@@ -111,11 +111,11 @@ export default function Navbar() {
             className="flex items-center cursor-pointer group flex-shrink-0 transition-transform active:scale-95"
           >
             <div className="flex items-center gap-1.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f72585] to-[#d91a70] flex items-center justify-center shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#0097B2] to-[#004B59] flex items-center justify-center shadow-md shadow-[#0097B2]/20 group-hover:scale-105 transition-transform">
                 <span className="text-white font-black text-xs tracking-tighter">ITP</span>
               </div>
               <span className="text-xl font-black tracking-tight leading-none">
-                <span style={{ color: '#f72585' }}>ITP</span>
+                <span style={{ color: '#0097B2' }}>ITP</span>
                 <span className="text-slate-900 dark:text-white">verse</span>
               </span>
             </div>
@@ -145,7 +145,7 @@ export default function Navbar() {
                   {isSelected && (
                     <motion.div
                       layoutId="activeExamIndicator"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#f72585] to-[#d91a70] shadow-md shadow-pink-500/25 -z-10"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#0097B2] to-[#004B59] shadow-md shadow-[#0097B2]/25 -z-10"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -186,8 +186,8 @@ export default function Navbar() {
           <button
             id="purchase-btn"
             onClick={() => setActiveTab('plans')}
-            className="relative group overflow-hidden px-5 py-2 rounded-full text-xs font-bold text-white transition-all duration-200 active:scale-95 cursor-pointer shadow-md shadow-pink-500/25 hover:shadow-lg hover:shadow-pink-500/35"
-            style={{ background: 'linear-gradient(135deg, #f72585, #d91a70)' }}
+            className="relative group overflow-hidden px-5 py-2 rounded-full text-xs font-bold text-white transition-all duration-200 active:scale-95 cursor-pointer shadow-md shadow-[#0097B2]/25 hover:shadow-lg hover:shadow-[#0097B2]/35"
+            style={{ background: 'linear-gradient(135deg, #0097B2, #004B59)' }}
           >
             <span className="relative z-10 flex items-center gap-1.5">
               <span>Plans</span>
@@ -214,9 +214,9 @@ export default function Navbar() {
             <button
               id="profile-btn"
               onClick={openAuthModal}
-              className="px-4 py-2 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-pink-500/50 hover:text-[#f72585] dark:hover:text-[#ff5fa0] transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 hover:border-[#0097B2]/50 hover:text-[#0097B2] dark:hover:text-[#1AB0CB] transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <LogIn className="w-3.5 h-3.5 text-[#f72585]" />
+              <LogIn className="w-3.5 h-3.5 text-[#0097B2]" />
               <span>Sign In</span>
             </button>
           )}
@@ -224,7 +224,7 @@ export default function Navbar() {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 flex items-center justify-center text-slate-600 dark:text-zinc-300 hover:border-pink-500/50 hover:text-[#f72585] dark:hover:text-[#ff5fa0] transition-all cursor-pointer"
+            className="w-9 h-9 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 flex items-center justify-center text-slate-600 dark:text-zinc-300 hover:border-[#0097B2]/50 hover:text-[#0097B2] dark:hover:text-[#1AB0CB] transition-all cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4 text-amber-400" />}
@@ -243,7 +243,7 @@ export default function Navbar() {
           ) : (
             <button
               onClick={openAuthModal}
-              className="px-3 py-1 rounded-full bg-[#f72585] text-white text-xs font-bold"
+              className="px-3 py-1 rounded-full bg-[#0097B2] text-white text-xs font-bold"
             >
               Sign In
             </button>
@@ -280,14 +280,14 @@ export default function Navbar() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`relative flex-shrink-0 text-xs font-bold px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
                       isActive
-                        ? 'text-[#f72585] dark:text-[#ff5fa0]'
+                        ? 'text-[#0097B2] dark:text-[#1AB0CB]'
                         : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 hover:bg-slate-200/50 dark:hover:bg-zinc-900/50'
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeSubNavTab"
-                        className="absolute inset-0 rounded-full bg-pink-500/10 dark:bg-pink-500/15 border border-pink-500/30"
+                        className="absolute inset-0 rounded-full bg-[#0097B2]/10 dark:bg-[#0097B2]/15 border border-[#0097B2]/30"
                         transition={{ type: 'spring', stiffness: 350, damping: 25 }}
                       />
                     )}
@@ -320,7 +320,7 @@ export default function Navbar() {
                       onClick={() => { handleExamSwitch(exam); setIsOpen(false); }}
                       className={`px-3 py-1.5 text-xs font-extrabold rounded-xl transition-all ${
                         activeExam === exam
-                          ? 'bg-[#f72585] text-white shadow-md shadow-pink-500/30'
+                          ? 'bg-[#0097B2] text-white shadow-md shadow-[#0097B2]/30'
                           : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800'
                       }`}
                     >
@@ -338,7 +338,7 @@ export default function Navbar() {
                     onClick={() => { setActiveTab(tab.id); setIsOpen(false); }}
                     className={`text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                       activeTab === tab.id
-                        ? 'bg-pink-50 dark:bg-pink-950/40 text-[#f72585] dark:text-[#ff5fa0] border border-pink-200 dark:border-pink-900/50'
+                        ? 'bg-[#E6F5F7] dark:bg-[#0097B2]/20 text-[#0097B2] dark:text-[#1AB0CB] border border-[#0097B2]/30'
                         : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900'
                     }`}
                   >
@@ -350,12 +350,12 @@ export default function Navbar() {
               {/* Additional Actions */}
               <div className="pt-3 flex flex-col space-y-2 border-t border-slate-100 dark:border-zinc-800">
                 <div className="flex items-center justify-between px-2">
-                  <Link to="/blog" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#f72585]">Blog</Link>
-                  <Link to="/community" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#f72585]">Community</Link>
+                  <Link to="/blog" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#0097B2]">Blog</Link>
+                  <Link to="/community" onClick={() => setIsOpen(false)} className="text-xs font-bold text-slate-600 dark:text-zinc-300 hover:text-[#0097B2]">Community</Link>
                 </div>
                 <button
                   onClick={() => { setActiveTab('plans'); setIsOpen(false); }}
-                  className="w-full bg-gradient-to-r from-[#f72585] to-[#d91a70] text-white py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-pink-500/25"
+                  className="w-full bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-[#0097B2]/25"
                 >
                   Plans 🏷️
                 </button>

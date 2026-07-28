@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2 space-y-4">
             <Link to="/" className="flex items-center">
               <span className="text-xl font-black tracking-tight leading-none">
-                <span style={{ color: '#f72585' }}>ITP</span>
+                <span style={{ color: '#0097B2' }}>ITP</span>
                 <span className="text-slate-900 dark:text-white">verse</span>
               </span>
             </Link>

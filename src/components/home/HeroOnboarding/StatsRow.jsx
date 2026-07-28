@@ -34,7 +34,7 @@ export default function StatsRow({ stats }) {
             <p className="text-[10px] font-semibold text-slate-500 dark:text-zinc-400 leading-none tracking-wide uppercase">
               {stat.label}
             </p>
-            <p className="text-sm font-black text-[#f72585] leading-tight">{stat.value}</p>
+            <p className="text-sm font-black text-[#0097B2] leading-tight">{stat.value}</p>
           </div>
         </div>
       ))}

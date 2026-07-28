@@ -143,7 +143,7 @@ export default function MockTest() {
         <div className="flex items-center space-x-6">
           {/* Timer */}
           <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl border ${
-            isTimeCritical ? 'bg-red-500/10 border-red-500/40 text-red-400 animate-pulse' : 'bg-dark-800 border-dark-700 text-brand-purple'
+            isTimeCritical ? 'bg-red-500/10 border-red-500/40 text-red-400 animate-pulse' : 'bg-dark-800 border-dark-700 text-[#0097B2]'
           }`}>
             <Timer className="w-5 h-5" />
             <span className="font-mono text-lg font-bold">{formatTime(timeLeft)}</span>
@@ -151,7 +151,7 @@ export default function MockTest() {
 
           <button
             onClick={() => setShowSubmitModal(true)}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-blue font-bold text-sm text-white hover:opacity-90 transition-all shadow-md shadow-brand-purple/10"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] font-bold text-sm text-white hover:opacity-90 transition-all shadow-md shadow-[#0097B2]/20 cursor-pointer"
           >
             Submit Test
           </button>
@@ -194,19 +194,19 @@ export default function MockTest() {
                       onClick={() => handleSelectOption(oIdx)}
                       className={`w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between group ${
                         isSelected
-                          ? 'bg-brand-purple/10 border-brand-purple text-white'
+                          ? 'bg-[#0097B2]/10 border-[#0097B2] text-white'
                           : 'bg-dark-900/40 border-dark-700/50 hover:bg-dark-850 hover:border-dark-600 text-dark-muted hover:text-white'
                       }`}
                     >
                       <div className="flex items-center space-x-3">
                         <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
-                          isSelected ? 'bg-brand-purple text-white' : 'bg-dark-800 text-dark-muted group-hover:bg-dark-700'
+                          isSelected ? 'bg-[#0097B2] text-white' : 'bg-dark-800 text-dark-muted group-hover:bg-dark-700'
                         }`}>
                           {String.fromCharCode(65 + oIdx)}
                         </span>
                         <span className="text-sm font-medium">{opt}</span>
                       </div>
-                      {isSelected && <CheckCircle2 className="w-5 h-5 text-brand-purple" />}
+                      {isSelected && <CheckCircle2 className="w-5 h-5 text-[#0097B2]" />}
                     </button>
                   );
                 })}
@@ -265,7 +265,7 @@ export default function MockTest() {
                 let btnStyle = "bg-dark-900 border-dark-750 text-dark-muted";
                 if (isAnswered) btnStyle = "bg-brand-emerald/10 border-brand-emerald/40 text-brand-emerald";
                 if (isMarked) btnStyle = "bg-amber-500/10 border-amber-500/40 text-amber-400";
-                if (isCurrent) btnStyle += " ring-2 ring-brand-purple ring-offset-2 ring-offset-dark-900";
+                if (isCurrent) btnStyle += " ring-2 ring-[#0097B2] ring-offset-2 ring-offset-dark-900";
 
                 return (
                   <button
@@ -329,7 +329,7 @@ export default function MockTest() {
                 </button>
                 <button
                   onClick={submitExam}
-                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-blue text-sm font-semibold text-white shadow-lg shadow-brand-purple/10 transition-all"
+                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] text-sm font-semibold text-white shadow-lg shadow-[#0097B2]/20 transition-all cursor-pointer"
                 >
                   Confirm Submit
                 </button>
