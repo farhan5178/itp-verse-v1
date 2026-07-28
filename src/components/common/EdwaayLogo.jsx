@@ -99,7 +99,7 @@ export default function EdwaayLogo({ className = '', showText = true, size = 'md
 
       {/* Silky Animated Text 'dwaay' with letter-by-letter wave & Codec Pro font */}
       {showText && (
-        <div className={`${textSizes[size] || 'text-2xl'} font-black tracking-tight leading-none font-codec flex items-center -ml-0.5`}>
+        <div className={`${textSizes[size] || 'text-2xl'} font-semibold tracking-tight leading-none font-codec flex items-center -ml-0.5`}>
           {textLetters.map((char, index) => {
             const isA = char === 'a';
             return (
@@ -116,7 +116,7 @@ export default function EdwaayLogo({ className = '', showText = true, size = 'md
                   repeatType: 'mirror',
                   ease: [0.45, 0, 0.55, 1],
                 }}
-                className={`text-[#545F61] dark:text-white font-extrabold tracking-tight transition-colors duration-300 inline-block ${
+                className={`text-[#545F61] dark:text-white font-semibold tracking-tight transition-colors duration-300 inline-block ${
                   isA ? 'group-hover:text-[#0097B2] dark:group-hover:text-[#1AB0CB]' : ''
                 }`}
               >
