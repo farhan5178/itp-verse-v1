@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Timer, BookOpen, Headphones, Mic, PenTool } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Timer, BookOpen, Headphones, Mic, PenTool, Sparkles, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 /* ── Icon map ── */
 const sectionIcons = {
@@ -8,185 +8,232 @@ const sectionIcons = {
   Listening: Headphones,
   Speaking: Mic,
   Writing: PenTool,
-  'Speaking & Writing': Mic,
 };
 
 const sectionColors = {
-  Reading:  { bg: 'bg-blue-50 dark:bg-blue-500/10', text: 'text-blue-500', badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
-  Listening:{ bg: 'bg-indigo-50 dark:bg-indigo-500/10', text: 'text-indigo-500', badge: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20' },
-  Speaking: { bg: 'bg-[#0097B2]/5 dark:bg-[#0097B2]/10', text: 'text-[#0097B2]', badge: 'bg-[#0097B2]/10 text-[#0097B2] border-[#0097B2]/20' },
-  Writing:  { bg: 'bg-amber-50 dark:bg-amber-500/10', text: 'text-amber-500', badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
-  'Speaking & Writing': { bg: 'bg-[#0097B2]/5 dark:bg-[#0097B2]/10', text: 'text-[#0097B2]', badge: 'bg-[#0097B2]/10 text-[#0097B2] border-[#0097B2]/20' },
-};
-
-/* ── Full exam data ── */
-const examData = {
-  IELTS: {
-    label: 'IELTS',
-    fullName: 'International English Language Testing System',
-    duration: '2 hours 40 mins',
-    description: (
-      <>
-        <strong>IELTS (International English Language Testing System)</strong> is one of the globally recognized English proficiency tests taken by millions worldwide for education and immigration purposes. IELTS offers two modules: <strong className="text-[#1a2b4a] dark:text-white underline decoration-[#0097B2]/40 underline-offset-2">IELTS Academic</strong> (for undergraduate or postgraduate study) and <strong>IELTS General Training</strong> (for work or immigration). Additionally, <strong>IELTS for UKVI</strong> (United Kingdom Visa &amp; Immigration) is specifically for proving English proficiency for UK visa and immigration purposes. The IELTS Academic module consists of four sections and takes approximately <span className="font-black text-[#0097B2]">2 hours and 40 minutes</span> to complete.
-      </>
-    ),
-    modules: [
-      { name: 'Reading', questions: '40', questionsLabel: 'No. of Questions', time: '60 mins', footer: '3 ACADEMIC PASSAGES' },
-      { name: 'Listening', questions: '40', questionsLabel: 'No. of Questions', time: '30 mins', footer: '4 AUDIO MONOLOGUES / CONV' },
-      { name: 'Speaking', questions: '3 parts', questionsLabel: 'No. of Questions', time: '11 – 14 mins', footer: 'FACE-TO-FACE EVALUATION' },
-      { name: 'Writing', questions: '2 tasks', questionsLabel: 'No. of Questions', time: '60 mins', footer: 'TASK 1 REPORT & TASK 2 ESSAY' },
-    ],
+  Reading: {
+    bg: 'bg-blue-500/10 dark:bg-blue-500/20 text-blue-500 dark:text-blue-400',
+    border: 'group-hover:border-blue-500/40',
+    glow: 'from-blue-500/20 via-cyan-500/10 to-transparent',
+    accentBar: 'bg-gradient-to-r from-blue-500 to-cyan-400',
+    badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+    tag: 'Academic Passages'
   },
-  TOEFL: {
-    label: 'TOEFL',
-    fullName: 'Test of English as a Foreign Language',
-    duration: 'approx. 2 hours',
-    description: (
-      <>
-        <strong>TOEFL iBT (Test of English as a Foreign Language – Internet Based Test)</strong> is the trusted academic English evaluation accepted by more than 12,000 universities worldwide. Fully computer-delivered with synchronized task combinations mimicking physical university lectures. The TOEFL iBT measures your ability to use and understand English at the university level and evaluates how well you combine your <strong>listening, reading, speaking, and writing</strong> skills. The test takes approximately <span className="font-black text-[#0097B2]">2 hours</span> to complete.
-      </>
-    ),
-    modules: [
-      { name: 'Reading', questions: '20', questionsLabel: 'No. of Questions', time: '35 mins', footer: '2 ACADEMIC PASSAGES' },
-      { name: 'Listening', questions: '28', questionsLabel: 'No. of Questions', time: '36 mins', footer: '5 LECTURES & CONVERSATIONS' },
-      { name: 'Speaking', questions: '4 tasks', questionsLabel: 'No. of Tasks', time: '16 mins', footer: 'INTEGRATED & INDEPENDENT' },
-      { name: 'Writing', questions: '2 tasks', questionsLabel: 'No. of Tasks', time: '29 mins', footer: 'INTEGRATED & ACADEMIC ESSAY' },
-    ],
+  Listening: {
+    bg: 'bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400',
+    border: 'group-hover:border-indigo-500/40',
+    glow: 'from-indigo-500/20 via-purple-500/10 to-transparent',
+    accentBar: 'bg-gradient-to-r from-indigo-500 to-purple-400',
+    badge: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20',
+    tag: 'Audio Recordings'
   },
-  PTE: {
-    label: 'PTE',
-    fullName: 'Pearson Test of English Academic',
-    duration: 'approx. 2 hours',
-    description: (
-      <>
-        <strong>PTE Academic (Pearson Test of English)</strong> is a faster, highly convenient computer-based test trusted by governments and colleges globally. It utilizes state-of-the-art unbiased automated AI scoring mechanics to evaluate all key English skills. PTE Academic measures your <strong>speaking, writing, reading, and listening</strong> abilities in a single session. Results are typically available within <span className="font-black text-[#0097B2]">2 business days</span>, making it one of the fastest standardized English tests.
-      </>
-    ),
-    modules: [
-      { name: 'Speaking & Writing', questions: '7 types', questionsLabel: 'Task Types', time: '54 – 67 mins', footer: 'READ ALOUD, ESSAY & MORE' },
-      { name: 'Reading', questions: '5 types', questionsLabel: 'Task Types', time: '29 – 30 mins', footer: 'FILL IN BLANKS & MCQ' },
-      { name: 'Listening', questions: '8 types', questionsLabel: 'Task Types', time: '30 – 43 mins', footer: 'DICTATION & SUMMARIZE' },
-    ],
+  Speaking: {
+    bg: 'bg-[#0097B2]/10 dark:bg-[#0097B2]/20 text-[#0097B2] dark:text-cyan-400',
+    border: 'group-hover:border-[#0097B2]/40',
+    glow: 'from-[#0097B2]/20 via-teal-500/10 to-transparent',
+    accentBar: 'bg-gradient-to-r from-[#0097B2] to-teal-400',
+    badge: 'bg-[#0097B2]/10 text-[#0097B2] dark:text-cyan-400 border-[#0097B2]/20',
+    tag: 'Live Evaluation'
+  },
+  Writing: {
+    bg: 'bg-amber-500/10 dark:bg-amber-500/20 text-amber-500 dark:text-amber-400',
+    border: 'group-hover:border-amber-500/40',
+    glow: 'from-amber-500/20 via-rose-500/10 to-transparent',
+    accentBar: 'bg-gradient-to-r from-amber-500 to-rose-400',
+    badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+    tag: 'Report & Essay'
   },
 };
 
-const tabs = Object.keys(examData);
+/* ── IELTS exam data ── */
+const ieltsData = {
+  label: 'IELTS',
+  fullName: 'International English Language Testing System',
+  duration: '2 hours 40 mins',
+  description: (
+    <>
+      <strong>IELTS (International English Language Testing System)</strong> is the world’s most popular English language proficiency test for higher education and global migration. Evaluates real-life skills across <strong className="text-[#1a2b4a] dark:text-white underline decoration-[#0097B2]/40 underline-offset-4">Academic</strong> and <strong>General Training</strong> formats. The total exam time is approximately <span className="font-black text-[#0097B2]">2 hours and 40 minutes</span>.
+    </>
+  ),
+  modules: [
+    {
+      name: 'Reading',
+      questions: '40 Questions',
+      time: '60 mins',
+      highlights: ['3 Passages', 'Graphic & Text Comprehension'],
+      description: 'Test your understanding of main ideas, details, and implied meanings.'
+    },
+    {
+      name: 'Listening',
+      questions: '40 Questions',
+      time: '30 mins',
+      highlights: ['4 Audio Recordings', 'Monologues & Dialogues'],
+      description: 'Evaluate listening comprehension across varied native accents.'
+    },
+    {
+      name: 'Speaking',
+      questions: '3 Interactive Parts',
+      time: '11–14 mins',
+      highlights: ['1-on-1 Interview', 'Cue Card Presentation'],
+      description: 'Assess fluency, pronunciation, grammar, and vocabulary in real-time.'
+    },
+    {
+      name: 'Writing',
+      questions: '2 Tasks',
+      time: '60 mins',
+      highlights: ['Task 1 Report', 'Task 2 Formal Essay'],
+      description: 'Describe chart data & articulate clear arguments in essay format.'
+    },
+  ],
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 260, damping: 20 },
+  },
+};
 
 export default function ExamOverview() {
-  const [activeExam, setActiveExam] = useState('IELTS');
-  const exam = examData[activeExam];
-
   return (
-    <section className="bg-slate-50/80 dark:bg-[#0c0c0f] border-t border-slate-100 dark:border-zinc-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <section className="relative overflow-hidden bg-slate-50/90 dark:bg-[#09090d] border-t border-slate-200/60 dark:border-zinc-800/80 py-16 lg:py-24">
+      {/* Background Subtle Gradient Blobs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0097B2]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        {/* ── Tab Switcher ── */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex items-center gap-1 p-1 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/60 dark:border-zinc-800 shadow-sm">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveExam(tab)}
-                className={`
-                  px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer
-                  ${activeExam === tab
-                    ? 'bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white shadow-md shadow-[#0097B2]/20'
-                    : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-zinc-800'
-                  }
-                `}
-              >
-                {tab}
-              </button>
-            ))}
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* ── Header Section ── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 border-b border-slate-200/60 dark:border-zinc-800/80 pb-8">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/20 text-[#0097B2] text-xs font-black uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#0097B2]" />
+              <span>Official Test Blueprint</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+              What is <span className="bg-gradient-to-r from-[#0097B2] via-cyan-500 to-[#1a2b4a] dark:to-cyan-300 bg-clip-text text-transparent">IELTS</span>?
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-zinc-300 font-medium leading-relaxed">
+              {ieltsData.description}
+            </p>
+          </div>
+
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 shadow-sm self-start md:self-auto shrink-0"
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#0097B2]/10 flex items-center justify-center text-[#0097B2]">
+              <Timer className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 block">Total Duration</span>
+              <span className="text-sm font-black text-slate-900 dark:text-white">{ieltsData.duration}</span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Subheading ── */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#0097B2]">
+              Module Structure
+            </span>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">
+              Explore The 4 IELTS Sections
+            </h3>
           </div>
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeExam}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* ── Header ── */}
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-8">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0097B2] mb-2">
-                  Exam Overview
-                </p>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-                  What is <span className="text-[#1a2b4a] dark:text-white">{exam.label}</span>?
-                </h2>
-              </div>
+        {/* ── Animated Module Cards Grid ── */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {ieltsData.modules.map((mod) => {
+            const Icon = sectionIcons[mod.name] || BookOpen;
+            const colors = sectionColors[mod.name] || sectionColors.Reading;
 
-              <div className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/60 dark:border-zinc-800 shadow-sm self-start">
-                <Timer className="w-4 h-4 text-slate-400 dark:text-zinc-500" />
-                <span className="text-xs font-bold text-slate-500 dark:text-zinc-400">Total Duration:</span>
-                <span className="text-xs font-black text-slate-900 dark:text-white">{exam.duration}</span>
-              </div>
-            </div>
+            return (
+              <motion.div
+                key={mod.name}
+                variants={cardVariants}
+                whileHover={{ y: -8, transition: { duration: 0.25, ease: 'easeOut' } }}
+                className={`group relative rounded-3xl bg-white dark:bg-zinc-900/90 border border-slate-200/80 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden ${colors.border}`}
+              >
+                {/* Accent Top Bar */}
+                <div className={`absolute top-0 left-0 right-0 h-1.5 ${colors.accentBar}`} />
 
-            {/* ── Description Paragraph ── */}
-            <div className="mb-12">
-              <p className="text-sm sm:text-[15px] text-slate-600 dark:text-zinc-300 leading-[1.85] font-medium max-w-4xl">
-                {exam.description}
-              </p>
-            </div>
+                {/* Subtle Ambient Glow on Hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
-            {/* ── Module Breakdown Heading ── */}
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-500 mb-6">
-              Test Structure &amp; Module Breakdown
-            </p>
-
-            {/* ── Module Cards Grid ── */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 ${exam.modules.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-4`}>
-              {exam.modules.map((mod, idx) => {
-                const Icon = sectionIcons[mod.name] || BookOpen;
-                const colors = sectionColors[mod.name] || sectionColors.Reading;
-
-                return (
-                  <motion.div
-                    key={mod.name}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: idx * 0.08 }}
-                    className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/60 dark:border-zinc-800 shadow-sm hover:shadow-md hover:border-slate-300/60 dark:hover:border-zinc-700 transition-all flex flex-col justify-between"
-                  >
-                    {/* Card Header */}
-                    <div className="flex items-center justify-between mb-5">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white">{mod.name}</h3>
-                      <div className={`w-9 h-9 rounded-xl ${colors.bg} flex items-center justify-center`}>
-                        <Icon className={`w-4.5 h-4.5 ${colors.text}`} />
-                      </div>
-                    </div>
-
-                    {/* Questions Row */}
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[11px] font-bold text-slate-400 dark:text-zinc-500">{mod.questionsLabel}</span>
-                      <span className="text-sm font-black text-slate-900 dark:text-white">{mod.questions}</span>
-                    </div>
-
-                    {/* Time Row */}
-                    <div className="flex items-center justify-between mb-5">
-                      <span className="text-[11px] font-bold text-slate-400 dark:text-zinc-500">Expected time</span>
-                      <span className={`px-2.5 py-1 rounded-lg text-[11px] font-black border ${colors.badge}`}>
-                        {mod.time}
+                <div>
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                        {colors.tag}
                       </span>
+                      <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
+                        {mod.name}
+                      </h4>
                     </div>
 
-                    {/* Footer Description */}
-                    <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-slate-400 dark:text-zinc-500 border-t border-slate-100 dark:border-zinc-800 pt-3">
-                      {mod.footer}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                    <div className={`w-11 h-11 rounded-2xl ${colors.bg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-sm`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-xs text-slate-500 dark:text-zinc-400 leading-relaxed font-medium mb-5">
+                    {mod.description}
+                  </p>
+
+                  {/* Highlights Pill List */}
+                  <div className="space-y-2 mb-6">
+                    {mod.highlights.map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-zinc-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#0097B2] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Footer Info */}
+                <div className="pt-4 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-2">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Format</span>
+                    <span className="text-xs font-black text-slate-800 dark:text-zinc-200">{mod.questions}</span>
+                  </div>
+
+                  <span className={`px-3 py-1.5 rounded-xl text-xs font-black border ${colors.badge} shadow-xs flex items-center gap-1`}>
+                    <Timer className="w-3 h-3" />
+                    {mod.time}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
 
       </div>
     </section>
   );
 }
+
+

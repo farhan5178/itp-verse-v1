@@ -96,7 +96,7 @@ export default function AuthModal() {
             <p className="text-xs text-white/80 mt-1">
               {mode === 'login'
                 ? 'Sign in to access your personalized AI avatar tutor & test metrics.'
-                : 'Start your journey to top band IELTS, TOEFL & PTE scores.'}
+                : 'Start your journey to top band IELTS scores.'}
             </p>
           </div>
 

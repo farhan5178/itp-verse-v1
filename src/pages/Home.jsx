@@ -2,6 +2,10 @@ import React from 'react';
 import HeroOnboarding from '../components/home/HeroOnboarding/index';
 import GuestHero from '../components/home/GuestHero';
 import ExamOverview from '../components/home/ExamOverview';
+import WhyEdwaay from '../components/home/WhyEdwaay';
+import AISpeakingDemo from '../components/home/AISpeakingDemo';
+import StudyPlanCTA from '../components/home/StudyPlanCTA';
+import SuccessStories from '../components/home/SuccessStories';
 import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
@@ -12,8 +16,16 @@ export default function Home() {
       {/* ── Dynamic Hero Section (LoggedIn Avatar vs Guest Landing) ── */}
       {isLoggedIn ? <HeroOnboarding /> : <GuestHero />}
 
-      {/* ── Exam Overview (For Guests) ── */}
-      {!isLoggedIn && <ExamOverview />}
+      {/* ── Guest Onboarding Flow Sections ── */}
+      {!isLoggedIn && (
+        <>
+          <ExamOverview />
+          <WhyEdwaay />
+          <AISpeakingDemo />
+          <StudyPlanCTA />
+          <SuccessStories />
+        </>
+      )}
     </div>
   );
 }
