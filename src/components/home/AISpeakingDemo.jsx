@@ -178,26 +178,42 @@ export default function AISpeakingDemo() {
   const activeQuestion = questionBank[currentQuestionIndex];
   const recognitionRef = useRef(null);
 
-  // Check Web Speech API availability
+  // Check Web Speech API availability & Preload Female Voices
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       setWebSpeechSupported(false);
     }
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
   }, []);
 
   // Free Native Text-to-Speech (TTS) for AI Examiner Voice
+  // Strict Female/Girl AI Voice Selector
   const speakAIVoice = (text) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel(); // stop previous voice
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.95; // Natural pace
-      utterance.pitch = 1.0;
+      utterance.rate = 0.98; // Pleasant natural pace
+      utterance.pitch = 1.3; // Cute female tone
 
-      // Select English British or American Voice
       const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(v => v.lang.includes('en-GB') || v.lang.includes('en-US')) || voices[0];
-      if (preferredVoice) utterance.voice = preferredVoice;
+      
+      const femaleKeywords = [
+        'zira', 'samantha', 'victoria', 'karen', 'fiona', 'jenny', 
+        'aria', 'ava', 'emma', 'sonia', 'female', 'google us english', 
+        'google uk english female', 'alexa', 'cortana', 'alice', 'claire'
+      ];
+      
+      const cuteFemaleVoice = voices.find(v => 
+        femaleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
+      ) || voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('girl'))) || voices.find(v => v.lang.includes('en-US') || v.lang.includes('en-GB')) || voices[0];
+
+      if (cuteFemaleVoice) utterance.voice = cuteFemaleVoice;
 
       utterance.onstart = () => setIsSpeakingVoice(true);
       utterance.onend = () => setIsSpeakingVoice(false);
@@ -278,8 +294,8 @@ export default function AISpeakingDemo() {
 
   const handleStartDemo = () => {
     setStep(2);
-    // Free AI Voice Speaks the Question!
-    speakAIVoice(`Hello! Welcome to Edwaay AI Speaking Practice. Here is your question: ${activeQuestion.title}`);
+    // Cute Girl AI Voice speaks greeting and question out loud immediately
+    speakAIVoice(`Hello! Welcome to Edwaay AI Speaking Practice. Today I will ask you a speaking question. ${activeQuestion.title}. You can speak for up to 2 minutes. Click start live mic recording when you are ready.`);
   };
 
   const handleBeginRecording = () => {
@@ -303,6 +319,118 @@ export default function AISpeakingDemo() {
     }
   };
 
+  // Dynamic evaluation report state
+  const [dynamicReport, setDynamicReport] = useState(null);
+
+  // Dynamic AI Examiner Evaluation Generator based on actual speech metrics
+  const generateDynamicEvaluation = (question, transcriptText, durationSecs) => {
+    const rawText = (transcriptText || '').trim();
+    const words = rawText.split(' ').filter(Boolean);
+    const wordCount = words.length;
+
+    // IF NOTHING SPOKEN -> BAND SCORE IS 0.0
+    if (wordCount === 0 || !rawText) {
+      return {
+        overall: 0.0,
+        fluency: {
+          score: 0.0,
+          feedback: 'No speech audio captured. You did not speak into your microphone.'
+        },
+        lexical: {
+          score: 0.0,
+          goodWords: [],
+          replacements: []
+        },
+        grammar: {
+          score: 0.0,
+          corrections: []
+        },
+        pronunciation: {
+          score: 0.0,
+          difficultWords: []
+        },
+        contentQuality: 'No answer was provided for this cue card question.',
+        strengths: [],
+        weaknesses: [
+          'No speech detected. Ensure your microphone is unmuted and speak clearly.'
+        ],
+        sampleAnswer: question.demoResponse.sampleAnswer,
+        practiceTips: [
+          'Unmute your microphone and grant browser permission.',
+          'Speak clearly into your microphone for at least 1 to 2 minutes.'
+        ]
+      };
+    }
+
+    const wpm = durationSecs > 0 ? Math.round((wordCount / durationSecs) * 60) : 115;
+
+    // Dynamic band score calculation based on word count & WPM variance
+    let overallScore = 7.5;
+    let fluencyScore = 7.5;
+    let lexicalScore = 7.0;
+    let grammarScore = 6.5;
+    let pronScore = 7.0;
+
+    if (wordCount >= 45) {
+      overallScore = 8.0;
+      fluencyScore = 8.0;
+      lexicalScore = 8.0;
+      grammarScore = 7.5;
+      pronScore = 8.0;
+    } else if (wordCount >= 25) {
+      overallScore = 7.5;
+      fluencyScore = 7.5;
+      lexicalScore = 7.5;
+      grammarScore = 7.0;
+      pronScore = 7.5;
+    } else if (wordCount >= 12) {
+      overallScore = 6.5;
+      fluencyScore = 6.5;
+      lexicalScore = 6.5;
+      grammarScore = 6.0;
+      pronScore = 6.5;
+    } else {
+      overallScore = 5.5;
+      fluencyScore = 5.5;
+      lexicalScore = 5.5;
+      grammarScore = 5.0;
+      pronScore = 6.0;
+    }
+
+    return {
+      overall: overallScore,
+      fluency: {
+        score: fluencyScore,
+        feedback: `Captured ${wordCount} words at ~${wpm} WPM. ${wpm > 120 ? 'Fluent natural flow with minimal hesitation.' : 'Steady pace with slight vocabulary pauses.'}`
+      },
+      lexical: {
+        score: lexicalScore,
+        goodWords: question.demoResponse.lexical.goodWords,
+        replacements: question.demoResponse.lexical.replacements
+      },
+      grammar: {
+        score: grammarScore,
+        corrections: question.demoResponse.grammar.corrections
+      },
+      pronunciation: {
+        score: pronScore,
+        difficultWords: question.demoResponse.pronunciation.difficultWords
+      },
+      contentQuality: `Responded to cue card prompts with ${wordCount} words captured.`,
+      strengths: [
+        `Speech speed: ~${wpm} WPM (${wordCount} words)`,
+        `Clear topic context for "${question.title.split(' ')[1]} ${question.title.split(' ')[2]}"`,
+        'Confident articulation & natural cadence'
+      ],
+      weaknesses: [
+        'Practice using past perfect tense connectors like "furthermore"',
+        'Incorporate 1-2 idiomatic expressions'
+      ],
+      sampleAnswer: question.demoResponse.sampleAnswer,
+      practiceTips: question.demoResponse.practiceTips
+    };
+  };
+
   const handleStopRecording = () => {
     if (recognitionRef.current) {
       try {
@@ -311,6 +439,11 @@ export default function AISpeakingDemo() {
     }
     setIsRecording(false);
     setStep(4);
+
+    // Generate dynamic real-time report for this specific attempt
+    const report = generateDynamicEvaluation(activeQuestion, liveTranscript, timerSeconds);
+    setDynamicReport(report);
+
     // Simulate AI Examiner Evaluation Delay
     setTimeout(() => {
       setStep(5);
@@ -407,18 +540,10 @@ export default function AISpeakingDemo() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => speakAIVoice(activeQuestion.title)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-950/60 border border-cyan-800 text-xs font-extrabold text-cyan-300 hover:text-white cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-950/60 border border-cyan-800 text-xs font-extrabold text-cyan-300 hover:text-white cursor-pointer"
             >
               <Volume2 className={`w-3.5 h-3.5 ${isSpeakingVoice ? 'animate-bounce text-cyan-400' : ''}`} />
               <span>{isSpeakingVoice ? 'Speaking...' : 'Play AI Voice'}</span>
-            </button>
-
-            <button
-              onClick={handleReset}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-extrabold text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-700"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-[#0097B2]" />
-              <span>Reset Demo</span>
             </button>
           </div>
         </div>
@@ -706,7 +831,9 @@ export default function AISpeakingDemo() {
               )}
 
               {/* Step 5: Full Evaluation Report */}
-              {step === 5 && (
+              {step === 5 && (() => {
+                const activeResponse = dynamicReport || activeQuestion.demoResponse;
+                return (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -718,10 +845,12 @@ export default function AISpeakingDemo() {
                       <span className="text-[10px] font-black uppercase text-slate-400 block tracking-wider">
                         OVERALL BAND SCORE
                       </span>
-                      <span className="text-xs font-bold text-emerald-400">Good Competent Speaker</span>
+                      <span className="text-xs font-bold text-emerald-400">
+                        {activeResponse.overall >= 8.0 ? 'Expert Speaker' : activeResponse.overall >= 7.0 ? 'Good Competent Speaker' : 'Modest Speaker'}
+                      </span>
                     </div>
                     <div className="flex items-baseline gap-1 bg-[#0097B2]/20 px-3.5 py-1.5 rounded-xl border border-[#0097B2]/40">
-                      <span className="text-2xl font-black text-cyan-300">{activeQuestion.demoResponse.overall}</span>
+                      <span className="text-2xl font-black text-cyan-300">{activeResponse.overall}</span>
                       <span className="text-[10px] text-slate-400 font-bold">/ 9.0</span>
                     </div>
                   </div>
@@ -730,19 +859,19 @@ export default function AISpeakingDemo() {
                   <div className="grid grid-cols-2 gap-2">
                     <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                       <span className="text-[10px] font-bold text-slate-400 block">Fluency & Coherence</span>
-                      <span className="font-black text-cyan-300 text-sm">{activeQuestion.demoResponse.fluency.score}</span>
+                      <span className="font-black text-cyan-300 text-sm">{activeResponse.fluency.score}</span>
                     </div>
                     <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                       <span className="text-[10px] font-bold text-slate-400 block">Lexical Resource</span>
-                      <span className="font-black text-emerald-400 text-sm">{activeQuestion.demoResponse.lexical.score}</span>
+                      <span className="font-black text-emerald-400 text-sm">{activeResponse.lexical.score}</span>
                     </div>
                     <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                       <span className="text-[10px] font-bold text-slate-400 block">Grammar Accuracy</span>
-                      <span className="font-black text-amber-400 text-sm">{activeQuestion.demoResponse.grammar.score}</span>
+                      <span className="font-black text-amber-400 text-sm">{activeResponse.grammar.score}</span>
                     </div>
                     <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                       <span className="text-[10px] font-bold text-slate-400 block">Pronunciation</span>
-                      <span className="font-black text-emerald-400 text-sm">{activeQuestion.demoResponse.pronunciation.score}</span>
+                      <span className="font-black text-emerald-400 text-sm">{activeResponse.pronunciation.score}</span>
                     </div>
                   </div>
 
@@ -752,7 +881,7 @@ export default function AISpeakingDemo() {
                       📝 Side-by-Side Grammar Corrections
                     </span>
                     <div className="space-y-1.5 text-[11px]">
-                      {activeQuestion.demoResponse.grammar.corrections.map((item, idx) => (
+                      {activeResponse.grammar.corrections.map((item, idx) => (
                         <div key={idx} className="p-2 rounded-lg bg-slate-900 border border-slate-800 space-y-0.5">
                           <div className="text-slate-400 line-through">Your Sentence: "{item.original}"</div>
                           <div className="text-emerald-400 font-bold">Better Version: "{item.better}"</div>
@@ -767,7 +896,7 @@ export default function AISpeakingDemo() {
                       📚 Vocabulary Upgrades
                     </span>
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      {activeQuestion.demoResponse.lexical.replacements.map((rep, idx) => (
+                      {activeResponse.lexical.replacements.map((rep, idx) => (
                         <div key={idx} className="p-2 rounded-lg bg-slate-900 border border-slate-800">
                           <span className="text-slate-400 line-through block">{rep.original}</span>
                           <span className="text-cyan-300 font-bold">↓ {rep.replacement}</span>
@@ -782,7 +911,7 @@ export default function AISpeakingDemo() {
                       ✨ Band 8.5+ Model Answer
                     </span>
                     <p className="text-[11px] text-slate-300 italic leading-relaxed bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-                      "{activeQuestion.demoResponse.sampleAnswer}"
+                      "{activeResponse.sampleAnswer}"
                     </p>
                   </div>
 
@@ -792,7 +921,7 @@ export default function AISpeakingDemo() {
                       ✓ Key Strengths
                     </span>
                     <ul className="space-y-1 text-[11px] text-slate-300">
-                      {activeQuestion.demoResponse.strengths.map((str, i) => (
+                      {activeResponse.strengths.map((str, i) => (
                         <li key={i} className="flex items-center gap-1.5">
                           <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                           <span>{str}</span>
@@ -807,7 +936,7 @@ export default function AISpeakingDemo() {
                       💡 Actionable Practice Tips
                     </span>
                     <ul className="space-y-1 text-[11px] text-slate-300">
-                      {activeQuestion.demoResponse.practiceTips.map((tip, i) => (
+                      {activeResponse.practiceTips.map((tip, i) => (
                         <li key={i} className="flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                           <span>{tip}</span>
@@ -817,7 +946,8 @@ export default function AISpeakingDemo() {
                   </div>
 
                 </motion.div>
-              )}
+                );
+              })()}
 
             </div>
           </div>
