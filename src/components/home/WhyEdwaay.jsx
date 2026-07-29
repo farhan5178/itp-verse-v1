@@ -7,7 +7,6 @@ import {
   Calendar,
   BarChart3,
   Brain,
-  Sparkles,
   Mic,
   Clock,
   Check,
@@ -127,7 +126,7 @@ function AISpeakingPartnerPreview() {
           </div>
           <div>
             <h4 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-              AI Speaking Coach <Sparkles className="w-4 h-4 text-amber-500" />
+              AI Speaking Coach
             </h4>
             <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium">IELTS Speaking Part 2</p>
           </div>

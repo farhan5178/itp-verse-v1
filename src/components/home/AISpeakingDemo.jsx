@@ -1,151 +1,352 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mic,
-  Sparkles,
+  MicOff,
   Play,
-  RotateCcw,
-  CheckCircle2,
-  TrendingUp,
-  User,
+  Pause,
+  Square,
   Bot,
+  User,
   Activity,
   Award,
-  Volume2,
-  Check,
-  Brain,
-  ShieldCheck,
-  Square,
-  RefreshCw,
+  CheckCircle2,
+  AlertCircle,
+  RotateCcw,
   Send,
-  Sliders
+  ChevronRight,
+  BookOpen,
+  ArrowRight,
+  Volume2,
+  Flame,
+  MessageSquare,
+  HelpCircle,
+  Check,
+  Zap,
+  TrendingUp,
+  VolumeX
 } from 'lucide-react';
 
-const topicsList = [
+/* ── IELTS Question Bank ── */
+const questionBank = [
   {
-    id: 'hometown',
-    title: 'Hometown',
-    question: 'Tell me about your hometown.',
-    studentText: '"Well, my hometown is Dhaka, which is the capital of Bangladesh. It is a very vibrant city with lots of people and rich historical places."',
-    scores: { overall: 6.5, pronunciation: 7.0, grammar: 6.0, fluency: 6.5, vocabulary: 7.0 },
-    suggestions: [
-      'Speak slower: Pacing in Part 1 was slightly rushed.',
-      'Use linking words: Connect ideas with "however", "furthermore".',
-      'Expand your answers: Add 1 supporting detail or example.'
-    ]
+    id: 1,
+    title: 'Describe a memorable journey you had.',
+    bullets: [
+      'Where you went',
+      'Who you went with',
+      'What happened during the trip',
+      'Why it was memorable'
+    ],
+    sampleTranscript: "Last year, I visited Cox's Bazar with my family. We went there by train and stayed at a beachside resort. The sunset was breathtaking and we enjoyed fresh seafood. It was memorable because it was our first family vacation after two years.",
+    demoResponse: {
+      overall: 7.5,
+      fluency: { score: 7.5, feedback: 'You spoke confidently with good natural flow. Minor hesitation while searching for vocabulary.' },
+      lexical: {
+        score: 7.0,
+        goodWords: ['memorable', 'breathtaking', 'unforgettable', 'resort'],
+        replacements: [
+          { original: 'very beautiful', replacement: 'spectacular' },
+          { original: 'good food', replacement: 'delectable seafood' }
+        ]
+      },
+      grammar: {
+        score: 6.5,
+        corrections: [
+          { original: 'I go there last year with family.', better: 'I went there last year with my family.' },
+          { original: 'It very beautiful sunset.', better: 'It was a very beautiful sunset.' }
+        ]
+      },
+      pronunciation: {
+        score: 7.0,
+        difficultWords: [
+          { word: 'journey', phonetic: '/ˈdʒɜː.ni/', tip: 'Emphasis on first syllable "JOUR-ney"' },
+          { word: 'memorable', phonetic: '/ˈmem.ər.ə.bəl/', tip: 'Light sound on "ora-ble"' }
+        ]
+      },
+      contentQuality: 'You answered all 4 cue card prompts effectively with good descriptive details.',
+      strengths: [
+        'Good fluency and narrative pacing',
+        'Clear pronunciation with natural intonation',
+        'Effective topic-specific vocabulary'
+      ],
+      weaknesses: [
+        'Past tense consistency in complex sentences',
+        'Repetition of simple adjectives like "very beautiful"',
+        'Could expand more on emotional impact'
+      ],
+      sampleAnswer: "Last year, I embarked on a memorable journey to Cox's Bazar accompanied by my family. We travelled by train, taking in the scenic countryside before arriving at our seaside resort. What made the trip truly unforgettable was the breathtaking sunset over the Bay of Bengal. This journey holds special significance as it brought our family together after a long period.",
+      practiceTips: [
+        'Practice using connectors like "furthermore" and "consequently".',
+        'Use idiomatic expressions like "took my breath away".',
+        'Focus on past perfect tense for background events.'
+      ]
+    }
   },
   {
-    id: 'work',
-    title: 'Work & Studies',
-    question: 'What do you find most interesting about your work or studies?',
-    studentText: '"I find solving complex problems and collaborating with my team very rewarding. It gives me continuous learning opportunities every day."',
-    scores: { overall: 7.5, pronunciation: 8.0, grammar: 7.0, fluency: 7.5, vocabulary: 7.5 },
-    suggestions: [
-      'Excellent intonation: Natural cadence throughout.',
-      'Vocabulary range: Good use of "collaborating" and "rewarding".',
-      'Grammar precision: Use more complex conditional clauses.'
-    ]
+    id: 2,
+    title: 'Describe your favorite teacher.',
+    bullets: [
+      'Who this teacher was',
+      'What subject they taught',
+      'What made their teaching special',
+      'How they influenced your life'
+    ],
+    sampleTranscript: "I would like to talk about my high school English teacher, Mr. Rahman. He taught us English literature with great enthusiasm. He used storytelling to explain complex grammar and inspired me to pursue higher education.",
+    demoResponse: {
+      overall: 8.0,
+      fluency: { score: 8.0, feedback: 'Excellent coherence and smooth transitions between points.' },
+      lexical: {
+        score: 8.0,
+        goodWords: ['enthusiasm', 'literature', 'inspired', 'captivating'],
+        replacements: [
+          { original: 'good teacher', replacement: 'exceptional educator' }
+        ]
+      },
+      grammar: {
+        score: 7.5,
+        corrections: [
+          { original: 'He make learning very easy.', better: 'He made learning effortless.' }
+        ]
+      },
+      pronunciation: {
+        score: 8.0,
+        difficultWords: [
+          { word: 'enthusiasm', phonetic: '/ɪnˈθjuː.zi.æz.əm/', tip: 'Soft "th" sound' }
+        ]
+      },
+      contentQuality: 'Comprehensive coverage of all bullet points with clear personal connection.',
+      strengths: ['Advanced lexical resource', 'Strong grammatical range'],
+      weaknesses: ['Minor pause before technical terms'],
+      sampleAnswer: "I would like to express my gratitude towards my high school English instructor, Mr. Rahman. His captivating teaching methodology transformed complex literature into memorable life lessons.",
+      practiceTips: ['Maintain this level of natural discourse pacing.']
+    }
   },
   {
-    id: 'hobbies',
-    title: 'Hobbies & Free Time',
-    question: 'How do you usually spend your weekends?',
-    studentText: '"During weekends, I enjoy reading books and playing football with my friends. It helps me relax after a long hectic week."',
-    scores: { overall: 7.0, pronunciation: 7.0, grammar: 7.0, fluency: 7.0, vocabulary: 7.0 },
-    suggestions: [
-      'Good fluency: Smooth transitions between sentences.',
-      'Pronunciation tip: Pay attention to stress on multi-syllable words.',
-      'Elaborate more: Give a specific book title or favorite sports team.'
-    ]
+    id: 3,
+    title: 'Describe a city you would like to visit.',
+    bullets: [
+      'Which city it is',
+      'Where it is located',
+      'What you know about this city',
+      'Why you want to visit it'
+    ],
+    sampleTranscript: "A city I dream of visiting is Tokyo, Japan. It is known for its blend of futuristic technology and rich traditional culture. I want to explore Shibuya Crossing and try authentic ramen.",
+    demoResponse: {
+      overall: 7.0,
+      fluency: { score: 7.0, feedback: 'Good flow with clear enthusiasm.' },
+      lexical: {
+        score: 7.5,
+        goodWords: ['futuristic', 'authentic', 'blend', 'tradition'],
+        replacements: [{ original: 'nice city', replacement: 'vibrant metropolis' }]
+      },
+      grammar: {
+        score: 6.5,
+        corrections: [{ original: 'I want go there since long time.', better: 'I have wanted to visit it for a long time.' }]
+      },
+      pronunciation: { score: 7.0, difficultWords: [{ word: 'futuristic', phonetic: '/ˌfjuː.tʃəˈrɪs.tɪk/', tip: 'Stress on "RIS"' }] },
+      contentQuality: 'Well explained rationale for visiting.',
+      strengths: ['Great topic vocabulary', 'Good vocal energy'],
+      weaknesses: ['Present perfect tense practice needed'],
+      sampleAnswer: "A metropolis I have always aspired to explore is Tokyo. Renowned for seamlessly blending futuristic innovations with centuries-old traditions, it offers an incomparable urban experience.",
+      practiceTips: ['Use complex compound sentences.']
+    }
   }
 ];
 
 export default function AISpeakingDemo() {
-  const [selectedTopic, setSelectedTopic] = useState(topicsList[0]);
-  const [mode, setMode] = useState('demo'); // 'demo' or 'interactive'
-  const [step, setStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  // Live mic interactive recording state
+  // Active state stages:
+  // step 1: Greeting & Intro Card
+  // step 2: Question Prompt & Prep
+  // step 3: Active Recording & Live Transcription
+  // step 4: AI Analysis & Processing
+  // step 5: Full 3-Panel Evaluation Dashboard
+  const [step, setStep] = useState(1);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  
+  // Recording & Web Speech API controls
   const [isRecording, setIsRecording] = useState(false);
-  const [recordTime, setRecordTime] = useState(0);
-  const [customText, setCustomText] = useState('');
-  const [isEvaluating, setIsEvaluating] = useState(false);
-  const [evaluationDone, setEvaluationDone] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [timerSeconds, setTimerSeconds] = useState(0);
+  const [liveTranscript, setLiveTranscript] = useState('');
+  const [isSpeakingVoice, setIsSpeakingVoice] = useState(false);
+  const [webSpeechSupported, setWebSpeechSupported] = useState(true);
 
-  // Auto-play demo timer sequence
+  // Active error highlight filter state
+  const [selectedHighlight, setSelectedHighlight] = useState(null);
+
+  const activeQuestion = questionBank[currentQuestionIndex];
+  const recognitionRef = useRef(null);
+
+  // Check Web Speech API availability
   useEffect(() => {
-    if (mode !== 'demo' || !isPlaying) return;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setWebSpeechSupported(false);
+    }
+  }, []);
 
-    setStep(0);
-    const timer1 = setTimeout(() => setStep(1), 600);
-    const timer2 = setTimeout(() => setStep(2), 2200);
-    const timer3 = setTimeout(() => setStep(3), 4500);
-    const timer4 = setTimeout(() => setStep(4), 7000);
-    const timer5 = setTimeout(() => setStep(5), 9200);
+  // Free Native Text-to-Speech (TTS) for AI Examiner Voice
+  const speakAIVoice = (text) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // stop previous voice
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95; // Natural pace
+      utterance.pitch = 1.0;
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
-      clearTimeout(timer5);
-    };
-  }, [selectedTopic, mode, isPlaying]);
+      // Select English British or American Voice
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => v.lang.includes('en-GB') || v.lang.includes('en-US')) || voices[0];
+      if (preferredVoice) utterance.voice = preferredVoice;
 
-  // Recording timer effect
+      utterance.onstart = () => setIsSpeakingVoice(true);
+      utterance.onend = () => setIsSpeakingVoice(false);
+      utterance.onerror = () => setIsSpeakingVoice(false);
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  // Timer tick effect
   useEffect(() => {
     let interval = null;
-    if (isRecording) {
+    if (isRecording && !isPaused) {
       interval = setInterval(() => {
-        setRecordTime((prev) => prev + 1);
+        setTimerSeconds((prev) => {
+          if (prev >= 120) {
+            handleStopRecording();
+            return 120;
+          }
+          return prev + 1;
+        });
       }, 1000);
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isRecording]);
+  }, [isRecording, isPaused]);
 
-  const handleStartRecording = () => {
-    setIsRecording(true);
-    setRecordTime(0);
-    setEvaluationDone(false);
-  };
+  // Handle Free Real-time Web Speech Recognition (STT)
+  const startLiveSpeechRecognition = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      try {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
 
-  const handleStopAndEvaluate = () => {
-    setIsRecording(false);
-    setIsEvaluating(true);
-    setTimeout(() => {
-      setIsEvaluating(false);
-      setEvaluationDone(true);
-    }, 2000);
-  };
+        recognition.onresult = (event) => {
+          let currentSpeechText = '';
+          for (let i = 0; i < event.results.length; i++) {
+            currentSpeechText += event.results[i][0].transcript + ' ';
+          }
+          setLiveTranscript(currentSpeechText.trim());
+        };
 
-  const handleTopicChange = (topic) => {
-    setSelectedTopic(topic);
-    setEvaluationDone(false);
-    if (mode === 'demo') {
-      setStep(0);
-      setIsPlaying(false);
-      setTimeout(() => setIsPlaying(true), 50);
+        recognition.onerror = (err) => {
+          console.log('Web Speech API Error, using fallback transcript:', err);
+        };
+
+        recognition.start();
+        recognitionRef.current = recognition;
+      } catch (e) {
+        console.log('Speech recognition init error:', e);
+      }
     }
   };
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  // Live transcript typing simulation fallback if mic is quiet or unsupported
+  useEffect(() => {
+    if (isRecording && !isPaused && (!liveTranscript || !webSpeechSupported)) {
+      const fullText = activeQuestion.sampleTranscript;
+      let currentIndex = 0;
+      const textInterval = setInterval(() => {
+        if (currentIndex < fullText.length) {
+          setLiveTranscript((prev) => {
+            if (prev && webSpeechSupported) return prev;
+            return fullText.slice(0, currentIndex + 6);
+          });
+          currentIndex += 4;
+        } else {
+          clearInterval(textInterval);
+        }
+      }, 140);
+      return () => clearInterval(textInterval);
+    }
+  }, [isRecording, isPaused, activeQuestion, webSpeechSupported]);
+
+  const handleStartDemo = () => {
+    setStep(2);
+    // Free AI Voice Speaks the Question!
+    speakAIVoice(`Hello! Welcome to Edwaay AI Speaking Practice. Here is your question: ${activeQuestion.title}`);
+  };
+
+  const handleBeginRecording = () => {
+    window.speechSynthesis?.cancel(); // Stop AI voice if playing
+    setStep(3);
+    setIsRecording(true);
+    setIsPaused(false);
+    setTimerSeconds(0);
+    setLiveTranscript('');
+    startLiveSpeechRecognition();
+  };
+
+  const handleTogglePause = () => {
+    setIsPaused(!isPaused);
+    if (recognitionRef.current) {
+      if (!isPaused) {
+        recognitionRef.current.stop();
+      } else {
+        startLiveSpeechRecognition();
+      }
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {}
+    }
+    setIsRecording(false);
+    setStep(4);
+    // Simulate AI Examiner Evaluation Delay
+    setTimeout(() => {
+      setStep(5);
+    }, 2200);
+  };
+
+  const handleReset = () => {
+    window.speechSynthesis?.cancel();
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {}
+    }
+    setStep(1);
+    setIsRecording(false);
+    setIsPaused(false);
+    setTimerSeconds(0);
+    setLiveTranscript('');
+    setSelectedHighlight(null);
+  };
+
+  const formatTimer = (secs) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white py-20 lg:py-32 border-t border-slate-800">
-      {/* Background soft glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#0097B2]/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <section className="relative overflow-hidden bg-slate-950 text-white py-16 sm:py-24 lg:py-32 border-t border-slate-800">
+      {/* Background Ambient Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#0097B2]/15 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[400px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ── Section Header ── */}
+        {/* ── Section Title & Badge ── */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -153,8 +354,7 @@ export default function AISpeakingDemo() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0097B2]/15 border border-[#0097B2]/30 text-[#0097B2] dark:text-cyan-300 text-xs font-black tracking-widest uppercase mb-4"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Interactive AI Speaking Demo</span>
+            <span>Edwaay Free AI Speaking Engine</span>
           </motion.div>
 
           <motion.h2
@@ -166,7 +366,7 @@ export default function AISpeakingDemo() {
           >
             Practice Speaking with <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-[#0097B2] via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-              Real-Time Dynamic AI Evaluation
+              Free Live Voice Recognition
             </span>
           </motion.h2>
 
@@ -177,396 +377,447 @@ export default function AISpeakingDemo() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-base sm:text-lg text-slate-400 font-medium leading-relaxed"
           >
-            Select a topic or record your own voice live to experience instant AI IELTS band score grading!
+            Speak directly into your microphone for free live speech-to-text transcription, voice questions, and instant IELTS band score feedback!
           </motion.p>
         </div>
 
-        {/* ── Mode & Topic Selector Controls ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/90 p-3 sm:p-4 rounded-3xl border border-slate-800 mb-10 shadow-xl max-w-4xl mx-auto">
-          
-          {/* Mode Switcher Buttons */}
-          <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto justify-center">
-            <button
-              onClick={() => { setMode('demo'); setEvaluationDone(false); setIsPlaying(true); }}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
-                mode === 'demo'
-                  ? 'bg-[#0097B2] text-white shadow-md shadow-[#0097B2]/30'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Play className="w-3.5 h-3.5" />
-              <span>Auto Demo</span>
-            </button>
-            <button
-              onClick={() => { setMode('interactive'); setEvaluationDone(false); }}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
-                mode === 'interactive'
-                  ? 'bg-[#0097B2] text-white shadow-md shadow-[#0097B2]/30'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Mic className="w-3.5 h-3.5" />
-              <span>Interactive Live Mic Mode</span>
-            </button>
-          </div>
-
-          {/* Topic Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto justify-center sm:justify-end pb-1 sm:pb-0">
-            {topicsList.map((topic) => (
+        {/* ── Question Selector & Reset Bar ── */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/90 p-3.5 sm:p-4 rounded-3xl border border-slate-800 mb-10 shadow-2xl max-w-5xl mx-auto">
+          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+            <span className="text-xs font-bold text-slate-400 shrink-0 px-2">Question Bank:</span>
+            {questionBank.map((q, idx) => (
               <button
-                key={topic.id}
-                onClick={() => handleTopicChange(topic)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer shrink-0 border ${
-                  selectedTopic.id === topic.id
-                    ? 'bg-slate-800 border-[#0097B2] text-cyan-300 shadow-md'
-                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                key={q.id}
+                onClick={() => {
+                  setCurrentQuestionIndex(idx);
+                  if (step > 2) handleReset();
+                  speakAIVoice(`Question: ${q.title}`);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all shrink-0 cursor-pointer border ${
+                  currentQuestionIndex === idx
+                    ? 'bg-[#0097B2] text-white border-cyan-400 shadow-md'
+                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
                 }`}
               >
-                {topic.title}
+                Q{q.id}: {q.title.split(' ')[1]} {q.title.split(' ')[2]}
               </button>
             ))}
           </div>
 
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => speakAIVoice(activeQuestion.title)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-950/60 border border-cyan-800 text-xs font-extrabold text-cyan-300 hover:text-white cursor-pointer"
+            >
+              <Volume2 className={`w-3.5 h-3.5 ${isSpeakingVoice ? 'animate-bounce text-cyan-400' : ''}`} />
+              <span>{isSpeakingVoice ? 'Speaking...' : 'Play AI Voice'}</span>
+            </button>
+
+            <button
+              onClick={handleReset}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-extrabold text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-700"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#0097B2]" />
+              <span>Reset Demo</span>
+            </button>
+          </div>
         </div>
 
-        {/* ── Main 2-Side Column Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+
+        {/* ── MAIN 3-PANEL INTERACTIVE INTERFACE ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* ── LEFT COLUMN: Student / Human Side ── */}
-          <div className="lg:col-span-6 flex flex-col">
-            <div className="relative flex-1 rounded-3xl bg-slate-900/80 border border-slate-800 p-6 sm:p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl">
+          {/* ─────────────────────────────────────────────────────────────
+              LEFT PANEL: AI Examiner Avatar, Prompt & Controls
+          ───────────────────────────────────────────────────────────── */}
+          <div className="lg:col-span-4 flex flex-col space-y-6">
+            
+            {/* AI Instructor & Prompt Card */}
+            <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 shadow-2xl backdrop-blur-xl space-y-6">
               
-              <div>
-                {/* Header Badge */}
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
-                      <User className="w-6 h-6" />
-                      <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-slate-900" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-black text-white flex items-center gap-2">
-                        Student (You)
-                      </h3>
-                      <span className="text-xs font-semibold text-slate-400">
-                        {mode === 'interactive' ? 'Live Mic Input' : 'Auto Candidate'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Mic / Live Recording Indicator */}
-                  <div className={`px-3 py-1.5 rounded-full flex items-center gap-2 border text-xs font-extrabold transition-all ${
-                    isRecording || (mode === 'demo' && (step === 3 || step === 1))
-                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                      : 'bg-slate-800 border-slate-700 text-slate-400'
-                  }`}>
-                    <Mic className={`w-3.5 h-3.5 ${isRecording || (mode === 'demo' && step === 3) ? 'animate-bounce text-emerald-400' : ''}`} />
-                    <span>
-                      {isRecording 
-                        ? `Recording (${formatTime(recordTime)})`
-                        : mode === 'demo' && step === 3 
-                          ? 'Speaking...' 
-                          : 'Mic Ready'}
-                    </span>
-                  </div>
+              {/* Header: Avatar */}
+              <div className="flex items-center gap-3.5 pb-4 border-b border-slate-800">
+                <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#0097B2] to-teal-400 flex items-center justify-center text-white shadow-lg shadow-[#0097B2]/30">
+                  <Bot className="w-7 h-7" />
+                  <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 animate-pulse" />
                 </div>
-
-                {/* MODE A: AUTO DEMO FLOW */}
-                {mode === 'demo' && (
-                  <div className="space-y-4">
-                    <AnimatePresence>
-                      {step >= 1 && (
-                        <motion.div
-                          initial={{ opacity: 0, x: -16 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="bg-[#0097B2]/15 border border-[#0097B2]/30 p-4 rounded-2xl text-sm font-medium text-slate-100"
-                        >
-                          <p className="text-xs font-bold text-[#0097B2] mb-1">Student:</p>
-                          "I want to improve my speaking..."
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    <AnimatePresence>
-                      {step >= 3 && (
-                        <motion.div
-                          initial={{ opacity: 0, x: -16 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="bg-[#0097B2]/20 border border-[#0097B2]/40 p-4 sm:p-5 rounded-2xl text-sm font-medium text-white space-y-3"
-                        >
-                          <div className="flex items-center justify-between">
-                            <p className="text-xs font-extrabold text-cyan-300 flex items-center gap-1.5">
-                              <Volume2 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-                              Answering: {selectedTopic.title}
-                            </p>
-                            <span className="text-[10px] font-mono text-slate-400">Live Voice Stream</span>
-                          </div>
-
-                          <p className="leading-relaxed text-sm italic">
-                            {selectedTopic.studentText}
-                          </p>
-
-                          <div className="flex items-center gap-1 h-6 pt-1">
-                            {[40, 85, 60, 100, 75, 45, 90, 65, 95, 50, 80, 40, 70, 90].map((h, i) => (
-                              <motion.span
-                                key={i}
-                                animate={{ height: step === 3 ? [`${h}%`, `${100 - h}%`, `${h}%`] : '30%' }}
-                                transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.08 }}
-                                className="w-1 bg-cyan-400 rounded-full"
-                              />
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-
-                {/* MODE B: INTERACTIVE LIVE MIC / INPUT MODE */}
-                {mode === 'interactive' && (
-                  <div className="space-y-5">
-                    <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
-                      <div className="flex items-center justify-between text-xs font-bold text-slate-300">
-                        <span>Selected Question:</span>
-                        <span className="text-[#0097B2]">{selectedTopic.title}</span>
-                      </div>
-                      <p className="text-sm font-bold text-white bg-slate-900 p-3 rounded-xl border border-slate-800">
-                        "{selectedTopic.question}"
-                      </p>
-                    </div>
-
-                    {/* Mic Record Buttons */}
-                    <div className="space-y-3">
-                      {!isRecording ? (
-                        <button
-                          onClick={handleStartRecording}
-                          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0097B2] to-cyan-500 hover:from-[#00849c] hover:to-cyan-600 text-white font-black text-sm shadow-xl shadow-[#0097B2]/25 flex items-center justify-center gap-3 cursor-pointer transition-all"
-                        >
-                          <Mic className="w-5 h-5 animate-pulse" />
-                          <span>Click to Start Recording Voice</span>
-                        </button>
-                      ) : (
-                        <button
-                          onClick={handleStopAndEvaluate}
-                          className="w-full py-4 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-black text-sm shadow-xl shadow-rose-500/30 flex items-center justify-center gap-3 cursor-pointer transition-all animate-pulse"
-                        >
-                          <Square className="w-5 h-5 fill-white" />
-                          <span>Stop Recording & Evaluate ({formatTime(recordTime)})</span>
-                        </button>
-                      )}
-                    </div>
-
-                    {/* Custom Text Box alternative */}
-                    <div className="space-y-2 pt-2">
-                      <label className="text-xs font-bold text-slate-400 block">
-                        Or type your speech text:
-                      </label>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={customText}
-                          onChange={(e) => setCustomText(e.target.value)}
-                          placeholder="e.g. My hometown is Sylhet, famous for tea gardens..."
-                          className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#0097B2]"
-                        />
-                        <button
-                          onClick={() => {
-                            if (!customText) return;
-                            setIsEvaluating(true);
-                            setTimeout(() => {
-                              setIsEvaluating(false);
-                              setEvaluationDone(true);
-                            }, 1800);
-                          }}
-                          className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-cyan-300 flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Send className="w-3.5 h-3.5" />
-                          <span>Submit</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <div>
+                  <h3 className="text-base font-black text-white flex items-center gap-1.5">
+                    Edwaay AI Examiner
+                  </h3>
+                  <span className="text-xs font-semibold text-[#0097B2]">Free Web Speech API Powered</span>
+                </div>
               </div>
 
-              {/* Bottom Visual Tag */}
-              <div className="mt-8 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 font-medium">
-                <span className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  <span>Real-time voice capture engine</span>
-                </span>
-                <span className="text-slate-500">IELTS Speaking Simulator</span>
+              {/* Step 1: Greeting Speech Bubble */}
+              {step === 1 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="space-y-4"
+                >
+                  <div className="bg-slate-800/90 p-4 rounded-2xl border border-slate-700/80 text-xs sm:text-sm text-slate-200 leading-relaxed font-medium space-y-2">
+                    <p className="text-[#0097B2] font-bold">Hello! Welcome to Edwaay AI Speaking Practice.</p>
+                    <p>Today I'll ask you a speaking question. Please answer naturally as if you were talking to a real examiner.</p>
+                    <p className="text-cyan-300 font-semibold">You can speak for up to 2 minutes. Are you ready?</p>
+                  </div>
+
+                  <button
+                    onClick={handleStartDemo}
+                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0097B2] to-cyan-500 hover:from-[#00849c] hover:to-cyan-600 text-white font-black text-sm shadow-xl shadow-[#0097B2]/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  >
+                    <span>Start AI Speaking Demo</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </motion.div>
+              )}
+
+              {/* Step 2+: Question Cue Card Display */}
+              {step >= 2 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-4"
+                >
+                  <div className="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[#0097B2]">
+                        IELTS SPEAKING PART 2 CUE CARD
+                      </span>
+                      <button
+                        onClick={() => speakAIVoice(activeQuestion.title)}
+                        className="text-slate-400 hover:text-cyan-300"
+                        title="Listen to question"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <h4 className="text-base font-black text-white leading-snug">
+                      "{activeQuestion.title}"
+                    </h4>
+
+                    <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
+                      <span className="text-[11px] font-bold text-slate-400 block">You should say:</span>
+                      <ul className="space-y-1 text-xs text-slate-300">
+                        {activeQuestion.bullets.map((b, i) => (
+                          <li key={i} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0097B2]" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Timer & Controls */}
+                  {step === 2 && (
+                    <button
+                      onClick={handleBeginRecording}
+                      className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0097B2] to-cyan-500 hover:from-[#00849c] hover:to-cyan-600 text-white font-black text-sm shadow-xl shadow-[#0097B2]/25 flex items-center justify-center gap-2 cursor-pointer transition-all animate-pulse"
+                    >
+                      <Mic className="w-5 h-5" />
+                      <span>Start Live Mic Recording</span>
+                    </button>
+                  )}
+
+                  {step >= 3 && (
+                    <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-center">
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                        <span>Speaking Timer:</span>
+                        <span className="text-cyan-400 font-mono text-sm">{formatTimer(timerSeconds)} / 02:00</span>
+                      </div>
+
+                      {/* Live Waveform Indicator */}
+                      <div className="flex items-center justify-center gap-1.5 h-8">
+                        {[40, 85, 60, 100, 75, 45, 90, 65, 95, 50, 80, 40, 70, 90, 60].map((h, i) => (
+                          <motion.span
+                            key={i}
+                            animate={{ height: isRecording && !isPaused ? [`${h}%`, `${100 - h}%`, `${h}%`] : '20%' }}
+                            transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.06 }}
+                            className="w-1 bg-[#0097B2] rounded-full"
+                          />
+                        ))}
+                      </div>
+
+                      {/* Interactive Controls (Pause/Resume & Stop) */}
+                      {step === 3 && (
+                        <div className="flex gap-2 pt-2">
+                          <button
+                            onClick={handleTogglePause}
+                            className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 flex items-center justify-center gap-1.5 cursor-pointer"
+                          >
+                            {isPaused ? <Play className="w-3.5 h-3.5 text-emerald-400" /> : <Pause className="w-3.5 h-3.5 text-amber-400" />}
+                            <span>{isPaused ? 'Resume' : 'Pause'}</span>
+                          </button>
+
+                          <button
+                            onClick={handleStopRecording}
+                            className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-black text-white flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-rose-600/30"
+                          >
+                            <Square className="w-3.5 h-3.5 fill-white" />
+                            <span>Submit Answer</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+            </div>
+          </div>
+
+
+          {/* ─────────────────────────────────────────────────────────────
+              CENTER PANEL: Live Speech-to-Text Transcript & Highlighting
+          ───────────────────────────────────────────────────────────── */}
+          <div className="lg:col-span-4 flex flex-col space-y-6">
+            <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 shadow-2xl backdrop-blur-xl min-h-[480px] flex flex-col justify-between">
+              
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                  <div className="flex items-center gap-2">
+                    <User className="w-5 h-5 text-cyan-400" />
+                    <h3 className="text-sm font-black text-white">Live Speech Transcription</h3>
+                  </div>
+
+                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold border ${
+                    step === 3
+                      ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30 animate-pulse'
+                      : step >= 4
+                        ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                        : 'bg-slate-800 text-slate-400 border-slate-700'
+                  }`}>
+                    {step === 3 ? 'Live Mic Input' : step >= 4 ? 'Transcribed' : 'Awaiting Speech'}
+                  </span>
+                </div>
+
+                {/* Transcript Body */}
+                <div className="space-y-4 min-h-[300px]">
+                  {step < 3 && (
+                    <div className="h-64 flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-800 rounded-2xl text-slate-500">
+                      <Mic className="w-8 h-8 text-slate-600 mb-2 animate-pulse" />
+                      <p className="text-xs font-semibold">Your live voice speech-to-text transcript will appear here in real time as you speak into your microphone.</p>
+                    </div>
+                  )}
+
+                  {step >= 3 && (
+                    <div className="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 text-sm font-medium text-slate-200 leading-relaxed min-h-[260px] space-y-3">
+                      <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 pb-2 border-b border-slate-800">
+                        <span>Browser Web Speech STT Engine</span>
+                        <span>{liveTranscript.split(' ').filter(Boolean).length} Words Captured</span>
+                      </div>
+
+                      <p className="italic text-slate-100">
+                        {liveTranscript || "Listening to your voice..."}
+                      </p>
+
+                      {/* Error Highlighting Preview Mode after evaluation */}
+                      {step === 5 && (
+                        <div className="pt-3 border-t border-slate-800 space-y-2">
+                          <span className="text-[11px] font-extrabold text-amber-400 block">
+                            🔍 Detected Error Highlights (Click to View):
+                          </span>
+                          
+                          <div className="flex flex-wrap gap-2 text-xs">
+                            {activeQuestion.demoResponse.grammar.corrections.map((c, i) => (
+                              <button
+                                key={i}
+                                onClick={() => setSelectedHighlight(c)}
+                                className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-bold hover:bg-amber-500/30 transition-all cursor-pointer"
+                              >
+                                ⚠️ "{c.original}"
+                              </button>
+                            ))}
+                          </div>
+
+                          {selectedHighlight && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs space-y-1"
+                            >
+                              <div className="flex justify-between font-bold text-amber-300">
+                                <span>Grammar Correction:</span>
+                                <button onClick={() => setSelectedHighlight(null)} className="text-slate-400 hover:text-white">✕</button>
+                              </div>
+                              <p className="line-through text-slate-400">"{selectedHighlight.original}"</p>
+                              <p className="text-emerald-400 font-bold">✔ "{selectedHighlight.better}"</p>
+                            </motion.div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Free Web Speech API</span>
+                <span>Real-Time Mic Stream</span>
               </div>
             </div>
           </div>
 
 
-          {/* ── RIGHT COLUMN: AI Partner & Live Evaluation ── */}
-          <div className="lg:col-span-6 flex flex-col">
-            <div className="relative flex-1 rounded-3xl bg-slate-900/80 border border-slate-800 p-6 sm:p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl">
+          {/* ─────────────────────────────────────────────────────────────
+              RIGHT PANEL: Full Examiner Feedback Dashboard (12 Categories)
+          ───────────────────────────────────────────────────────────── */}
+          <div className="lg:col-span-4 flex flex-col space-y-6">
+            <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 shadow-2xl backdrop-blur-xl min-h-[480px]">
               
-              <div>
-                {/* Header Badge */}
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#0097B2] to-teal-400 flex items-center justify-center text-white shadow-lg shadow-[#0097B2]/30">
-                      <Bot className="w-6 h-6" />
-                      <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-cyan-400 rounded-full border-2 border-slate-900 animate-pulse" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-black text-white flex items-center gap-2">
-                        Edwaay AI Examiner <Sparkles className="w-4 h-4 text-amber-400" />
-                      </h3>
-                      <span className="text-xs font-semibold text-[#0097B2]">Powered by Speech AI</span>
-                    </div>
-                  </div>
-
-                  {/* AI Status */}
-                  <div className="px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-extrabold text-slate-300 flex items-center gap-2">
-                    {isEvaluating || (mode === 'demo' && step === 4) ? (
-                      <>
-                        <Activity className="w-3.5 h-3.5 text-amber-400 animate-spin" />
-                        <span className="text-amber-400">Analyzing...</span>
-                      </>
-                    ) : evaluationDone || (mode === 'demo' && step === 5) ? (
-                      <>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Evaluated</span>
-                      </>
-                    ) : (
-                      <>
-                        <Brain className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>Ready</span>
-                      </>
-                    )}
-                  </div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-amber-400" />
+                  <h3 className="text-sm font-black text-white">AI Examiner Feedback Dashboard</h3>
                 </div>
 
-                {/* AI Dialogue & Prompt */}
-                <div className="space-y-4">
-                  
-                  {/* AI Prompt Message */}
-                  <div className="bg-slate-800/90 border border-slate-700/80 p-4 sm:p-5 rounded-2xl text-sm font-medium text-slate-100 space-y-2 shadow-lg">
-                    <p className="text-xs font-bold text-[#0097B2] flex items-center gap-1.5">
-                      <Bot className="w-3.5 h-3.5 text-[#0097B2]" />
-                      AI Examiner:
-                    </p>
-                    <p className="text-white font-semibold">
-                      "Sure! Let's begin Part 1."
-                    </p>
-                    <div className="pt-2 border-t border-slate-700/60 text-xs text-cyan-300 font-bold">
-                      Question: <span className="text-slate-200 font-medium">{selectedTopic.question}</span>
-                    </div>
-                  </div>
-
-                  {/* Analyzing Animation */}
-                  {(isEvaluating || (mode === 'demo' && step === 4)) && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl space-y-2"
-                    >
-                      <div className="flex items-center justify-between text-xs font-bold text-amber-400">
-                        <span className="flex items-center gap-2">
-                          <Activity className="w-4 h-4 animate-spin" />
-                          Analyzing Accent & Grammar Patterns...
-                        </span>
-                        <span>Evaluating...</span>
-                      </div>
-                      <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                        <motion.div
-                          initial={{ width: '0%' }}
-                          animate={{ width: '100%' }}
-                          transition={{ duration: 2, ease: 'linear' }}
-                          className="h-full bg-gradient-to-r from-amber-500 to-cyan-400"
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Final Score Report Card */}
-                  {(evaluationDone || (mode === 'demo' && step === 5)) && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ duration: 0.5, type: 'spring' }}
-                      className="bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0097B2]/40 rounded-2xl p-5 shadow-2xl space-y-5"
-                    >
-                      {/* Score Title Header */}
-                      <div className="flex items-center justify-between pb-3 border-b border-slate-700/80">
-                        <div className="flex items-center gap-2">
-                          <Award className="w-5 h-5 text-amber-400" />
-                          <span className="text-sm font-black text-white">Live AI Band Score Report</span>
-                        </div>
-                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-extrabold border border-emerald-500/30">
-                          Evaluated
-                        </span>
-                      </div>
-
-                      {/* Big Band Score Display */}
-                      <div className="flex items-center justify-between bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                        <div>
-                          <span className="text-[10px] font-black uppercase text-slate-400 block tracking-wider">
-                            OVERALL BAND SCORE
-                          </span>
-                          <span className="text-xs text-slate-300 font-semibold">Good Competent User</span>
-                        </div>
-                        <div className="flex items-baseline gap-1 bg-[#0097B2]/20 px-4 py-1.5 rounded-xl border border-[#0097B2]/40">
-                          <span className="text-3xl font-black text-cyan-300">
-                            {selectedTopic.scores.overall}
-                          </span>
-                          <span className="text-xs text-slate-400 font-bold">/ 9.0</span>
-                        </div>
-                      </div>
-
-                      {/* 4 Criteria Grid */}
-                      <div className="grid grid-cols-2 gap-2.5 text-xs">
-                        <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-                          <span className="text-slate-300 font-medium">Pronunciation</span>
-                          <span className="font-black text-emerald-400 text-sm">{selectedTopic.scores.pronunciation}</span>
-                        </div>
-                        <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-                          <span className="text-slate-300 font-medium">Grammar</span>
-                          <span className="font-black text-amber-400 text-sm">{selectedTopic.scores.grammar}</span>
-                        </div>
-                        <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-                          <span className="text-slate-300 font-medium">Fluency</span>
-                          <span className="font-black text-cyan-300 text-sm">{selectedTopic.scores.fluency}</span>
-                        </div>
-                        <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-between">
-                          <span className="text-slate-300 font-medium">Vocabulary</span>
-                          <span className="font-black text-emerald-400 text-sm">{selectedTopic.scores.vocabulary}</span>
-                        </div>
-                      </div>
-
-                      {/* Suggestions Box */}
-                      <div className="space-y-2 pt-2 border-t border-slate-700/80">
-                        <span className="text-xs font-black text-cyan-400 flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5" /> Suggestions for Improvement:
-                        </span>
-                        <div className="space-y-1.5 text-xs text-slate-200">
-                          {selectedTopic.suggestions.map((sug, i) => (
-                            <div key={i} className="flex items-center gap-2 bg-slate-800/50 p-2 rounded-lg border border-slate-700/50">
-                              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                              <span>{sug}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-
-              {/* Bottom Tag */}
-              <div className="mt-8 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 font-medium">
-                <span className="flex items-center gap-1.5 text-cyan-400">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>Official IELTS Grading Algorithm</span>
+                <span className="text-[10px] font-bold text-cyan-400 bg-cyan-950/50 px-2.5 py-1 rounded-full border border-cyan-800">
+                  IELTS Standard
                 </span>
-                <span className="text-slate-500">Dynamic AI Output</span>
               </div>
+
+              {/* Waiting State */}
+              {step < 4 && (
+                <div className="h-96 flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-800 rounded-2xl text-slate-500">
+                  <Activity className="w-8 h-8 text-slate-600 mb-2" />
+                  <p className="text-xs font-semibold">Complete your speaking recording to unlock the 12-category IELTS Examiner Evaluation Dashboard.</p>
+                </div>
+              )}
+
+              {/* Step 4: AI Evaluating Loader */}
+              {step === 4 && (
+                <div className="h-96 flex flex-col items-center justify-center text-center p-6 space-y-4">
+                  <Activity className="w-10 h-10 text-amber-400 animate-spin" />
+                  <div>
+                    <h4 className="text-base font-bold text-white">Analyzing Speech Transcript...</h4>
+                    <p className="text-xs text-slate-400 mt-1">Evaluating Fluency, Grammar, Lexical Resource & Pronunciation</p>
+                  </div>
+                  <div className="w-48 h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 2, ease: 'linear' }}
+                      className="h-full bg-gradient-to-r from-amber-500 via-cyan-400 to-emerald-400"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Step 5: Full Evaluation Report */}
+              {step === 5 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="space-y-4 max-h-[580px] overflow-y-auto pr-1 text-xs"
+                >
+                  {/* Category 1: Overall Band Score Gauge */}
+                  <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-slate-400 block tracking-wider">
+                        OVERALL BAND SCORE
+                      </span>
+                      <span className="text-xs font-bold text-emerald-400">Good Competent Speaker</span>
+                    </div>
+                    <div className="flex items-baseline gap-1 bg-[#0097B2]/20 px-3.5 py-1.5 rounded-xl border border-[#0097B2]/40">
+                      <span className="text-2xl font-black text-cyan-300">{activeQuestion.demoResponse.overall}</span>
+                      <span className="text-[10px] text-slate-400 font-bold">/ 9.0</span>
+                    </div>
+                  </div>
+
+                  {/* Category 2-5: 4 Criteria Breakdown */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                      <span className="text-[10px] font-bold text-slate-400 block">Fluency & Coherence</span>
+                      <span className="font-black text-cyan-300 text-sm">{activeQuestion.demoResponse.fluency.score}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                      <span className="text-[10px] font-bold text-slate-400 block">Lexical Resource</span>
+                      <span className="font-black text-emerald-400 text-sm">{activeQuestion.demoResponse.lexical.score}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                      <span className="text-[10px] font-bold text-slate-400 block">Grammar Accuracy</span>
+                      <span className="font-black text-amber-400 text-sm">{activeQuestion.demoResponse.grammar.score}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                      <span className="text-[10px] font-bold text-slate-400 block">Pronunciation</span>
+                      <span className="font-black text-emerald-400 text-sm">{activeQuestion.demoResponse.pronunciation.score}</span>
+                    </div>
+                  </div>
+
+                  {/* Category 7: Side-by-side Grammar Corrections Table */}
+                  <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <span className="text-[11px] font-black text-amber-400 block">
+                      📝 Side-by-Side Grammar Corrections
+                    </span>
+                    <div className="space-y-1.5 text-[11px]">
+                      {activeQuestion.demoResponse.grammar.corrections.map((item, idx) => (
+                        <div key={idx} className="p-2 rounded-lg bg-slate-900 border border-slate-800 space-y-0.5">
+                          <div className="text-slate-400 line-through">Your Sentence: "{item.original}"</div>
+                          <div className="text-emerald-400 font-bold">Better Version: "{item.better}"</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Category 8: Vocabulary Upgrades */}
+                  <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <span className="text-[11px] font-black text-cyan-400 block">
+                      📚 Vocabulary Upgrades
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      {activeQuestion.demoResponse.lexical.replacements.map((rep, idx) => (
+                        <div key={idx} className="p-2 rounded-lg bg-slate-900 border border-slate-800">
+                          <span className="text-slate-400 line-through block">{rep.original}</span>
+                          <span className="text-cyan-300 font-bold">↓ {rep.replacement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Category 9: Improved Sample Model Answer */}
+                  <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <span className="text-[11px] font-black text-purple-400 block">
+                      ✨ Band 8.5+ Model Answer
+                    </span>
+                    <p className="text-[11px] text-slate-300 italic leading-relaxed bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+                      "{activeQuestion.demoResponse.sampleAnswer}"
+                    </p>
+                  </div>
+
+                  {/* Category 10 & 11: Strengths & Weaknesses */}
+                  <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <span className="text-[11px] font-black text-emerald-400 block">
+                      ✓ Key Strengths
+                    </span>
+                    <ul className="space-y-1 text-[11px] text-slate-300">
+                      {activeQuestion.demoResponse.strengths.map((str, i) => (
+                        <li key={i} className="flex items-center gap-1.5">
+                          <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                          <span>{str}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Category 12: Personalized Practice Tips */}
+                  <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+                    <span className="text-[11px] font-black text-amber-400 block">
+                      💡 Actionable Practice Tips
+                    </span>
+                    <ul className="space-y-1 text-[11px] text-slate-300">
+                      {activeQuestion.demoResponse.practiceTips.map((tip, i) => (
+                        <li key={i} className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                          <span>{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                </motion.div>
+              )}
 
             </div>
           </div>

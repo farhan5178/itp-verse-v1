@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Sparkles } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 const testimonials = [
   {
@@ -45,21 +45,6 @@ function DotGridPattern({ className }) {
       </pattern>
       <rect width="96" height="64" fill="url(#dot-pattern)" />
     </svg>
-  );
-}
-
-/* ── Floating Sparkle Star Icon ── */
-function SparkleStar({ className }) {
-  return (
-    <motion.div
-      animate={{ scale: [0.8, 1.2, 0.8], rotate: [0, 90, 0] }}
-      transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-      className={`absolute text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] ${className}`}
-    >
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-      </svg>
-    </motion.div>
   );
 }
 
@@ -110,14 +95,8 @@ export default function SuccessStories() {
           </motion.p>
         </div>
 
-        {/* ── Overlapped 3D Cards Container ── */}
+        {/* ── Cards Container ── */}
         <div className="relative max-w-5xl mx-auto">
-          
-          {/* Floating Sparkle Stars */}
-          <SparkleStar className="top-0 left-[28%]" />
-          <SparkleStar className="bottom-4 right-[25%]" />
-          <SparkleStar className="top-12 right-[18%]" />
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-4 items-center">
             {testimonials.map((item, index) => (
               <motion.div

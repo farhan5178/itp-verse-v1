@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Timer, BookOpen, Headphones, Mic, PenTool, Sparkles, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { Timer, BookOpen, Headphones, Mic, PenTool, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 /* ── Icon map ── */
 const sectionIcons = {
@@ -119,7 +119,6 @@ export default function ExamOverview() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 border-b border-slate-200/60 dark:border-zinc-800/80 pb-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/20 text-[#0097B2] text-xs font-black uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#0097B2]" />
               <span>Official Test Blueprint</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">

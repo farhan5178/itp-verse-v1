@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Target, ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
+import { Target, ArrowRight, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function StudyPlanCTA() {
