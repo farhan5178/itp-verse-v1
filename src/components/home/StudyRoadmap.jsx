@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import {
   GraduationCap,
   BookMarked,
@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   ChevronRight,
+  ChevronLeft,
   Clock,
   Target,
   Zap,
@@ -22,7 +23,7 @@ const ROADMAP_STEPS = [
     stepNumber: 1,
     week: 'Week 1',
     title: 'Grammar Mastery',
-    subtitle: 'Foundation & Complex Sentence Structures',
+    subtitle: 'Foundation & Sentence Structures',
     icon: GraduationCap,
     baseRotation: -2.5,
     cardTheme: {
@@ -216,122 +217,119 @@ const ROADMAP_STEPS = [
   }
 ];
 
-/* Ultra-Smooth Liquid Vanishing Card Component */
-function VanishingCard({ step, index, totalSteps, smoothProgress }) {
+/* Compact Multi-Device Responsive Motion Card */
+function MotionCard({ step, index, totalSteps, smoothProgress }) {
   const IconComponent = step.icon;
   const theme = step.cardTheme;
   const isLast = index === totalSteps - 1;
 
-  // Continuous Step scroll thresholds
-  const start = index / totalSteps;
-  const end = (index + 1) / totalSteps;
-  const fadeStart = start + (0.7 / totalSteps);
+  const stepStart = index / totalSteps;
+  const stepEnd = (index + 1) / totalSteps;
 
-  // Silky 60fps Liquid Physics Transforms
-  const y = useTransform(
+  const translateY = useTransform(
     smoothProgress,
-    [start, end],
-    isLast ? ['0%', '0%'] : ['0%', '-140%']
+    [stepStart, stepEnd],
+    isLast ? [0, 0] : [0, -120]
   );
 
   const opacity = useTransform(
     smoothProgress,
-    [start, fadeStart, end],
-    isLast ? [1, 1, 1] : [1, 0.98, 0]
+    [stepStart, stepStart + (0.7 / totalSteps), stepEnd],
+    isLast ? [1, 1, 1] : [1, 0.95, 0]
   );
 
   const scale = useTransform(
     smoothProgress,
-    [start, end],
-    isLast ? [1, 1] : [1, 0.88]
+    [stepStart, stepEnd],
+    isLast ? [1, 1] : [1, 0.92]
   );
 
   const rotate = useTransform(
     smoothProgress,
-    [start, end],
-    isLast ? [0, 0] : [step.baseRotation, step.baseRotation - 14]
+    [stepStart, stepEnd],
+    isLast ? [0, 0] : [step.baseRotation, step.baseRotation - 8]
   );
 
   return (
     <motion.div
       style={{
-        y,
+        y: useTransform(translateY, (v) => `${v}%`),
         opacity,
         scale,
         rotate,
         zIndex: totalSteps - index,
         willChange: 'transform, opacity'
       }}
-      className="absolute inset-0 flex items-center justify-center p-4 transform-gpu pointer-events-auto"
+      className="absolute inset-0 flex items-center justify-center p-2 sm:p-3 transform-gpu pointer-events-auto"
     >
-      <div className={`group relative w-full max-w-lg rounded-[36px] sm:rounded-[44px] p-6 sm:p-9 shadow-2xl border backdrop-blur-2xl transition-transform duration-200 ${theme.bg}`}>
+      <div className={`group relative w-full rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 lg:p-7 shadow-2xl border backdrop-blur-2xl transition-all duration-300 ${theme.bg}`}>
         
         {/* Accent Top Bar */}
-        <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${theme.bar} rounded-t-[44px]`} />
+        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.bar} rounded-t-[24px] sm:rounded-t-[32px]`} />
 
-        {/* Top Icon Box */}
-        <div className="flex justify-center mb-5">
-          <div className={`w-18 h-18 sm:w-22 sm:h-22 rounded-3xl ${theme.iconBg} flex items-center justify-center shadow-xl transition-transform group-hover:scale-105 duration-300`}>
-            <IconComponent className="w-9 h-9 sm:w-11 sm:h-11" />
+        {/* Compact Responsive Icon Header */}
+        <div className="flex justify-center mb-2 sm:mb-3">
+          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl ${theme.iconBg} flex items-center justify-center shadow-md transition-transform group-hover:scale-105 duration-300`}>
+            <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
           </div>
         </div>
 
         {/* Top Pill Badge: Week & Step */}
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <span className={`text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full border shadow-xs ${theme.pill}`}>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-xs ${theme.pill}`}>
             {step.week} • Step {step.stepNumber} of 8
           </span>
         </div>
 
         {/* Hero Bold Title */}
-        <div className="text-center mb-4">
-          <h3 className="text-3xl sm:text-4xl font-black tracking-tight leading-none mb-1.5 bg-gradient-to-b from-white to-slate-200 bg-clip-text text-transparent">
+        <div className="text-center mb-2 sm:mb-3">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight leading-none mb-1 bg-gradient-to-b from-white to-slate-200 bg-clip-text text-transparent">
             {step.title}
           </h3>
-          <p className="text-xs sm:text-sm font-bold opacity-80">
+          <p className="text-[11px] sm:text-xs font-bold opacity-80 line-clamp-1">
             {step.subtitle}
           </p>
         </div>
 
-        {/* Paragraph Description */}
-        <p className="text-xs sm:text-sm font-medium leading-relaxed text-center opacity-90 mb-5 max-w-md mx-auto line-clamp-3">
+        {/* Description Paragraph */}
+        <p className="text-[11px] sm:text-xs font-medium leading-relaxed text-center opacity-90 mb-3 max-w-md mx-auto line-clamp-2">
           {step.description}
         </p>
 
         {/* Highlights Checklist */}
-        <div className="space-y-2 mb-5 max-w-md mx-auto">
+        <div className="space-y-1 mb-3 max-w-md mx-auto">
           {step.highlights.map((h, i) => (
-            <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm font-bold text-left">
-              <CheckCircle2 className={`w-4 h-4 shrink-0 ${theme.bulletIcon}`} />
+            <div key={i} className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-left">
+              <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${theme.bulletIcon}`} />
               <span className="truncate">{h}</span>
             </div>
           ))}
         </div>
 
         {/* Target Milestone Box */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 mb-5 text-center shadow-inner">
-          <span className={`text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1 mb-0.5 ${theme.accent}`}>
-            <Zap className="w-3.5 h-3.5" />
+        <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 mb-3 text-center shadow-inner">
+          <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1 mb-0.5 ${theme.accent}`}>
+            <Zap className="w-3 h-3" />
             <span>Target Milestone</span>
           </span>
-          <p className="text-xs sm:text-sm font-extrabold italic opacity-95 line-clamp-2">
+          <p className="text-[11px] sm:text-xs font-extrabold italic opacity-95 line-clamp-1">
             "{step.sampleTask}"
           </p>
         </div>
 
         {/* Bottom Meta & Action Button */}
-        <div className="flex items-center justify-between pt-3 border-t border-white/10">
-          <div className="flex items-center gap-1.5 text-xs font-black opacity-85">
-            <Clock className="w-4 h-4 text-[#0097B2]" />
-            <span>{step.duration}</span>
+        <div className="flex items-center justify-between pt-2 border-t border-white/10">
+          <div className="flex items-center gap-1 text-[11px] font-black opacity-85">
+            <Clock className="w-3.5 h-3.5 text-[#0097B2]" />
+            <span className="truncate">{step.duration}</span>
           </div>
 
           <button
             type="button"
-            className={`px-5 py-2.5 rounded-2xl font-black text-xs transition-all cursor-pointer flex items-center gap-1.5 ${theme.btn}`}
+            className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl font-black text-[11px] transition-all cursor-pointer flex items-center gap-1 ${theme.btn}`}
           >
-            <span>Explore {step.title.split(' ')[0]}</span>
-            <ChevronRight className="w-4 h-4" />
+            <span>Explore</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -343,74 +341,144 @@ function VanishingCard({ step, index, totalSteps, smoothProgress }) {
 export default function StudyRoadmap() {
   const containerRef = useRef(null);
 
-  /* Scroll Progress Tracker across 600vh scroll runway */
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  });
+  const rawProgress = useMotionValue(0);
 
-  /* Low Stiffness & High Damping for Liquid Ultra-Smooth Continuous Inertia Glide */
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
-    damping: 28,
-    mass: 1.2,
+  const smoothProgress = useSpring(rawProgress, {
+    stiffness: 80,
+    damping: 20,
+    mass: 0.5,
     restDelta: 0.0001
   });
+
+  const touchStartYRef = useRef(0);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const handleWheel = (e) => {
+      const rect = node.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      const isInFocus = rect.top <= 60 && rect.bottom >= vh - 60;
+      if (!isInFocus) return;
+
+      const delta = e.deltaY;
+      const sensitivity = 0.00085;
+      const current = rawProgress.get();
+
+      if (delta < 0 && current <= 0) return;
+      if (delta > 0 && current >= 1) return;
+
+      e.preventDefault();
+      const next = Math.max(0, Math.min(1, current + delta * sensitivity));
+      rawProgress.set(next);
+    };
+
+    const handleTouchStart = (e) => {
+      if (e.touches.length === 1) {
+        touchStartYRef.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches.length !== 1) return;
+
+      const rect = node.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      const isInFocus = rect.top <= 60 && rect.bottom >= vh - 60;
+      if (!isInFocus) return;
+
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartYRef.current - currentY;
+      touchStartYRef.current = currentY;
+
+      const sensitivity = 0.0025;
+      const current = rawProgress.get();
+
+      if (deltaY < 0 && current <= 0) return;
+      if (deltaY > 0 && current >= 1) return;
+
+      if (e.cancelable) e.preventDefault();
+      const next = Math.max(0, Math.min(1, current + deltaY * sensitivity));
+      rawProgress.set(next);
+    };
+
+    node.addEventListener('wheel', handleWheel, { passive: false });
+    node.addEventListener('touchstart', handleTouchStart, { passive: true });
+    node.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      node.removeEventListener('wheel', handleWheel);
+      node.removeEventListener('touchstart', handleTouchStart);
+      node.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [rawProgress]);
+
+  const handleNextStep = () => {
+    const current = rawProgress.get();
+    const next = Math.min(1, current + (1 / ROADMAP_STEPS.length));
+    rawProgress.set(next);
+  };
+
+  const handlePrevStep = () => {
+    const current = rawProgress.get();
+    const prev = Math.max(0, current - (1 / ROADMAP_STEPS.length));
+    rawProgress.set(prev);
+  };
+
+  const totalSteps = ROADMAP_STEPS.length;
 
   return (
     <section
       ref={containerRef}
       id="study-roadmap"
-      className="relative bg-slate-900/90 dark:bg-[#050508] border-t border-slate-800/80 min-h-[550vh]"
+      className="relative bg-slate-900/90 dark:bg-[#050508] py-8 sm:py-12 lg:py-16 border-t border-slate-800/80 min-h-screen overflow-hidden"
     >
-      {/* Background Decorative Ambient Glows */}
-      <div className="absolute top-20 left-1/3 w-[650px] h-[650px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-20 right-1/4 w-[550px] h-[550px] bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-[120px] pointer-events-none" />
+      {/* Background Glows */}
+      <div className="absolute top-10 left-1/3 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-[90px] pointer-events-none" />
 
-      {/* ── STICKY VIEWPORT CONTAINER ── */}
-      <div className="sticky top-0 h-screen flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* ── Section Header ── */}
-        <div className="text-center max-w-3xl mx-auto shrink-0 z-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/30 text-[#0097B2] dark:text-cyan-400 text-xs font-black uppercase tracking-wider mb-2 shadow-xs">
+        {/* ── Section Header (Isolated from card viewport so zero overlapping happens!) ── */}
+        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-0.5 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/30 text-[#0097B2] dark:text-cyan-400 text-[10px] sm:text-xs font-black uppercase tracking-wider mb-1 shadow-xs">
             <Target className="w-3.5 h-3.5" />
-            <span>Liquid Scroll Vanishing Card Stack</span>
+            <span>Interactive IELTS Roadmap</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
             Your 8-Step{' '}
             <span className="bg-gradient-to-r from-[#0097B2] via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-              IELTS Card Runway
+              IELTS Card Stack
             </span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-zinc-300 font-medium mt-1">
-            Scroll down continuously to watch top cards glide up smoothly as the next week takes center stage.
+          <p className="text-[11px] sm:text-xs text-zinc-300 font-medium mt-1 max-w-md mx-auto">
+            Interactive 6-week IELTS band 8.0+ preparation roadmap.
           </p>
-
-          <div className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-extrabold text-cyan-400 animate-bounce">
-            <span>Scroll Down To Unstack Runway</span>
-            <ArrowDown className="w-3.5 h-3.5" />
-          </div>
         </div>
 
-        {/* ── FIXED POSITIONAL CARD STACK VIEWPORT ── */}
-        <div className="relative flex-grow w-full max-w-lg mx-auto my-2">
+        {/* ── CARD DECK CONTAINER (Calculated height so cards NEVER collide with Header!) ── */}
+        <div className="relative w-full max-w-xs sm:max-w-md lg:max-w-lg mx-auto h-[420px] sm:h-[460px] lg:h-[490px] mt-2 mb-2">
           {ROADMAP_STEPS.map((step, index) => (
-            <VanishingCard
+            <MotionCard
               key={step.stepNumber}
               step={step}
               index={index}
-              totalSteps={ROADMAP_STEPS.length}
+              totalSteps={totalSteps}
               smoothProgress={smoothProgress}
             />
           ))}
         </div>
 
-        {/* Bottom Helper Progress Bar */}
-        <div className="text-center shrink-0 z-20">
-          <span className="text-[11px] font-black uppercase tracking-wider text-zinc-500">
-            Scroll Through Week 1 to 6 & Diagnostic Mock Test
+        {/* Bottom Helper Cue */}
+        <div className="text-center mt-2">
+          <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-zinc-500 flex items-center justify-center gap-1">
+            <span>Scroll Up/Down To Unstack Cards</span>
+            <ArrowDown className="w-3.5 h-3.5 animate-bounce text-[#0097B2]" />
           </span>
         </div>
 
