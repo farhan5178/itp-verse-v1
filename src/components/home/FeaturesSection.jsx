@@ -345,7 +345,7 @@ export default function FeaturesSection() {
     if (viewMode === 'slider' && isAutoPlaying && filteredFeatures.length > 0) {
       autoPlayRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredFeatures.length);
-      }, 3500);
+      }, 1000);
     } else {
       clearInterval(autoPlayRef.current);
     }
@@ -519,10 +519,10 @@ export default function FeaturesSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
-                  initial={{ opacity: 0, x: 60, scale: 0.98 }}
+                  initial={{ opacity: 0, x: 50, scale: 0.98 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -60, scale: 0.98 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  exit={{ opacity: 0, x: -50, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
                   {/* Show up to 3 sliding items starting from currentIndex */}
