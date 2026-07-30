@@ -4,6 +4,7 @@ import GuestHero from '../components/home/GuestHero';
 import ExamOverview from '../components/home/ExamOverview';
 import WhyEdwaay from '../components/home/WhyEdwaay';
 import AISpeakingDemo from '../components/home/AISpeakingDemo';
+import FeaturesSection from '../components/home/FeaturesSection';
 import StudyPlanCTA from '../components/home/StudyPlanCTA';
 import SuccessStories from '../components/home/SuccessStories';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +23,7 @@ export default function Home() {
           <ExamOverview />
           <WhyEdwaay />
           <AISpeakingDemo />
+          <FeaturesSection />
           <StudyPlanCTA />
           <SuccessStories />
         </>

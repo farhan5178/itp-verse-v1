@@ -908,7 +908,7 @@ export default function AISpeakingDemo() {
                   {/* Category 9: Improved Sample Model Answer */}
                   <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
                     <span className="text-[11px] font-black text-purple-400 block">
-                      ✨ Band 8.5+ Model Answer
+                      🏆 Band 8.5+ Model Answer
                     </span>
                     <p className="text-[11px] text-slate-300 italic leading-relaxed bg-slate-900 p-2.5 rounded-xl border border-slate-800">
                       "{activeResponse.sampleAnswer}"
