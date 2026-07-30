@@ -6,6 +6,7 @@ import WhyEdwaay from '../components/home/WhyEdwaay';
 import AISpeakingDemo from '../components/home/AISpeakingDemo';
 import FeaturesSection from '../components/home/FeaturesSection';
 import StudyRoadmap from '../components/home/StudyRoadmap';
+import UniversityFinder from '../components/home/UniversityFinder';
 import StudyPlanCTA from '../components/home/StudyPlanCTA';
 import SuccessStories from '../components/home/SuccessStories';
 import { useAuth } from '../context/AuthContext';
@@ -26,6 +27,7 @@ export default function Home() {
           <AISpeakingDemo />
           <FeaturesSection />
           <StudyRoadmap />
+          <UniversityFinder />
           <StudyPlanCTA />
           <SuccessStories />
         </>
