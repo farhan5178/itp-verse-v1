@@ -13,6 +13,8 @@ import {
   Target
 } from 'lucide-react';
 import Particles from './HeroOnboarding/Particles';
+import InteractiveGlobe from './InteractiveGlobe';
+
 
 /* ── Floating Thought Bubble Component with Sequential Spring Entrance ── */
 function FloatingThoughtBubble({ text, className, delay = 0, tailPosition = "bottom-left" }) {
@@ -134,7 +136,18 @@ export default function UniversityFinder() {
               and check tuition-free public options with real alumni guidance.
             </motion.p>
 
+            {/* ── Interactive 3D Moving Globe (Middle Feature) ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="my-3 flex justify-center w-full"
+            >
+              <InteractiveGlobe size={320} className="w-full" />
+            </motion.div>
+
             {/* 3 Brand Solution Cards */}
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
