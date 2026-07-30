@@ -1,639 +1,410 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  GraduationCap,
-  Globe2,
-  Search,
-  Filter,
-  Award,
+  ArrowRight,
   CheckCircle2,
-  DollarSign,
-  BookOpen,
-  MapPin,
-  ExternalLink,
-  Sparkles,
-  HelpCircle,
-  Lightbulb,
-  ChevronRight,
-  X,
-  Zap,
   Building2,
-  Star,
-  ShieldCheck
+  GraduationCap,
+  Users,
+  Award,
+  Globe,
+  ShieldCheck,
+  Zap,
+  Target
 } from 'lucide-react';
-import universityFinderImg from '../../assets/university_finder_3d.png';
+import Particles from './HeroOnboarding/Particles';
 
-const UNIVERSITIES_DATA = [
-  {
-    id: 'oxford',
-    name: 'University of Oxford',
-    country: 'United Kingdom',
-    flag: '🇬🇧',
-    ranking: '#3 World QS',
-    ieltsMin: 7.5,
-    pteMin: 76,
-    tuition: '£32,500 / year',
-    tuitionCategory: 'high',
-    scholarship: '100% Full Ride (Clarendon Fund)',
-    scholarshipType: 'full',
-    logoBg: 'from-blue-900 to-indigo-950',
-    popularPrograms: ['Computer Science', 'PPE', 'Medicine', 'Law'],
-    acceptanceRate: '17.5%',
-    location: 'Oxford, UK',
-    details: 'Clarendon offers over 200 fully-funded scholarships each year covering full tuition and a generous living stipend for top IELTS scorers.'
-  },
-  {
-    id: 'tum',
-    name: 'Technical University of Munich (TUM)',
-    country: 'Germany',
-    flag: '🇩🇪',
-    ranking: '#37 World QS',
-    ieltsMin: 6.5,
-    pteMin: 58,
-    tuition: '€0 / Tuition-Free Public',
-    tuitionCategory: 'free',
-    scholarship: 'Deutschlandstipendium (€300/mo)',
-    scholarshipType: 'merit',
-    logoBg: 'from-blue-600 to-cyan-700',
-    popularPrograms: ['Robotics & AI', 'Mechanical Eng', 'Data Science'],
-    acceptanceRate: '24%',
-    location: 'Munich, Germany',
-    details: 'Germany public universities offer 100% tuition-free education for international students. Students only pay a €150 semester fee.'
-  },
-  {
-    id: 'utoronto',
-    name: 'University of Toronto',
-    country: 'Canada',
-    flag: '🇨🇦',
-    ranking: '#21 World QS',
-    ieltsMin: 6.5,
-    pteMin: 60,
-    tuition: 'CAD $45,000 / year',
-    tuitionCategory: 'medium',
-    scholarship: 'Lester B. Pearson 100% Full Scholarship',
-    scholarshipType: 'full',
-    logoBg: 'from-[#002A5C] to-blue-900',
-    popularPrograms: ['Software Eng', 'Finance & Commerce', 'Biotechnology'],
-    acceptanceRate: '43%',
-    location: 'Toronto, Canada',
-    details: 'The Pearson International Scholarship covers 4 years of tuition, books, incidental fees, and full residence support.'
-  },
-  {
-    id: 'melbourne',
-    name: 'University of Melbourne',
-    country: 'Australia',
-    flag: '🇦🇺',
-    ranking: '#14 World QS',
-    ieltsMin: 6.5,
-    pteMin: 58,
-    tuition: 'AUD $38,000 / year',
-    tuitionCategory: 'medium',
-    scholarship: 'Melbourne International (50% - 100% Fee Waiver)',
-    scholarshipType: 'merit',
-    logoBg: 'from-blue-800 to-indigo-900',
-    popularPrograms: ['Information Technology', 'Civil Eng', 'Architecture'],
-    acceptanceRate: '70%',
-    location: 'Melbourne, Australia',
-    details: 'Awarded to high-achieving international students based on academic performance and IELTS score cutoff.'
-  },
-  {
-    id: 'tokyo',
-    name: 'University of Tokyo',
-    country: 'Japan',
-    flag: '🇯🇵',
-    ranking: '#28 World QS',
-    ieltsMin: 6.0,
-    pteMin: 50,
-    tuition: '¥535,800 (~$3,800) / year',
-    tuitionCategory: 'low',
-    scholarship: 'MEXT Japanese Government 100% Full Scholarship',
-    scholarshipType: 'full',
-    logoBg: 'from-[#800020] to-red-950',
-    popularPrograms: ['AI & Robotics', 'Global Engineering', 'Physics'],
-    acceptanceRate: '34%',
-    location: 'Tokyo, Japan',
-    details: 'MEXT Scholarship covers full tuition, roundtrip airfare tickets, plus ¥144,000 monthly living allowance.'
-  },
-  {
-    id: 'harvard',
-    name: 'Harvard University',
-    country: 'USA',
-    flag: '🇺🇸',
-    ranking: '#4 World QS',
-    ieltsMin: 7.5,
-    pteMin: 75,
-    tuition: '$54,000 / year',
-    tuitionCategory: 'high',
-    scholarship: '100% Need-Based Financial Aid',
-    scholarshipType: 'need',
-    logoBg: 'from-[#A51C30] to-rose-950',
-    popularPrograms: ['Economics', 'Computer Science', 'Government', 'MBA'],
-    acceptanceRate: '3.4%',
-    location: 'Cambridge, MA, USA',
-    details: 'Harvard meets 100% of demonstrated financial need for all admitted international students regardless of country.'
-  },
-  {
-    id: 'ubc',
-    name: 'University of British Columbia',
-    country: 'Canada',
-    flag: '🇨🇦',
-    ranking: '#34 World QS',
-    ieltsMin: 6.5,
-    pteMin: 60,
-    tuition: 'CAD $39,000 / year',
-    tuitionCategory: 'medium',
-    scholarship: 'Karen McKellin International Leader ($40,000/yr)',
-    scholarshipType: 'merit',
-    logoBg: 'from-blue-900 to-[#002147]',
-    popularPrograms: ['Data Science', 'Environmental Studies', 'Business'],
-    acceptanceRate: '52%',
-    location: 'Vancouver, Canada',
-    details: 'Recognizes exceptional international undergraduate students who demonstrate high academic achievement and leadership.'
-  },
-  {
-    id: 'manchester',
-    name: 'University of Manchester',
-    country: 'United Kingdom',
-    flag: '🇬🇧',
-    ranking: '#32 World QS',
-    ieltsMin: 6.5,
-    pteMin: 59,
-    tuition: '£26,000 / year',
-    tuitionCategory: 'medium',
-    scholarship: 'Global Futures Award (£5,000 - £10,000)',
-    scholarshipType: 'merit',
-    logoBg: 'from-purple-900 to-indigo-950',
-    popularPrograms: ['Electrical Eng', 'Management', 'Cyber Security'],
-    acceptanceRate: '56%',
-    location: 'Manchester, UK',
-    details: 'Open to outstanding international applicants from South Asia and worldwide entering undergraduate degree programs.'
-  }
-];
-
-export default function UniversityFinder() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('all');
-  const [selectedIelts, setSelectedIelts] = useState('all');
-  const [selectedBudget, setSelectedBudget] = useState('all');
-  const [selectedScholarship, setSelectedScholarship] = useState('all');
-  const [activeModalUni, setActiveModalUni] = useState(null);
-
-  /* Filter Logic */
-  const filteredUniversities = useMemo(() => {
-    return UNIVERSITIES_DATA.filter((uni) => {
-      const matchesSearch =
-        uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        uni.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        uni.popularPrograms.some((p) => p.toLowerCase().includes(searchQuery.toLowerCase()));
-
-      const matchesCountry = selectedCountry === 'all' || uni.country.toLowerCase() === selectedCountry.toLowerCase();
-
-      const matchesIelts =
-        selectedIelts === 'all' ||
-        (selectedIelts === '6.0' && uni.ieltsMin <= 6.0) ||
-        (selectedIelts === '6.5' && uni.ieltsMin <= 6.5) ||
-        (selectedIelts === '7.0' && uni.ieltsMin <= 7.0) ||
-        (selectedIelts === '7.5' && uni.ieltsMin <= 7.5);
-
-      const matchesBudget =
-        selectedBudget === 'all' ||
-        (selectedBudget === 'free' && uni.tuitionCategory === 'free') ||
-        (selectedBudget === 'low' && (uni.tuitionCategory === 'free' || uni.tuitionCategory === 'low')) ||
-        (selectedBudget === 'medium' && uni.tuitionCategory !== 'high');
-
-      const matchesScholarship =
-        selectedScholarship === 'all' ||
-        (selectedScholarship === 'full' && uni.scholarshipType === 'full') ||
-        (selectedScholarship === 'merit' && (uni.scholarshipType === 'merit' || uni.scholarshipType === 'full'));
-
-      return matchesSearch && matchesCountry && matchesIelts && matchesBudget && matchesScholarship;
-    });
-  }, [searchQuery, selectedCountry, selectedIelts, selectedBudget, selectedScholarship]);
+/* ── Floating Thought Bubble Component with Sequential Spring Entrance ── */
+function FloatingThoughtBubble({ text, className, delay = 0, tailPosition = "bottom-left" }) {
+  const getTailClass = () => {
+    switch (tailPosition) {
+      case 'bottom-right':
+        return 'absolute -bottom-1.5 right-3 sm:right-6 w-2.5 h-2.5 bg-white/95 dark:bg-[#0d242b]/95 border-r border-b border-slate-200 dark:border-[#0097B2]/40 rotate-45';
+      case 'bottom-left':
+        return 'absolute -bottom-1.5 left-3 sm:left-6 w-2.5 h-2.5 bg-white/95 dark:bg-[#0d242b]/95 border-r border-b border-slate-200 dark:border-[#0097B2]/40 rotate-45';
+      case 'right':
+        return 'absolute top-3 -right-1.5 w-2.5 h-2.5 bg-white/95 dark:bg-[#0d242b]/95 border-t border-r border-slate-200 dark:border-[#0097B2]/40 rotate-45';
+      case 'top-left':
+        return 'absolute -top-1.5 left-3 sm:left-6 w-2.5 h-2.5 bg-white/95 dark:bg-[#0d242b]/95 border-t border-l border-slate-200 dark:border-[#0097B2]/40 rotate-45';
+      default:
+        return 'absolute -bottom-1.5 left-3 sm:left-6 w-2.5 h-2.5 bg-white/95 dark:bg-[#0d242b]/95 border-r border-b border-slate-200 dark:border-[#0097B2]/40 rotate-45';
+    }
+  };
 
   return (
-    <section id="university-finder" className="relative overflow-hidden bg-slate-50 dark:bg-[#07070c] py-20 lg:py-28 border-t border-slate-200/80 dark:border-zinc-800">
+    <motion.div
+      initial={{ opacity: 0, scale: 0, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.5, y: -20, transition: { duration: 0.3 } }}
+      transition={{
+        duration: 0.5,
+        delay: delay,
+        type: 'spring',
+        stiffness: 220,
+        damping: 16
+      }}
+      whileHover={{ scale: 1.08, y: -4 }}
+      className={`absolute px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-white/95 dark:bg-[#0d242b]/95 backdrop-blur-xl border border-slate-200/90 dark:border-[#0097B2]/40 shadow-xl shadow-[#0097B2]/15 text-slate-800 dark:text-[#E6F5F7] text-[10px] sm:text-xs font-extrabold cursor-pointer z-30 ${className}`}
+    >
+      <span className="relative z-10">{text}</span>
+      <div className={getTailClass()} />
+    </motion.div>
+  );
+}
+
+export default function UniversityFinder() {
+  const [animCycleKey, setAnimCycleKey] = useState(0);
+
+  /* 10-Second Storytelling Sequence Replay Timer */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAnimCycleKey((prev) => prev + 1);
+    }, 10500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleReplayCycle = () => {
+    setAnimCycleKey((prev) => prev + 1);
+  };
+
+  return (
+    <section id="university-finder" className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 min-h-[90vh] flex flex-col justify-between max-w-full border-t border-slate-200/80 dark:border-zinc-800">
       
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-500/10 dark:bg-purple-500/15 rounded-full blur-[120px] pointer-events-none" />
+      {/* ── Background: Brand Academic Clarity Gradient ── */}
+      <div
+        className="absolute inset-0 -z-20"
+        style={{
+          background: 'linear-gradient(135deg, #eef9fb 0%, #f4fafb 40%, #e6f5f7 70%, #f0fbfe 100%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 hidden dark:block"
+        style={{
+          background: 'linear-gradient(135deg, #061317 0%, #091b20 40%, #00252d 70%, #092027 100%)',
+        }}
+      />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Particles />
+
+      {/* Glowing Ambient Radial Orbs */}
+      <div className="absolute top-10 left-10 w-72 sm:w-96 h-72 sm:h-96 bg-[#0097B2]/10 dark:bg-[#0097B2]/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute bottom-10 right-10 w-72 sm:w-96 h-72 sm:h-96 bg-[#004B59]/10 dark:bg-[#004B59]/25 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
         
-        {/* ── Section Badge & Title ── */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/30 text-[#0097B2] dark:text-cyan-400 text-xs font-black uppercase tracking-wider mb-4 shadow-xs">
-            <Globe2 className="w-4 h-4" />
-            <span>Unique Ecosystem Feature</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-            Global University &{' '}
-            <span className="bg-gradient-to-r from-[#0097B2] via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
-              Scholarship Finder
-            </span>
-          </h2>
-
-          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-zinc-300 font-medium leading-relaxed">
-            Find dream universities worldwide based on your target IELTS or PTE score, budget, and 100% scholarship eligibility.
-          </p>
+        {/* Top Mission Pill Tag */}
+        <div className="flex justify-center mb-4 sm:mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-1.5 rounded-full bg-white/90 dark:bg-[#091b20]/90 backdrop-blur-md border border-[#0097B2]/30 dark:border-[#0097B2]/40 shadow-sm text-[10.5px] sm:text-xs font-bold text-slate-700 dark:text-[#E6F5F7] text-center"
+          >
+            <Globe className="w-3.5 h-3.5 text-[#0097B2] dark:text-[#1AB0CB] flex-shrink-0" />
+            <span>Unique Ecosystem Feature • <strong className="text-[#0097B2] dark:text-[#1AB0CB]">University & Scholarship Finder</strong></span>
+          </motion.div>
         </div>
 
-        {/* ── PROBLEM VS SOLUTION STORYBOARD (Concept Image Banner) ── */}
-        <div className="mb-16 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-slate-200/80 dark:border-zinc-800 p-6 sm:p-8 lg:p-10 shadow-xl backdrop-blur-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left 3D Generated Visual Showcase (6 cols) */}
-            <div className="lg:col-span-6 relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-zinc-800 shadow-md">
-              <img
-                src={universityFinderImg}
-                alt="Global University & Scholarship Finder Concept Storyboard"
-                className="w-full h-auto object-cover rounded-2xl transform hover:scale-102 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 text-white text-xs font-extrabold flex items-center justify-between">
-                <span className="bg-[#0097B2] px-3 py-1 rounded-full shadow-md">
-                  🌟 Powered by ITP-Verse AI Matching
-                </span>
-                <span className="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full">
-                  500+ Partner Universities
-                </span>
-              </div>
-            </div>
-
-            {/* Right Storyboard Breakdown (6 cols) */}
-            <div className="lg:col-span-6 space-y-6">
-              
-              {/* Problem Column Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/20 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-black uppercase text-rose-600 dark:text-rose-400">
-                  <HelpCircle className="w-4 h-4" />
-                  <span>The Student Struggle</span>
-                </div>
-                <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-700 dark:text-zinc-300">
-                  <span className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
-                    "Which university accepts my score?"
-                  </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
-                    "Can I get a 100% Scholarship?"
-                  </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
-                    "High tuition fees!"
-                  </span>
-                </div>
-              </div>
-
-              {/* Solution Column Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20 space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase text-emerald-600 dark:text-emerald-400">
-                    <Lightbulb className="w-4 h-4" />
-                    <span>We Have The Solution!</span>
-                  </div>
-                  <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/20">
-                    99.4% Match Rate
-                  </span>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold text-slate-800 dark:text-zinc-200">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Find Universities by IELTS/PTE</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Filter 100% Full-Ride Grants</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Tuition-Free Public Options</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Direct Alumni Guidance</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── INTERACTIVE SEARCH & FILTERS BAR ── */}
-        <div className="mb-10 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-6 shadow-xl space-y-4">
+        {/* ── Main 3-Column Storytelling Layout ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           
-          {/* Search Input Row */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-zinc-500" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search university name, country, or program (e.g. Computer Science, Oxford, Germany)..."
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-
-          {/* Filters Row (Country, Tuition Fee, Scholarship, IELTS Requirement) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          {/* ── CENTER COLUMN: Main Headline & Solution Cards (Order-1 on Desktop) ── */}
+          <div className="lg:col-span-6 flex flex-col items-center text-center order-1 lg:order-2">
             
-            {/* Filter 1: Country */}
-            <div className="space-y-1">
-              <label className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500 flex items-center gap-1">
-                <Globe2 className="w-3.5 h-3.5 text-[#0097B2]" />
-                <span>Country</span>
-              </label>
-              <select
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
-              >
-                <option value="all">All Countries 🌐</option>
-                <option value="United Kingdom">United Kingdom 🇬🇧</option>
-                <option value="Germany">Germany 🇩🇪</option>
-                <option value="Canada">Canada 🇨🇦</option>
-                <option value="Australia">Australia 🇦🇺</option>
-                <option value="Japan">Japan 🇯🇵</option>
-                <option value="USA">USA 🇺🇸</option>
-              </select>
-            </div>
-
-            {/* Filter 2: IELTS Min Requirement */}
-            <div className="space-y-1">
-              <label className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500 flex items-center gap-1">
-                <Award className="w-3.5 h-3.5 text-[#0097B2]" />
-                <span>IELTS Requirement</span>
-              </label>
-              <select
-                value={selectedIelts}
-                onChange={(e) => setSelectedIelts(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
-              >
-                <option value="all">Any IELTS Band Score</option>
-                <option value="6.0">IELTS 6.0 or below</option>
-                <option value="6.5">IELTS 6.5 or below</option>
-                <option value="7.0">IELTS 7.0 or below</option>
-                <option value="7.5">IELTS 7.5+ Target</option>
-              </select>
-            </div>
-
-            {/* Filter 3: Tuition Fee Budget */}
-            <div className="space-y-1">
-              <label className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500 flex items-center gap-1">
-                <DollarSign className="w-3.5 h-3.5 text-[#0097B2]" />
-                <span>Tuition Fee Budget</span>
-              </label>
-              <select
-                value={selectedBudget}
-                onChange={(e) => setSelectedBudget(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
-              >
-                <option value="all">All Tuition Ranges</option>
-                <option value="free">€0 Tuition-Free (Germany)</option>
-                <option value="low">Low Cost (Under $10,000/yr)</option>
-                <option value="medium">Standard ($10,000 - $40,000/yr)</option>
-              </select>
-            </div>
-
-            {/* Filter 4: Scholarship Type */}
-            <div className="space-y-1">
-              <label className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500 flex items-center gap-1">
-                <GraduationCap className="w-3.5 h-3.5 text-[#0097B2]" />
-                <span>Scholarship Type</span>
-              </label>
-              <select
-                value={selectedScholarship}
-                onChange={(e) => setSelectedScholarship(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs font-bold text-slate-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
-              >
-                <option value="all">All Scholarships</option>
-                <option value="full">100% Full-Ride Grants</option>
-                <option value="merit">Merit-Based Fee Waivers</option>
-              </select>
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* ── FILTERED UNIVERSITIES GRID ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence>
-            {filteredUniversities.map((uni) => (
-              <motion.div
-                key={uni.id}
-                layout
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="group relative rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 p-6 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  
-                  {/* Card Header: Flag & Ranking */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl">{uni.flag}</span>
-                    <span className="px-3 py-1 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/20 text-[#0097B2] dark:text-cyan-400 text-[11px] font-black">
-                      {uni.ranking}
-                    </span>
-                  </div>
-
-                  {/* University Name & Country */}
-                  <div>
-                    <h3 className="text-lg font-black text-slate-900 dark:text-white tracking-tight group-hover:text-[#0097B2] transition-colors">
-                      {uni.name}
-                    </h3>
-                    <p className="text-xs font-semibold text-slate-500 dark:text-zinc-400 flex items-center gap-1 mt-0.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{uni.location}</span>
-                    </p>
-                  </div>
-
-                  {/* Badges: IELTS Min & Tuition */}
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800">
-                      <span className="text-[10px] font-black uppercase text-slate-400 dark:text-zinc-500 block">
-                        Min IELTS Cutoff
-                      </span>
-                      <span className="text-xs font-black text-slate-800 dark:text-zinc-200">
-                        {uni.ieltsMin} (PTE {uni.pteMin}+)
-                      </span>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800">
-                      <span className="text-[10px] font-black uppercase text-slate-400 dark:text-zinc-500 block">
-                        Tuition Fee
-                      </span>
-                      <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 truncate block">
-                        {uni.tuition}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Scholarship Pill */}
-                  <div className="p-3 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-900 dark:text-amber-300 space-y-0.5">
-                    <span className="text-[10px] font-black uppercase tracking-wider block flex items-center gap-1">
-                      <Zap className="w-3 h-3 text-amber-500" />
-                      <span>Scholarship Opportunity</span>
-                    </span>
-                    <p className="text-xs font-extrabold line-clamp-1">
-                      {uni.scholarship}
-                    </p>
-                  </div>
-
-                </div>
-
-                {/* Card Action Footer */}
-                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-400 dark:text-zinc-500">
-                    Acceptance: {uni.acceptanceRate}
-                  </span>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveModalUni(uni)}
-                    className="px-4 py-2 rounded-xl bg-[#0097B2] hover:bg-[#00839b] text-white text-xs font-black shadow-md shadow-[#0097B2]/20 transition-all cursor-pointer flex items-center gap-1"
-                  >
-                    <span>Check Match</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {/* Empty Search Result */}
-        {filteredUniversities.length === 0 && (
-          <div className="text-center py-16 bg-white dark:bg-zinc-900 rounded-3xl border border-slate-200 dark:border-zinc-800 space-y-3">
-            <Building2 className="w-12 h-12 text-slate-300 dark:text-zinc-700 mx-auto" />
-            <h4 className="text-lg font-black text-slate-800 dark:text-zinc-200">
-              No matching universities found
-            </h4>
-            <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-sm mx-auto">
-              Try adjusting your country filter, IELTS score range, or search keyword to see available global options.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCountry('all');
-                setSelectedIelts('all');
-                setSelectedBudget('all');
-                setSelectedScholarship('all');
-              }}
-              className="px-4 py-2 rounded-xl bg-[#0097B2]/10 text-[#0097B2] text-xs font-black hover:bg-[#0097B2]/20 transition-all"
+            {/* Main Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-[#E6F5F7] leading-[1.2] lg:leading-[1.15] tracking-tight mb-3 px-2 sm:px-0"
             >
-              Reset All Filters
-            </button>
-          </div>
-        )}
+              Find Universities Worldwide <br className="hidden sm:inline" />
+              Based On Your <span className="bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] bg-clip-text text-transparent">IELTS Score.</span>
+            </motion.h1>
 
-      </div>
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 font-semibold max-w-lg mb-6 leading-relaxed px-3 sm:px-0"
+            >
+              Search 500+ global universities, filter 100% full-ride scholarships, <br className="hidden sm:inline" />
+              and check tuition-free public options with real alumni guidance.
+            </motion.p>
 
-      {/* ── ELIGIBILITY DETAILS POPUP MODAL ── */}
-      <AnimatePresence>
-        {activeModalUni && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md">
+            {/* 3 Brand Solution Cards */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full mb-6 px-2 sm:px-0"
+            >
+              {/* Card 1 */}
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#091b20] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-md hover:shadow-xl hover:border-[#0097B2]/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+                <div className="w-10 h-10 rounded-xl bg-[#0097B2]/10 text-[#0097B2] dark:text-[#1AB0CB] flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-[#E6F5F7] mb-1 leading-tight">
+                  500+ Universities
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium leading-snug">
+                  Filter USA, UK, Canada, Australia & Europe options.
+                </p>
+              </div>
+
+              {/* Card 2 */}
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#091b20] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-md hover:shadow-xl hover:border-emerald-500/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-[#E6F5F7] mb-1 leading-tight">
+                  100% Scholarships
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium leading-snug">
+                  Match full tuition & living stipend grants.
+                </p>
+              </div>
+
+              {/* Card 3 */}
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#091b20] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-md hover:shadow-xl hover:border-[#004B59]/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+                <div className="w-10 h-10 rounded-xl bg-[#004B59]/10 text-[#004B59] dark:text-[#1AB0CB] flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                  <Target className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-[#E6F5F7] mb-1 leading-tight">
+                  Score Cutoff Match
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium leading-snug">
+                  Match Band 6.0 to 8.0+ criteria instantly.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Primary CTA Button */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-lg rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="flex flex-col items-center gap-3 w-full px-2 sm:px-0 mb-4 lg:mb-0"
             >
-              {/* Close Button */}
               <button
                 type="button"
-                onClick={() => setActiveModalUni(null)}
-                className="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                onClick={() => alert('Launching Global University Finder Portal...')}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] text-white font-black text-sm sm:text-base shadow-lg shadow-[#0097B2]/30 hover:shadow-xl hover:shadow-[#0097B2]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
               >
-                <X className="w-5 h-5" />
+                <span>Find Universities Based On Your Score</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* Modal Header */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl">{activeModalUni.flag}</span>
-                  <span className="px-3 py-1 rounded-full bg-[#0097B2]/10 text-[#0097B2] text-xs font-black">
-                    {activeModalUni.ranking}
-                  </span>
-                </div>
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white">
-                  {activeModalUni.name}
-                </h3>
-                <p className="text-xs font-bold text-slate-500 dark:text-zinc-400">
-                  {activeModalUni.location} • Acceptance Rate: {activeModalUni.acceptanceRate}
-                </p>
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-1 text-slate-500 dark:text-zinc-400 text-xs font-semibold text-center">
+                <p className="text-[10.5px] sm:text-[11px]">500+ Partner Institutions • 99.4% Match Rate</p>
               </div>
-
-              {/* Detailed Specs Grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800">
-                  <span className="text-[10px] font-black uppercase text-slate-400 block">Minimum IELTS</span>
-                  <span className="text-sm font-black text-slate-900 dark:text-white">{activeModalUni.ieltsMin} Band</span>
-                </div>
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800">
-                  <span className="text-[10px] font-black uppercase text-slate-400 block">Minimum PTE</span>
-                  <span className="text-sm font-black text-slate-900 dark:text-white">{activeModalUni.pteMin} Score</span>
-                </div>
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800 col-span-2">
-                  <span className="text-[10px] font-black uppercase text-slate-400 block">Tuition Structure</span>
-                  <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">{activeModalUni.tuition}</span>
-                </div>
-              </div>
-
-              {/* Scholarship Highlight */}
-              <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5" />
-                  <span>Scholarship Overview</span>
-                </span>
-                <p className="text-xs text-slate-700 dark:text-zinc-200 font-semibold leading-relaxed">
-                  {activeModalUni.details}
-                </p>
-              </div>
-
-              {/* Popular Programs */}
-              <div className="space-y-2">
-                <span className="text-xs font-black uppercase tracking-wider text-slate-400 block">
-                  Top International Programs
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {activeModalUni.popularPrograms.map((p, i) => (
-                    <span key={i} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-xs font-bold text-slate-700 dark:text-zinc-300">
-                      {p}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  alert(`Connecting your IELTS score profile to ${activeModalUni.name} admissions office!`);
-                  setActiveModalUni(null);
-                }}
-                className="w-full py-3.5 rounded-2xl bg-[#0097B2] hover:bg-[#00839b] text-white text-xs font-black shadow-lg shadow-[#0097B2]/30 transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <ShieldCheck className="w-4 h-4" />
-                <span>Apply & Match IELTS Score</span>
-              </button>
-
             </motion.div>
+
           </div>
-        )}
-      </AnimatePresence>
+
+          {/* ── LEFT COLUMN: Confused Girl Avatar Enters FIRST (t=0.2s), then Questions Arise Sequentially (t=0.8s, 1.4s, 2.0s, 2.6s) ── */}
+          <div className="lg:col-span-3 flex flex-col items-center relative order-2 lg:order-1 min-h-[380px] sm:min-h-[420px] justify-center overflow-visible">
+            <AnimatePresence mode="wait">
+              <div key={animCycleKey} className="relative w-full max-w-[290px] sm:max-w-[340px] lg:max-w-full flex items-center justify-center min-h-[360px]">
+                
+                {/* 1st Question Arises at t=0.8s */}
+                <FloatingThoughtBubble
+                  text="Which University accepts Band 6.5?"
+                  delay={0.8}
+                  tailPosition="bottom-right"
+                  className="-top-12 -left-3 sm:-left-8 lg:-left-6"
+                />
+
+                {/* 2nd Question Arises at t=1.4s (Repositioned higher & right to clear her face!) */}
+                <FloatingThoughtBubble
+                  text="Can I get 100% Scholarship?"
+                  delay={1.4}
+                  tailPosition="bottom-left"
+                  className="-top-2 -right-4 sm:-right-10 lg:-right-8"
+                />
+
+                {/* 3rd Question Arises at t=2.0s */}
+                <FloatingThoughtBubble
+                  text="Are German public UNIs free?"
+                  delay={2.0}
+                  tailPosition="right"
+                  className="top-36 -left-6 sm:-left-12 lg:-left-10"
+                />
+
+                {/* 4th Question Arises at t=2.6s */}
+                <FloatingThoughtBubble
+                  text="Too many options... Where do I start?"
+                  delay={2.6}
+                  tailPosition="top-left"
+                  className="-bottom-4 -right-4 sm:-right-10 lg:-right-8"
+                />
+
+                {/* Girl Avatar Enters FIRST at t=0.2s */}
+                <motion.div
+                  initial={{ opacity: 0, x: -150, scale: 0.75 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 100, scale: 0.8, transition: { duration: 0.5 } }}
+                  transition={{
+                    duration: 0.65,
+                    delay: 0.2, // Girl enters FIRST!
+                    type: 'spring',
+                    bounce: 0.35
+                  }}
+                  onClick={handleReplayCycle}
+                  className="relative z-10 cursor-pointer group/avatar my-4"
+                >
+                  <motion.div
+                    animate={{ y: [0, -10, 0], rotate: [0, -1.5, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+                    whileHover={{ scale: 1.08, rotate: -3, y: -12 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="absolute inset-0 bg-[#0097B2]/20 rounded-full blur-2xl -z-10 pointer-events-none" />
+                    <img
+                      src="/img/confused_female_student.png"
+                      alt="Confused Female Student Avatar"
+                      className="w-44 sm:w-60 lg:w-72 max-h-[320px] sm:max-h-[380px] h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,151,178,0.25)] group-hover/avatar:drop-shadow-[0_20px_40px_rgba(0,151,178,0.4)] transition-all duration-300"
+                    />
+                  </motion.div>
+                </motion.div>
+
+              </div>
+            </AnimatePresence>
+          </div>
+
+          {/* ── RIGHT COLUMN: Boy Mentor Avatar Enters THEN (t=3.2s), providing Solution & Checklist ── */}
+          <div className="lg:col-span-3 flex flex-col items-center relative order-3">
+            <AnimatePresence mode="wait">
+              <div key={animCycleKey} className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-full flex flex-col items-center">
+                
+                {/* Mentor Speech Bubble Arises at t=3.6s */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, y: -20, transition: { duration: 0.3 } }}
+                  transition={{ duration: 0.45, delay: 3.6, type: 'spring', stiffness: 220 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl bg-white/95 dark:bg-[#0d242b]/90 backdrop-blur-md border border-[#0097B2]/30 dark:border-[#0097B2]/40 shadow-md text-[11px] sm:text-xs font-bold text-slate-800 dark:text-[#E6F5F7] mb-2 cursor-pointer"
+                >
+                  <span className="text-[#0097B2] dark:text-[#1AB0CB] font-black">We Have The Solution!</span>
+                </motion.div>
+
+                {/* Boy Mentor Avatar Enters AFTER Questions at t=3.2s */}
+                <motion.div
+                  initial={{ opacity: 0, x: 150, scale: 0.75 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -100, scale: 0.8, transition: { duration: 0.5 } }}
+                  transition={{
+                    duration: 0.65,
+                    delay: 3.2, // Boy Mentor enters AFTER questions!
+                    type: 'spring',
+                    bounce: 0.35
+                  }}
+                  onClick={handleReplayCycle}
+                  className="relative z-10 cursor-pointer group/mentor"
+                >
+                  <motion.div
+                    animate={{ y: [0, -10, 0], rotate: [0, 1.5, 0] }}
+                    transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 3.7 }}
+                    whileHover={{ scale: 1.08, rotate: 3, y: -12 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="absolute inset-0 bg-[#004B59]/20 rounded-full blur-2xl -z-10 pointer-events-none" />
+                    <img
+                      src="/img/happy_mentor_student.png"
+                      alt="Edwaay University Mentor"
+                      className="w-44 sm:w-60 lg:w-72 max-h-[320px] sm:max-h-[380px] h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,75,89,0.2)] group-hover/mentor:drop-shadow-[0_20px_40px_rgba(0,151,178,0.35)] transition-all duration-300"
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* Solution Checklist Box Arises at t=4.0s */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, y: 20, transition: { duration: 0.3 } }}
+                  transition={{ duration: 0.45, delay: 4.0, type: 'spring', stiffness: 220 }}
+                  className="w-full mt-2 p-3 sm:p-3.5 rounded-2xl bg-white/95 dark:bg-[#091b20]/95 backdrop-blur-md border border-slate-200/90 dark:border-[#0097B2]/30 shadow-lg space-y-2 text-left"
+                >
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-[#E6F5F7]">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>Find Universities by Score</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-[#E6F5F7]">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>Filter 100% Full-Ride Grants</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-[#E6F5F7]">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>Tuition-Free Public UNIs <span className="text-[9.5px] text-[#0097B2] font-extrabold">(Germany)</span></span>
+                  </div>
+                </motion.div>
+
+              </div>
+            </AnimatePresence>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ── BOTTOM FEATURE CAPSULE BAR ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="p-3 sm:p-4 rounded-3xl bg-white/90 dark:bg-[#091b20]/90 backdrop-blur-xl border border-slate-200/80 dark:border-[#0097B2]/30 shadow-xl grid grid-cols-2 md:grid-cols-5 gap-2.5 sm:gap-3 text-center"
+        >
+          {/* Feature 1 */}
+          <div className="flex items-center justify-center gap-2.5 p-2 rounded-2xl hover:bg-[#E6F5F7]/50 dark:hover:bg-[#0d242b]/60 transition-colors">
+            <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-[#0097B2] dark:text-[#1AB0CB] flex-shrink-0" />
+            <div className="text-left">
+              <p className="text-xs font-black text-slate-900 dark:text-[#E6F5F7] leading-tight">Top Universities</p>
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium">Worldwide</p>
+            </div>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="flex items-center justify-center gap-2.5 p-2 rounded-2xl hover:bg-[#E6F5F7]/50 dark:hover:bg-[#0d242b]/60 transition-colors">
+            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" />
+            <div className="text-left">
+              <p className="text-xs font-black text-slate-900 dark:text-[#E6F5F7] leading-tight">100% Scholarships</p>
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium">Matched</p>
+            </div>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="flex items-center justify-center gap-2.5 p-2 rounded-2xl hover:bg-[#E6F5F7]/50 dark:hover:bg-[#0d242b]/60 transition-colors">
+            <Target className="w-4 h-4 sm:w-5 sm:h-5 text-[#004B59] dark:text-[#1AB0CB] flex-shrink-0" />
+            <div className="text-left">
+              <p className="text-xs font-black text-slate-900 dark:text-[#E6F5F7] leading-tight">IELTS / PTE Cutoff</p>
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium">Instant Match</p>
+            </div>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="flex items-center justify-center gap-2.5 p-2 rounded-2xl hover:bg-[#E6F5F7]/50 dark:hover:bg-[#0d242b]/60 transition-colors">
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#0097B2] flex-shrink-0" />
+            <div className="text-left">
+              <p className="text-xs font-black text-slate-900 dark:text-[#E6F5F7] leading-tight">Real Alumni</p>
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium">Mentors</p>
+            </div>
+          </div>
+
+          {/* Feature 5 */}
+          <div className="col-span-2 md:col-span-1 flex items-center justify-center gap-2.5 p-2 rounded-2xl hover:bg-[#E6F5F7]/50 dark:hover:bg-[#0d242b]/60 transition-colors">
+            <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#004B59] dark:text-[#1AB0CB] flex-shrink-0" />
+            <div className="text-left">
+              <p className="text-xs font-black text-slate-900 dark:text-[#E6F5F7] leading-tight">99.4% Match Rate</p>
+              <p className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium">Guaranteed</p>
+            </div>
+          </div>
+
+        </motion.div>
+      </div>
 
     </section>
   );
