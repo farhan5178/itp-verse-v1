@@ -11,7 +11,9 @@ export function AuthProvider({ children }) {
     const savedUser = localStorage.getItem('itp_user');
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const parsed = JSON.parse(savedUser);
+        if (!parsed.gender) parsed.gender = 'male';
+        setUser(parsed);
         setIsLoggedIn(true);
       } catch (e) {
         localStorage.removeItem('itp_user');
@@ -19,11 +21,21 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  const login = (userData = { name: 'Alex Johnson', email: 'alex@example.com', targetExam: 'IELTS', targetScore: '8.0' }) => {
-    setUser(userData);
+  const login = (userData = { name: 'Alex Johnson', email: 'alex@example.com', targetExam: 'IELTS', targetScore: '8.0', gender: 'male' }) => {
+    const userWithGender = { gender: 'male', ...userData };
+    setUser(userWithGender);
     setIsLoggedIn(true);
-    localStorage.setItem('itp_user', JSON.stringify(userData));
+    localStorage.setItem('itp_user', JSON.stringify(userWithGender));
     setIsAuthModalOpen(false);
+  };
+
+  const setGender = (newGender) => {
+    setUser((prev) => {
+      if (!prev) return { name: 'Alex Johnson', gender: newGender };
+      const updated = { ...prev, gender: newGender };
+      localStorage.setItem('itp_user', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const logout = () => {
@@ -41,6 +53,7 @@ export function AuthProvider({ children }) {
         isLoggedIn,
         user,
         login,
+        setGender,
         logout,
         isAuthModalOpen,
         openAuthModal,

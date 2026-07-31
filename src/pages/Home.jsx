@@ -7,6 +7,7 @@ import AISpeakingDemo from '../components/home/AISpeakingDemo';
 import FeaturesSection from '../components/home/FeaturesSection';
 import StudyRoadmap from '../components/home/StudyRoadmap';
 import UniversityFinder from '../components/home/UniversityFinder';
+import PricingSection from '../components/home/PricingSection';
 import StudyPlanCTA from '../components/home/StudyPlanCTA';
 import SuccessStories from '../components/home/SuccessStories';
 import { useAuth } from '../context/AuthContext';
@@ -28,6 +29,7 @@ export default function Home() {
           <FeaturesSection />
           <StudyRoadmap />
           <UniversityFinder />
+          <PricingSection />
           <StudyPlanCTA />
           <SuccessStories />
         </>

@@ -12,10 +12,11 @@ import { useAuth }  from '../../../context/AuthContext';
    HERO ONBOARDING — root component
    ───────────────────────────────────────────────── */
 export default function HeroOnboarding() {
-  const { user } = useAuth();
+  const { user, setGender } = useAuth();
   const [avatarLanded, setAvatarLanded] = useState(false);
   const [showCTA,      setShowCTA]      = useState(false);
 
+  const currentGender = user?.gender || 'male';
   const userName = user?.name || 'Abdullah Masud';
   const userTarget = user?.targetScore ? `Band ${user.targetScore}` : 'Band 8.0+';
 
@@ -83,7 +84,7 @@ export default function HeroOnboarding() {
       {/* ── Main layout ─────────────────────────────────────── */}
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 px-6 max-w-5xl mx-auto w-full">
 
-        {/* Avatar — faster spring: stiffness↑ damping↑ */}
+        {/* Avatar — automatically renders user's account avatar */}
         <motion.div
           initial={{ x: -300, opacity: 0 }}
           animate={{ x: 0,    opacity: 1 }}
@@ -96,7 +97,7 @@ export default function HeroOnboarding() {
           onAnimationComplete={() => setAvatarLanded(true)}
           className="flex-shrink-0"
         >
-          <AIAvatar isReady={avatarLanded} />
+          <AIAvatar isReady={avatarLanded} gender={currentGender} />
         </motion.div>
 
         {/* Text column */}

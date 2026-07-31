@@ -10,6 +10,8 @@ export default function AuthModal() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
+  const [gender, setGenderState] = useState('male'); // 'male' or 'female'
+
   if (!isAuthModalOpen) return null;
 
   const deriveDisplayName = (nameInput, emailInput) => {
@@ -37,6 +39,7 @@ export default function AuthModal() {
       email: email.trim() || 'farhan@gmail.com',
       targetExam: 'IELTS',
       targetScore: '8.0',
+      gender: gender,
     });
   };
 
@@ -46,6 +49,7 @@ export default function AuthModal() {
       email: 'farhan@gmail.com',
       targetExam: 'IELTS',
       targetScore: '8.5',
+      gender: 'male',
     });
   };
 
@@ -55,6 +59,7 @@ export default function AuthModal() {
       email: 'sarah.c@edwaay.com',
       targetExam: 'IELTS',
       targetScore: '8.5',
+      gender: 'female',
     });
   };
 
@@ -173,6 +178,38 @@ export default function AuthModal() {
                   </div>
                 </div>
               )}
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1">
+                  {mode === 'signup' ? 'Select Your Avatar Gender' : 'Avatar Preference'}
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setGenderState('male')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      gender === 'male'
+                        ? 'bg-[#E6F5F7] dark:bg-[#0097B2]/25 border-[#0097B2] text-[#0097B2] dark:text-[#1AB0CB] shadow-sm'
+                        : 'border-slate-200 dark:border-zinc-800 text-slate-500 hover:text-slate-800 dark:text-zinc-400'
+                    }`}
+                  >
+                    <span>👦</span>
+                    <span>Male Avatar</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setGenderState('female')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      gender === 'female'
+                        ? 'bg-pink-50 dark:bg-pink-950/40 border-pink-400 text-pink-600 dark:text-pink-300 shadow-sm'
+                        : 'border-slate-200 dark:border-zinc-800 text-slate-500 hover:text-slate-800 dark:text-zinc-400'
+                    }`}
+                  >
+                    <span>👧</span>
+                    <span>Female Avatar</span>
+                  </button>
+                </div>
+              </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1">Email Address</label>
