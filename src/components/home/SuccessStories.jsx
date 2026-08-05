@@ -13,7 +13,7 @@ const testimonials = [
     scoreBadge: '+1.5 Band Boost',
     scoreDetail: 'Target Score Reached',
     highlight: true,
-    rotation: '-rotate-1 hover:rotate-0',
+    rotation: 'md:-rotate-1 md:hover:rotate-0',
     zIndex: 'z-10',
   },
   {
@@ -27,7 +27,7 @@ const testimonials = [
     scoreDetail: 'AI Feedback Mastery',
     highlight: true,
     rotation: 'rotate-0',
-    zIndex: 'z-20 shadow-2xl scale-[1.02]',
+    zIndex: 'z-20 shadow-2xl md:scale-[1.02]',
     featured: true,
   },
   {
@@ -40,7 +40,7 @@ const testimonials = [
     scoreBadge: 'Score: 630 (95th%)',
     scoreDetail: 'First Attempt Clear',
     highlight: false,
-    rotation: 'rotate-1 hover:rotate-0',
+    rotation: 'md:rotate-1 md:hover:rotate-0',
     zIndex: 'z-10',
   },
 ];
