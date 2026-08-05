@@ -10,6 +10,7 @@ import UniversityFinder from '../components/home/UniversityFinder';
 import PricingSection from '../components/home/PricingSection';
 import StudyPlanCTA from '../components/home/StudyPlanCTA';
 import SuccessStories from '../components/home/SuccessStories';
+import SuccessStatistics from '../components/home/SuccessStatistics';
 import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
@@ -30,8 +31,9 @@ export default function Home() {
           <StudyRoadmap />
           <UniversityFinder />
           <PricingSection />
-          <StudyPlanCTA />
           <SuccessStories />
+          <SuccessStatistics />
+          <StudyPlanCTA />
         </>
       )}
     </div>
