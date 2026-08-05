@@ -59,9 +59,31 @@ export default function FAQSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-cyan-50/20 to-slate-50 dark:from-dark-900 dark:via-[#091b20]/60 dark:to-dark-900 py-20 lg:py-28 border-t border-slate-200/80 dark:border-dark-700/80 transition-colors duration-300">
       
-      {/* Background ambient brand glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#004B59]/10 dark:bg-[#004B59]/25 rounded-full blur-3xl pointer-events-none" />
+      {/* Animated Floating Background Brand Glows */}
+      <motion.div
+        animate={{
+          y: [0, -25, 0],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-3xl pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          y: [0, 20, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute bottom-10 left-10 w-80 h-80 bg-[#004B59]/10 dark:bg-[#004B59]/25 rounded-full blur-3xl pointer-events-none"
+      />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -71,9 +93,10 @@ export default function FAQSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#E6F5F7] to-cyan-100/70 dark:from-[#0097B2]/20 dark:to-[#004B59]/30 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-sm mb-4"
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#E6F5F7] to-cyan-100/70 dark:from-[#0097B2]/20 dark:to-[#004B59]/30 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-sm mb-4 cursor-default"
           >
-            <HelpCircle className="w-4 h-4 text-[#0097B2] dark:text-cyan-300" />
+            <HelpCircle className="w-4 h-4 text-[#0097B2] dark:text-cyan-300 animate-pulse" />
             <span>12. FREQUENTLY ASKED QUESTIONS</span>
           </motion.div>
 
@@ -108,14 +131,14 @@ export default function FAQSection() {
             transition={{ delay: 0.3 }}
             className="mt-8 max-w-md mx-auto relative"
           >
-            <div className="relative flex items-center">
-              <Search className="w-5 h-5 text-[#0097B2] dark:text-cyan-400 absolute left-4 pointer-events-none" />
+            <div className="relative flex items-center group">
+              <Search className="w-5 h-5 text-[#0097B2] dark:text-cyan-400 absolute left-4 pointer-events-none transition-transform duration-200 group-focus-within:scale-110" />
               <input
                 type="text"
                 placeholder="Search questions (e.g. AI speaking, mobile, certificates)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-2xl bg-white dark:bg-dark-800 border border-slate-200/90 dark:border-dark-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-dark-muted focus:outline-none focus:ring-2 focus:ring-[#0097B2]/50 shadow-sm transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 rounded-2xl bg-white dark:bg-dark-800 border border-slate-200/90 dark:border-dark-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-dark-muted focus:outline-none focus:ring-2 focus:ring-[#0097B2]/50 shadow-sm transition-all duration-300 hover:border-[#0097B2]/40"
               />
             </div>
           </motion.div>
@@ -132,10 +155,11 @@ export default function FAQSection() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: index * 0.08 }}
+                  transition={{ duration: 0.35, delay: index * 0.07 }}
+                  whileHover={{ scale: 1.008, transition: { duration: 0.2 } }}
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isOpen
-                      ? 'bg-gradient-to-br from-white via-cyan-50/40 to-[#E6F5F7]/40 dark:from-[#0d242b] dark:via-[#091b20] dark:to-[#061317] border-[#0097B2]/50 shadow-lg ring-1 ring-[#0097B2]/30'
+                      ? 'bg-gradient-to-br from-white via-cyan-50/40 to-[#E6F5F7]/40 dark:from-[#0d242b] dark:via-[#091b20] dark:to-[#061317] border-[#0097B2]/60 shadow-xl ring-1 ring-[#0097B2]/40'
                       : 'bg-white/90 dark:bg-dark-800/90 border-slate-200/90 dark:border-dark-700 hover:border-[#0097B2]/40 shadow-sm'
                   }`}
                 >
@@ -144,17 +168,23 @@ export default function FAQSection() {
                     className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer focus:outline-none"
                   >
                     <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-headline leading-snug flex items-center gap-3">
-                      <span className="w-2 h-2 rounded-full bg-[#0097B2] dark:bg-cyan-400 shrink-0" />
+                      <span className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 shrink-0 ${
+                        isOpen ? 'bg-[#0097B2] dark:bg-cyan-400 animate-pulse' : 'bg-slate-300 dark:bg-dark-700'
+                      }`} />
                       {faq.question}
                     </span>
 
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                      isOpen
-                        ? 'bg-[#0097B2] text-white rotate-180 shadow-xs'
-                        : 'bg-slate-100 dark:bg-dark-700 text-slate-600 dark:text-dark-muted'
-                    }`}>
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                        isOpen
+                          ? 'bg-[#0097B2] text-white shadow-xs'
+                          : 'bg-slate-100 dark:bg-dark-700 text-slate-600 dark:text-dark-muted'
+                      }`}
+                    >
                       <ChevronDown className="w-4 h-4" />
-                    </div>
+                    </motion.div>
                   </button>
 
                   <AnimatePresence initial={false}>
@@ -164,7 +194,7 @@ export default function FAQSection() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        transition={{ type: 'spring', stiffness: 350, damping: 28 }}
                       >
                         <div className="px-6 pb-6 pt-1 border-t border-slate-200/60 dark:border-dark-700/60 text-xs sm:text-sm text-slate-600 dark:text-dark-muted font-normal leading-relaxed">
                           {faq.answer}
@@ -176,11 +206,15 @@ export default function FAQSection() {
               );
             })
           ) : (
-            <div className="text-center py-12 bg-white dark:bg-dark-800 rounded-2xl border border-slate-200 dark:border-dark-700">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-center py-12 bg-white dark:bg-dark-800 rounded-2xl border border-slate-200 dark:border-dark-700"
+            >
               <p className="text-sm font-semibold text-slate-500 dark:text-dark-muted">
                 No matching questions found for "{searchQuery}".
               </p>
-            </div>
+            </motion.div>
           )}
         </div>
 
@@ -190,12 +224,16 @@ export default function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-16 max-w-3xl mx-auto rounded-3xl bg-gradient-to-r from-slate-900 via-[#004B59] to-slate-900 dark:from-[#091b20] dark:via-[#004B59] dark:to-[#091b20] border border-[#0097B2]/40 p-8 shadow-2xl text-center relative overflow-hidden"
+          whileHover={{ y: -4, transition: { duration: 0.25 } }}
+          className="mt-16 max-w-3xl mx-auto rounded-3xl bg-gradient-to-r from-slate-900 via-[#004B59] to-slate-900 dark:from-[#091b20] dark:via-[#004B59] dark:to-[#091b20] border border-[#0097B2]/40 p-8 shadow-2xl text-center relative overflow-hidden group"
         >
           <div className="relative z-10">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#0097B2]/20 border border-[#0097B2]/40 text-[#0097B2] dark:text-cyan-300 mb-4">
+            <motion.div
+              whileHover={{ rotate: 15, scale: 1.1 }}
+              className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#0097B2]/20 border border-[#0097B2]/40 text-[#0097B2] dark:text-cyan-300 mb-4 transition-transform duration-300"
+            >
               <MessageCircle className="w-6 h-6" />
-            </div>
+            </motion.div>
 
             <h3 className="text-xl sm:text-2xl font-black text-white font-headline mb-2">
               Still Have Questions?
@@ -206,13 +244,15 @@ export default function FAQSection() {
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <button
+              <motion.button
                 onClick={openAuthModal}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#0097B2] to-[#00788E] hover:from-[#1AB0CB] hover:to-[#0097B2] shadow-lg hover:shadow-cyan-500/30 transition-all duration-200 cursor-pointer active:scale-95"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#0097B2] to-[#00788E] hover:from-[#1AB0CB] hover:to-[#0097B2] shadow-lg hover:shadow-cyan-500/30 transition-all duration-200 cursor-pointer"
               >
                 <span>Start Free Practice</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </motion.button>
             </div>
           </div>
         </motion.div>
