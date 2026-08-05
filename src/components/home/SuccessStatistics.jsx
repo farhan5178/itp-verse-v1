@@ -89,11 +89,11 @@ const statsData = [
 
 export default function SuccessStatistics() {
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-dark-900 py-20 lg:py-28 border-t border-slate-200/80 dark:border-dark-700/80 transition-colors duration-300">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-[#E6F5F7]/30 to-slate-50 dark:from-dark-900 dark:via-[#091b20]/70 dark:to-dark-900 py-20 lg:py-28 border-t border-slate-200/80 dark:border-dark-700/80 transition-colors duration-300">
       
       {/* Ambient background brand glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-brand/5 dark:bg-brand/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-0 right-0 w-72 h-72 bg-secondary/5 dark:bg-secondary/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-[#004B59]/10 dark:bg-[#004B59]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -103,7 +103,7 @@ export default function SuccessStatistics() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6F5F7] dark:bg-[#0097B2]/15 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-xs mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#E6F5F7] to-cyan-100/70 dark:from-[#0097B2]/20 dark:to-[#004B59]/30 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-sm mb-4"
           >
             <BarChart3 className="w-4 h-4 text-[#0097B2] dark:text-cyan-300" />
             <span>11. SUCCESS STATISTICS</span>
@@ -117,7 +117,7 @@ export default function SuccessStatistics() {
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-headline"
           >
             Our Growth &{' '}
-            <span className="bg-gradient-to-r from-[#0097B2] via-cyan-500 to-[#004B59] dark:from-cyan-400 dark:via-[#0097B2] dark:to-teal-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#0097B2] via-cyan-500 to-[#004B59] dark:from-cyan-300 dark:via-[#0097B2] dark:to-teal-200 bg-clip-text text-transparent">
               Platform Impact
             </span>
           </motion.h2>
@@ -145,25 +145,28 @@ export default function SuccessStatistics() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.12 }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="relative rounded-3xl bg-slate-50/80 dark:bg-dark-800 border border-slate-200/90 dark:border-dark-700 p-7 sm:p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                className="relative rounded-3xl bg-gradient-to-br from-white via-cyan-50/40 to-[#E6F5F7]/50 dark:from-[#0d242b] dark:via-[#091b20] dark:to-[#061317] border border-[#0097B2]/20 dark:border-[#0097B2]/30 p-7 sm:p-8 shadow-md hover:shadow-[0_15px_35px_rgba(0,151,178,0.2)] hover:border-[#0097B2] dark:hover:border-cyan-400 transition-all duration-300 flex flex-col justify-between group overflow-hidden"
               >
+                {/* Top Subtle Gradient Accent Line */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0097B2] via-cyan-400 to-[#004B59] opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+
                 {/* Header Row: Icon & Tag */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`w-12 h-12 rounded-2xl ${item.bgIconColor} flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110`}>
+                <div className="flex items-center justify-between mb-6 pt-1">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0097B2]/15 via-[#0097B2]/25 to-[#004B59]/30 dark:from-[#0097B2]/30 dark:to-[#004B59]/50 border border-[#0097B2]/40 text-[#0097B2] dark:text-cyan-300 flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white dark:bg-dark-900/80 border border-slate-200 dark:border-dark-700 text-slate-600 dark:text-dark-muted">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-gradient-to-r from-white to-cyan-50 dark:from-[#061317] dark:to-[#091b20] border border-[#0097B2]/20 text-[#0097B2] dark:text-cyan-300 shadow-xs">
                     {item.badge}
                   </span>
                 </div>
 
                 {/* Counter & Label */}
                 <div>
-                  <div className="text-3xl sm:text-4xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight font-headline mb-2">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black bg-gradient-to-r from-[#0097B2] via-cyan-500 to-[#004B59] dark:from-cyan-300 dark:via-[#0097B2] dark:to-teal-200 bg-clip-text text-transparent tracking-tight font-headline mb-2">
                     <Counter targetValue={item.target} suffix={item.suffix} />
                   </div>
                   
-                  <h3 className="text-base font-bold text-slate-800 dark:text-zinc-200 mb-2">
+                  <h3 className="text-base font-black text-slate-900 dark:text-white mb-2">
                     {item.label}
                   </h3>
 
@@ -173,7 +176,7 @@ export default function SuccessStatistics() {
                 </div>
 
                 {/* Subtle Indicator Bar */}
-                <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-dark-700/60 flex items-center gap-2 text-[11px] font-bold text-[#0097B2] dark:text-cyan-400">
+                <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-dark-700/80 flex items-center gap-2 text-[11px] font-bold text-[#0097B2] dark:text-cyan-400">
                   <TrendingUp className="w-3.5 h-3.5" />
                   <span>Continuous Active Growth</span>
                 </div>

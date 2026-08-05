@@ -65,11 +65,11 @@ function DotGridPattern({ className }) {
 
 export default function SuccessStories() {
   return (
-    <section className="relative overflow-hidden bg-slate-50/80 dark:bg-dark-900 py-20 lg:py-28 border-t border-slate-200/80 dark:border-dark-700/80 transition-colors duration-300">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-cyan-50/20 to-slate-50 dark:from-dark-900 dark:via-[#091b20]/60 dark:to-dark-900 py-20 lg:py-28 border-t border-slate-200/80 dark:border-dark-700/80 transition-colors duration-300">
       
       {/* Background Brand Glows */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[400px] bg-brand/5 dark:bg-brand/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-80 h-80 bg-secondary/5 dark:bg-secondary/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[400px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#004B59]/10 dark:bg-[#004B59]/25 rounded-full blur-3xl pointer-events-none" />
 
       {/* Decorative Dot Matrix Patterns */}
       <DotGridPattern className="absolute top-8 left-8 opacity-70 pointer-events-none hidden sm:block" />
@@ -83,7 +83,7 @@ export default function SuccessStories() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6F5F7] dark:bg-[#0097B2]/15 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-xs mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#E6F5F7] to-cyan-100/70 dark:from-[#0097B2]/20 dark:to-[#004B59]/30 border border-[#0097B2]/30 text-xs font-black uppercase tracking-wider text-[#0097B2] dark:text-cyan-300 shadow-sm mb-4"
           >
             <GraduationCap className="w-4 h-4 text-[#0097B2] dark:text-cyan-300" />
             <span>10. STUDENT TESTIMONIALS</span>
@@ -123,12 +123,15 @@ export default function SuccessStories() {
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.12 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className={`relative rounded-3xl bg-white dark:bg-dark-800 border ${
+              className={`group relative rounded-3xl bg-gradient-to-br from-white via-cyan-50/30 to-[#E6F5F7]/40 dark:from-[#0d242b] dark:via-[#091b20] dark:to-[#061317] border ${
                 item.featured
-                  ? 'border-brand/40 dark:border-brand/50 ring-2 ring-brand/20 dark:ring-brand/30'
-                  : 'border-slate-200/90 dark:border-dark-700'
-              } p-7 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between ${item.rotation} ${item.zIndex}`}
+                  ? 'border-[#0097B2]/50 ring-2 ring-[#0097B2]/30 shadow-[0_15px_40px_rgba(0,151,178,0.25)]'
+                  : 'border-slate-200/90 dark:border-dark-700 shadow-xl'
+              } p-7 sm:p-8 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between ${item.rotation} ${item.zIndex}`}
             >
+              {/* Top Subtle Gradient Hover Accent */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0097B2] via-cyan-400 to-[#004B59] opacity-80 group-hover:opacity-100 transition-opacity duration-300 rounded-t-3xl" />
+
               {/* Quote Watermark Icon */}
               <div className="absolute top-6 right-6 text-brand/10 dark:text-brand/15 pointer-events-none">
                 <Quote className="w-10 h-10" />
@@ -137,7 +140,7 @@ export default function SuccessStories() {
               <div>
                 {/* Score Improvement Badge */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand dark:bg-brand/20 dark:text-brand-light border border-brand/20 dark:border-brand/30">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-[#E6F5F7] to-cyan-100/60 dark:from-[#0097B2]/20 dark:to-[#004B59]/30 text-[#0097B2] dark:text-cyan-300 border border-[#0097B2]/30 shadow-xs">
                     <TrendingUp className="w-3.5 h-3.5" />
                     {item.scoreBadge}
                   </span>
@@ -151,7 +154,7 @@ export default function SuccessStories() {
                 </div>
 
                 {/* Primary Testimonial Quote */}
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug mb-3">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-snug mb-3 font-headline">
                   "{item.quote}"
                 </h3>
 
