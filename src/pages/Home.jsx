@@ -8,10 +8,10 @@ import FeaturesSection from '../components/home/FeaturesSection';
 import StudyRoadmap from '../components/home/StudyRoadmap';
 import UniversityFinder from '../components/home/UniversityFinder';
 import PricingSection from '../components/home/PricingSection';
-import StudyPlanCTA from '../components/home/StudyPlanCTA';
 import SuccessStories from '../components/home/SuccessStories';
 import SuccessStatistics from '../components/home/SuccessStatistics';
 import FAQSection from '../components/home/FAQSection';
+import NewsletterSection from '../components/home/NewsletterSection';
 import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
@@ -35,9 +35,11 @@ export default function Home() {
           <SuccessStories />
           <SuccessStatistics />
           <FAQSection />
-          <StudyPlanCTA />
+          <NewsletterSection />
         </>
       )}
     </div>
   );
 }
+
+
