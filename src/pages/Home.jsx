@@ -12,6 +12,7 @@ import SuccessStories from '../components/home/SuccessStories';
 import SuccessStatistics from '../components/home/SuccessStatistics';
 import FAQSection from '../components/home/FAQSection';
 import NewsletterSection from '../components/home/NewsletterSection';
+import Dashboard from './Dashboard';
 import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
@@ -19,12 +20,12 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen">
-      {/* ── Dynamic Hero Section (LoggedIn Avatar vs Guest Landing) ── */}
-      {isLoggedIn ? <HeroOnboarding /> : <GuestHero />}
-
-      {/* ── Guest Onboarding Flow Sections ── */}
-      {!isLoggedIn && (
+      {isLoggedIn ? (
+        <Dashboard />
+      ) : (
         <>
+          {/* ── Guest Landing Page Experience ── */}
+          <GuestHero />
           <ExamOverview />
           <WhyEdwaay />
           <AISpeakingDemo />

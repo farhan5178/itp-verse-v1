@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Particles from './HeroOnboarding/Particles';
 import InteractiveGlobe from './InteractiveGlobe';
+import { useAuth } from '../../context/AuthContext';
 
 
 /* ── Floating Thought Bubble Component with Sequential Spring Entrance ── */
@@ -55,6 +56,7 @@ function FloatingThoughtBubble({ text, className, delay = 0, tailPosition = "bot
 }
 
 export default function UniversityFinder() {
+  const { openAuthModal } = useAuth();
   const [animCycleKey, setAnimCycleKey] = useState(0);
 
   /* 10-Second Storytelling Sequence Replay Timer */
@@ -121,7 +123,7 @@ export default function UniversityFinder() {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-[#E6F5F7] leading-[1.2] lg:leading-[1.15] tracking-tight mb-3 px-2 sm:px-0"
             >
-              Find Universities Worldwide <br className="hidden sm:inline" />
+              Find Universities & Scholarships <br className="hidden sm:inline" />
               Based On Your <span className="bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] bg-clip-text text-transparent">IELTS Score.</span>
             </motion.h1>
 
@@ -203,10 +205,10 @@ export default function UniversityFinder() {
             >
               <button
                 type="button"
-                onClick={() => alert('Launching Global University Finder Portal...')}
+                onClick={openAuthModal}
                 className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] text-white font-black text-sm sm:text-base shadow-lg shadow-[#0097B2]/30 hover:shadow-xl hover:shadow-[#0097B2]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
               >
-                <span>Find Universities Based On Your Score</span>
+                <span>Find Universities & Scholarships</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 

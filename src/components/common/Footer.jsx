@@ -1,7 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Linkedin, Youtube, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import EdwaayLogo from './EdwaayLogo';
+
+const FacebookIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const LinkedinIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const YoutubeIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+  </svg>
+);
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,19 +41,19 @@ export default function Footer() {
   const socialLinks = [
     {
       name: 'Facebook',
-      icon: Facebook,
+      icon: FacebookIcon,
       url: 'https://facebook.com',
       color: 'hover:bg-blue-600 hover:text-white',
     },
     {
       name: 'LinkedIn',
-      icon: Linkedin,
+      icon: LinkedinIcon,
       url: 'https://linkedin.com',
       color: 'hover:bg-sky-600 hover:text-white',
     },
     {
       name: 'YouTube',
-      icon: Youtube,
+      icon: YoutubeIcon,
       url: 'https://youtube.com',
       color: 'hover:bg-red-600 hover:text-white',
     },
@@ -137,9 +158,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar / Copyright */}
+        {/* Bottom Bar / Copyright & Developer Credit */}
         <div className="pt-8 border-t border-slate-800 dark:border-dark-700/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-500">
           <p>© {currentYear} Edwaay / ITP-Verse. All rights reserved.</p>
+          
+          <p className="font-medium text-slate-400 dark:text-zinc-400">
+            Designed & Developed by{' '}
+            <span className="font-bold text-slate-200 dark:text-zinc-200 hover:text-[#0097B2] dark:hover:text-cyan-400 transition-colors">
+              Farhan Sadik Turjo
+            </span>
+          </p>
+
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

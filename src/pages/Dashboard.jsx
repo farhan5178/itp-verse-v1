@@ -1,10 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { BookOpen, Trophy, Timer, LineChart, Play, Calendar, Star, Mic, PenTool, Headphones } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import HeroOnboarding from '../components/home/HeroOnboarding/index';
+import {
+  BookOpen,
+  Trophy,
+  Timer,
+  LineChart,
+  Play,
+  Calendar,
+  Mic,
+  PenTool,
+  Headphones,
+  Globe,
+  GraduationCap,
+  Award,
+  CheckCircle2,
+  Sparkles,
+  ArrowRight,
+  X,
+  Search,
+  Building2,
+  ExternalLink
+} from 'lucide-react';
+
+const mockUniversities = [
+  {
+    id: 'oxford',
+    name: 'University of Oxford',
+    country: 'United Kingdom',
+    flag: '🇬🇧',
+    minBand: '7.5+',
+    scholarship: '100% Rhodes Full Scholarship',
+    matchStatus: 'Qualified Match',
+    matchColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+    tuition: 'Fully Funded',
+    deadline: 'Oct 15, 2026',
+  },
+  {
+    id: 'tum',
+    name: 'Technical University of Munich',
+    country: 'Germany',
+    flag: '🇩🇪',
+    minBand: '6.5+',
+    scholarship: '100% DAAD Tuition-Free Public',
+    matchStatus: 'Guaranteed Match',
+    matchColor: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
+    tuition: '€0 / Tuition-Free',
+    deadline: 'Jul 15, 2026',
+  },
+  {
+    id: 'toronto',
+    name: 'University of Toronto',
+    country: 'Canada',
+    flag: '🇨🇦',
+    minBand: '7.0+',
+    scholarship: 'Lester B. Pearson Full Ride',
+    matchStatus: 'Qualified Match',
+    matchColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+    tuition: 'Fully Funded',
+    deadline: 'Jan 18, 2027',
+  },
+  {
+    id: 'harvard',
+    name: 'Harvard University',
+    country: 'United States',
+    flag: '🇺🇸',
+    minBand: '7.5+',
+    scholarship: 'Presidential Need-Based 100%',
+    matchStatus: 'Target Stretch',
+    matchColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
+    tuition: 'Fully Funded',
+    deadline: 'Nov 01, 2026',
+  },
+  {
+    id: 'melbourne',
+    name: 'University of Melbourne',
+    country: 'Australia',
+    flag: '🇦🇺',
+    minBand: '6.5+',
+    scholarship: 'Melbourne International Award',
+    matchStatus: 'Guaranteed Match',
+    matchColor: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
+    tuition: 'AUD $10,000 Grant',
+    deadline: 'Nov 30, 2026',
+  },
+  {
+    id: 'cambridge',
+    name: 'University of Cambridge',
+    country: 'United Kingdom',
+    flag: '🇬🇧',
+    minBand: '7.5+',
+    scholarship: 'Gates Cambridge Full Scholarship',
+    matchStatus: 'Qualified Match',
+    matchColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+    tuition: 'Fully Funded',
+    deadline: 'Dec 03, 2026',
+  },
+];
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const contentRef = useRef(null);
+  const [showDashboardContent, setShowDashboardContent] = useState(true);
+  const [isUniModalOpen, setIsUniModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('All');
+
+  const handleContinueLearning = () => {
+    setShowDashboardContent(true);
+    setTimeout(() => {
+      contentRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
 
   const stats = [
     { label: 'Estimated IELTS Band', value: '7.5 / 9.0', icon: Trophy, color: 'text-[#0097B2]' },
@@ -59,8 +167,29 @@ export default function Dashboard() {
     }
   ];
 
+  const filteredUniversities = mockUniversities.filter((uni) => {
+    const matchesCountry = selectedCountry === 'All' || uni.country === selectedCountry;
+    const matchesSearch = uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          uni.scholarship.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          uni.country.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCountry && matchesSearch;
+  });
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <div className="pb-12">
+      {/* Personalized AI Avatar Onboarding */}
+      <HeroOnboarding onContinue={handleContinueLearning} />
+
+      <AnimatePresence>
+        {showDashboardContent && (
+          <motion.div
+            ref={contentRef}
+            initial={{ opacity: 0, y: 35 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8"
+          >
 
       {/* Welcome Banner */}
       <motion.div
@@ -113,6 +242,50 @@ export default function Dashboard() {
         })}
       </div>
 
+      {/* ── Featured Section: Find Universities & Scholarships ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="glass-panel p-6 sm:p-8 rounded-3xl mb-8 relative overflow-hidden border border-[#0097B2]/30 bg-gradient-to-r from-cyan-500/10 via-[#0097B2]/10 to-[#004B59]/20"
+      >
+        <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#0097B2]/20 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 relative z-10">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0097B2]/20 border border-[#0097B2]/40 text-xs font-black text-[#0097B2] dark:text-cyan-300">
+              <Globe className="w-3.5 h-3.5" />
+              <span>Find Universities & Scholarships</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Discover Global Universities & Full Scholarships
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 font-medium leading-relaxed">
+              Based on your estimated <strong className="text-[#0097B2] dark:text-cyan-300">IELTS Band 7.5+</strong> score, explore 500+ top universities in USA, UK, Canada, Australia & Germany with 100% full-ride scholarship matches and tuition-free public options.
+            </p>
+
+            {/* Feature tags */}
+            <div className="flex flex-wrap gap-4 text-xs font-semibold text-slate-700 dark:text-zinc-300 pt-1">
+              <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-[#0097B2]" /> 500+ Global Partners</span>
+              <span className="flex items-center gap-1.5"><Award className="w-4 h-4 text-emerald-500" /> Full-Ride Scholarships</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-amber-500" /> Band Cutoff Matching</span>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setIsUniModalOpen(true)}
+            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] hover:from-[#00829a] hover:to-[#003843] text-sm font-black text-white shadow-xl shadow-[#0097B2]/30 hover:scale-105 active:scale-95 transition-all flex items-center space-x-2.5 cursor-pointer shrink-0 group"
+          >
+            <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
+            <span>Start My Journey</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Main Grid Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column - Active IELTS Mock Tests */}
         <div className="lg:col-span-2 space-y-8">
@@ -236,6 +409,153 @@ export default function Dashboard() {
 
         </div>
       </div>
+
+      {/* ── Interactive Modal: Your University & Scholarship Match Journey ── */}
+      <AnimatePresence>
+        {isUniModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsUniModalOpen(false)}
+              className="absolute inset-0 bg-slate-900/70 dark:bg-black/80 backdrop-blur-md"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-4xl max-h-[85vh] bg-white dark:bg-dark-800 border border-slate-200 dark:border-dark-700 rounded-3xl shadow-2xl overflow-hidden flex flex-col z-10"
+            >
+              {/* Modal Header */}
+              <div className="p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-[#091b20] to-[#004B59] text-white border-b border-slate-800 relative">
+                <button
+                  onClick={() => setIsUniModalOpen(false)}
+                  className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0097B2]/30 border border-[#0097B2]/40 text-xs font-bold text-cyan-300 mb-3">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Start My Journey • University & Scholarship Match</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
+                  Your Global Admission & Scholarship Matches
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-xl">
+                  Matched for your estimated score: <strong className="text-cyan-300 font-bold">IELTS Band 7.5</strong>
+                </p>
+
+                {/* Filter Controls */}
+                <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <div className="relative flex-grow">
+                    <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search university, scholarship or country..."
+                      className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/10 border border-white/20 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+                    {['All', 'United Kingdom', 'Germany', 'Canada', 'United States', 'Australia'].map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setSelectedCountry(c)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer transition-all ${
+                          selectedCountry === c
+                            ? 'bg-[#0097B2] text-white shadow-md'
+                            : 'bg-white/10 text-zinc-300 hover:bg-white/20'
+                        }`}
+                      >
+                        {c === 'All' ? '🌍 All Countries' : c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Body / Universities List */}
+              <div className="p-6 overflow-y-auto space-y-4 flex-grow bg-slate-50 dark:bg-dark-900/60">
+                {filteredUniversities.length === 0 ? (
+                  <div className="text-center py-12 text-slate-500 dark:text-zinc-400 text-sm">
+                    No universities found matching your search query. Try resetting filters.
+                  </div>
+                ) : (
+                  filteredUniversities.map((uni) => (
+                    <div
+                      key={uni.id}
+                      className="p-5 rounded-2xl bg-white dark:bg-dark-800 border border-slate-200/80 dark:border-dark-700 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">{uni.flag}</span>
+                          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                            {uni.name}
+                          </h3>
+                          <span className="text-xs font-bold text-slate-500 dark:text-zinc-400">
+                            • {uni.country}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 text-xs">
+                          <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-dark-700 text-slate-700 dark:text-zinc-300 font-bold">
+                            IELTS Min: {uni.minBand}
+                          </span>
+                          <span className="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 font-bold border border-purple-500/20 flex items-center gap-1">
+                            <Award className="w-3.5 h-3.5" />
+                            {uni.scholarship}
+                          </span>
+                          <span className={`px-2.5 py-1 rounded-lg font-bold border ${uni.matchColor}`}>
+                            {uni.matchStatus}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-dark-700">
+                        <div className="text-left sm:text-right">
+                          <p className="text-[10px] text-slate-400 dark:text-zinc-500 uppercase font-bold">Tuition Status</p>
+                          <p className="text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400">{uni.tuition}</p>
+                        </div>
+
+                        <button
+                          onClick={() => alert(`Starting application process for ${uni.name}...`)}
+                          className="px-4 py-2.5 rounded-xl bg-[#0097B2] hover:bg-[#00788E] text-white text-xs font-bold shadow-md flex items-center space-x-1.5 cursor-pointer transition-all"
+                        >
+                          <span>Apply Now</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 bg-white dark:bg-dark-800 border-t border-slate-200 dark:border-dark-700 flex justify-between items-center text-xs text-slate-500 dark:text-zinc-400">
+                <span>Showing {filteredUniversities.length} Verified Partner Universities</span>
+                <button
+                  onClick={() => setIsUniModalOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-dark-700 hover:bg-slate-200 dark:hover:bg-dark-700/80 text-slate-800 dark:text-white font-bold transition-all cursor-pointer"
+                >
+                  Close Explorer
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

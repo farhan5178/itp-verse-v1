@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Lock, User, GraduationCap, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AuthModal() {
+  const navigate = useNavigate();
   const { isAuthModalOpen, closeAuthModal, login } = useAuth();
   const [mode, setMode] = useState('login'); // 'login' or 'signup'
   const [email, setEmail] = useState('');
@@ -41,6 +43,7 @@ export default function AuthModal() {
       targetScore: '8.0',
       gender: gender,
     });
+    navigate('/dashboard');
   };
 
   const handleFarhanLogin = () => {
@@ -51,6 +54,7 @@ export default function AuthModal() {
       targetScore: '8.5',
       gender: 'male',
     });
+    navigate('/dashboard');
   };
 
   const handleDemoLogin = () => {
@@ -61,6 +65,7 @@ export default function AuthModal() {
       targetScore: '8.5',
       gender: 'female',
     });
+    navigate('/dashboard');
   };
 
   return (

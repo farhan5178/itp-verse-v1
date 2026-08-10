@@ -21,6 +21,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/mock-test" element={<MockTest />} />
               <Route path="/results" element={<Results />} />
+              <Route path="*" element={<Home />} />
             </Routes>
           </main>
           <Footer />

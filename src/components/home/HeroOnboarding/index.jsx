@@ -11,8 +11,8 @@ import { useAuth }  from '../../../context/AuthContext';
 /* ─────────────────────────────────────────────────
    HERO ONBOARDING — root component
    ───────────────────────────────────────────────── */
-export default function HeroOnboarding() {
-  const { user, setGender } = useAuth();
+export default function HeroOnboarding({ onContinue }) {
+  const { user } = useAuth();
   const [avatarLanded, setAvatarLanded] = useState(false);
   const [showCTA,      setShowCTA]      = useState(false);
 
@@ -114,11 +114,12 @@ export default function HeroOnboarding() {
           <AnimatePresence>
             {showCTA && (
               <motion.button
+                onClick={onContinue}
                 initial={{ opacity: 0, y: 16, scale: 0.92 }}
                 animate={{ opacity: 1, y: 0,  scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 240, damping: 22 }}
-                className="btn-primary text-sm px-8 py-3.5 mt-1 tracking-wide cursor-pointer"
+                className="btn-primary text-sm px-8 py-3.5 mt-1 tracking-wide cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-lg"
               >
                 Let's Continue Learning →
               </motion.button>

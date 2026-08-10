@@ -3,23 +3,29 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem('itp_user');
-    if (savedUser) {
-      try {
+  const [user, setUser] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem('itp_user');
+      if (savedUser) {
         const parsed = JSON.parse(savedUser);
         if (!parsed.gender) parsed.gender = 'male';
-        setUser(parsed);
-        setIsLoggedIn(true);
-      } catch (e) {
-        localStorage.removeItem('itp_user');
+        return parsed;
       }
+    } catch (e) {
+      localStorage.removeItem('itp_user');
     }
-  }, []);
+    return null;
+  });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    try {
+      return !!localStorage.getItem('itp_user');
+    } catch (e) {
+      return false;
+    }
+  });
+
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const login = (userData = { name: 'Alex Johnson', email: 'alex@example.com', targetExam: 'IELTS', targetScore: '8.0', gender: 'male' }) => {
     const userWithGender = { gender: 'male', ...userData };
@@ -66,5 +72,18 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    return {
+      isLoggedIn: false,
+      user: null,
+      login: () => {},
+      logout: () => {},
+      setGender: () => {},
+      isAuthModalOpen: false,
+      openAuthModal: () => {},
+      closeAuthModal: () => {},
+    };
+  }
+  return context;
 }

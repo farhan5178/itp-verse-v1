@@ -6,12 +6,12 @@ import { useAuth } from '../../context/AuthContext';
 import EdwaayLogo from './EdwaayLogo';
 
 const ieltsDropdownItems = [
-  { id: 'lessons', label: 'Lessons', icon: BookOpen, href: '/lessons' },
+  { id: 'lessons', label: 'Lessons', icon: BookOpen, href: '/dashboard' },
   { id: 'mock-tests', label: 'Mock Tests', icon: FileText, href: '/mock-test' },
-  { id: 'practice', label: 'Practice Questions', icon: Target, href: '/practice' },
-  { id: 'vocab', label: 'Vocab Chart 🔠', icon: HelpCircle, href: '/vocab' },
-  { id: 'finder', label: 'Uni & Scholarship Finder 🌍', icon: GraduationCap, href: '/finder' },
-  { id: 'records', label: 'Test Records', icon: BarChart2, href: '/records' },
+  { id: 'practice', label: 'Practice Questions', icon: Target, href: '/mock-test' },
+  { id: 'vocab', label: 'Vocab Chart 🔠', icon: HelpCircle, href: '/dashboard' },
+  { id: 'finder', label: 'Uni & Scholarship Finder 🌍', icon: GraduationCap, href: '/dashboard' },
+  { id: 'records', label: 'Test Records', icon: BarChart2, href: '/results' },
 ];
 
 export default function Navbar() {
@@ -144,9 +144,9 @@ export default function Navbar() {
 
           {/* 3. Community */}
           <Link
-            to="/community"
+            to="/dashboard"
             className={`px-4 py-1.5 text-xs sm:text-sm font-extrabold rounded-full transition-all duration-200 ${
-              location.pathname === '/community'
+              location.pathname === '/dashboard'
                 ? 'bg-white dark:bg-zinc-800 text-[#0097B2] dark:text-[#1AB0CB] shadow-xs'
                 : 'text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-zinc-800/50'
             }`}
@@ -160,7 +160,7 @@ export default function Navbar() {
           
           {/* Plans Button */}
           <Link
-            to="/plans"
+            to="/dashboard"
             id="purchase-btn"
             className="relative group overflow-hidden px-5 py-2 rounded-full text-xs font-black text-white transition-all duration-200 active:scale-95 cursor-pointer shadow-md shadow-[#0097B2]/25 hover:shadow-lg hover:shadow-[#0097B2]/35 border-t border-white/20"
             style={{ background: 'linear-gradient(135deg, #0097B2 0%, #004B59 100%)' }}
