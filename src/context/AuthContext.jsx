@@ -8,8 +8,10 @@ export function AuthProvider({ children }) {
       const savedUser = localStorage.getItem('itp_user');
       if (savedUser) {
         const parsed = JSON.parse(savedUser);
-        if (!parsed.gender) parsed.gender = 'male';
-        return parsed;
+        if (parsed && typeof parsed === 'object') {
+          if (!parsed.gender) parsed.gender = 'male';
+          return parsed;
+        }
       }
     } catch (e) {
       localStorage.removeItem('itp_user');

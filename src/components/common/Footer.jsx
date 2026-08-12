@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, GraduationCap } from 'lucide-react';
 import EdwaayLogo from './EdwaayLogo';
 
 const FacebookIcon = (props) => (
@@ -69,7 +69,7 @@ export default function Footer() {
         {/* Top Header Badge */}
         <div className="mb-8 flex items-center justify-between border-b border-slate-800 dark:border-dark-700/60 pb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0097B2]/10 border border-[#0097B2]/20 text-xs font-bold text-[#0097B2] dark:text-cyan-400">
-            <Sparkles className="w-3.5 h-3.5" />
+            <GraduationCap className="w-3.5 h-3.5" />
             <span>15. Footer</span>
           </div>
 

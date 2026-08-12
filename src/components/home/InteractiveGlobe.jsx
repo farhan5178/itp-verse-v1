@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Globe as GlobeIcon, Sparkles, Navigation, RotateCw } from 'lucide-react';
+import { Globe as GlobeIcon, Navigation, RotateCw } from 'lucide-react';
 
 // Major Global University Destinations (Lat, Lon, Name, Country)
 const DESTINATIONS = [
@@ -363,7 +363,7 @@ export default function InteractiveGlobe({ className = '', size = 380 }) {
         animate={{ opacity: 1, y: 0 }}
         className="absolute -top-4 z-20 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 dark:bg-[#091b20]/90 backdrop-blur-md border border-[#0097B2]/40 shadow-lg text-[11px] font-bold text-slate-800 dark:text-[#E6F5F7]"
       >
-        <Sparkles className="w-3.5 h-3.5 text-[#0097B2] dark:text-[#1AB0CB] animate-pulse" />
+        <GlobeIcon className="w-3.5 h-3.5 text-[#0097B2] dark:text-[#1AB0CB]" />
         <span>Interactive 3D University Globe</span>
       </motion.div>
 

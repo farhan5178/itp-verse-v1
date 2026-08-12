@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, CheckCircle2, Sparkles, ShieldCheck } from 'lucide-react';
+import { Mail, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');
@@ -49,7 +49,7 @@ export default function NewsletterSection() {
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0097B2]/10 dark:bg-[#0097B2]/20 border border-[#0097B2]/20 dark:border-[#0097B2]/40 text-xs font-black tracking-wider uppercase text-[#0097B2] dark:text-cyan-300 mb-4"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#0097B2] dark:text-cyan-300" />
+              <Mail className="w-3.5 h-3.5 text-[#0097B2] dark:text-cyan-300" />
               <span>14. Newsletter</span>
             </motion.div>
 

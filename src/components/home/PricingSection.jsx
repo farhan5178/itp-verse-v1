@@ -5,7 +5,7 @@ import {
   Zap,
   Target,
   Crown,
-  Sparkles,
+  Award,
   ShieldCheck,
   HelpCircle,
   ArrowRight,
@@ -112,7 +112,7 @@ export default function PricingSection() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6F5F7] dark:bg-[#0097B2]/15 border border-[#0097B2]/30 text-[#0097B2] dark:text-cyan-300 text-xs font-black tracking-widest uppercase shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#0097B2] dark:text-cyan-300" />
+            <Award className="w-3.5 h-3.5 text-[#0097B2] dark:text-cyan-300" />
             <span>Edwaay Flexible Pricing</span>
           </motion.div>
 

@@ -11,7 +11,7 @@ import { useAuth }  from '../../../context/AuthContext';
 /* ─────────────────────────────────────────────────
    HERO ONBOARDING — root component
    ───────────────────────────────────────────────── */
-export default function HeroOnboarding({ onContinue }) {
+export default function HeroOnboarding({ onContinue = () => {} }) {
   const { user } = useAuth();
   const [avatarLanded, setAvatarLanded] = useState(false);
   const [showCTA,      setShowCTA]      = useState(false);
