@@ -6,6 +6,8 @@ import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import UniversityFinderPage from './pages/UniversityFinderPage';
+import UniversityDetailsPage from './pages/UniversityDetailsPage';
 import MockTest from './pages/MockTest';
 import Results from './pages/Results';
 
@@ -19,6 +21,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/university-finder" element={<UniversityFinderPage />} />
+              <Route path="/university-details/:id" element={<UniversityDetailsPage />} />
               <Route path="/mock-test" element={<MockTest />} />
               <Route path="/results" element={<Results />} />
               <Route path="*" element={<Home />} />

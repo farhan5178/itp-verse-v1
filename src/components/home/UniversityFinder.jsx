@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -203,14 +204,13 @@ export default function UniversityFinder() {
               transition={{ duration: 0.4, delay: 0.4 }}
               className="flex flex-col items-center gap-3 w-full px-2 sm:px-0 mb-4 lg:mb-0"
             >
-              <button
-                type="button"
-                onClick={openAuthModal}
+              <Link
+                to="/university-finder"
                 className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0097B2] via-[#00788E] to-[#004B59] text-white font-black text-sm sm:text-base shadow-lg shadow-[#0097B2]/30 hover:shadow-xl hover:shadow-[#0097B2]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
               >
                 <span>Find Universities & Scholarships</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
 
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-1 text-slate-500 dark:text-zinc-400 text-xs font-semibold text-center">
                 <p className="text-[10.5px] sm:text-[11px]">500+ Partner Institutions • 99.4% Match Rate</p>

@@ -160,7 +160,8 @@ const navbarModulesCards = [
     color: 'from-blue-500/20 to-indigo-500/20 text-blue-500',
     borderColor: 'border-blue-500/40 hover:border-blue-500',
     btnText: 'Find Scholarships',
-    actionType: 'uni-modal',
+    actionType: 'navigate',
+    href: '/university-finder',
   },
   {
     id: 'records',
