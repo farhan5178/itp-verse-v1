@@ -149,7 +149,8 @@ const navbarModulesCards = [
     color: 'from-emerald-500/20 to-teal-500/20 text-emerald-500',
     borderColor: 'border-emerald-500/40 hover:border-emerald-500',
     btnText: 'Explore Vocab Chart',
-    actionType: 'vocab-modal',
+    actionType: 'navigate',
+    href: '/vocab-chart',
   },
   {
     id: 'finder',

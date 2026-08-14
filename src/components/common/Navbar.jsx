@@ -9,7 +9,7 @@ const ieltsDropdownItems = [
   { id: 'lessons', label: 'Lessons', icon: BookOpen, href: '/dashboard' },
   { id: 'mock-tests', label: 'Mock Tests', icon: FileText, href: '/mock-test' },
   { id: 'practice', label: 'Practice Questions', icon: Target, href: '/mock-test' },
-  { id: 'vocab', label: 'Vocab Chart 🔠', icon: HelpCircle, href: '/dashboard' },
+  { id: 'vocab', label: 'Vocab Chart 🔠', icon: HelpCircle, href: '/vocab-chart' },
   { id: 'finder', label: 'Uni & Scholarship Finder 🌍', icon: GraduationCap, href: '/university-finder' },
   { id: 'records', label: 'Test Records', icon: BarChart2, href: '/results' },
 ];
