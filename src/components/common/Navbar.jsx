@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon, LogIn, LogOut, BookOpen, FileText, Target, HelpCircle, GraduationCap, BarChart2 } from 'lucide-react';
+import { Menu, X, Sun, Moon, LogIn, LogOut, BookOpen, FileText, Target, HelpCircle, GraduationCap, BarChart2, Crown, Zap, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import EdwaayLogo from './EdwaayLogo';
@@ -18,9 +19,16 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isIeltsOpen, setIsIeltsOpen] = useState(false);
+  const [isPlansModalOpen, setIsPlansModalOpen] = useState(false);
+  const [checkoutNotice, setCheckoutNotice] = useState(null);
+
   const location = useLocation();
   const { isLoggedIn, user, logout, openAuthModal } = useAuth();
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setIsPlansModalOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -44,6 +52,34 @@ export default function Navbar() {
     setTheme(next);
     localStorage.setItem('theme', next);
     document.documentElement.classList.toggle('dark', next === 'dark');
+  };
+
+  // Functional Plans Action Handler
+  const handlePlansClick = (e) => {
+    if (e) e.preventDefault();
+    if (location.pathname === '/') {
+      const pricingElem = document.getElementById('pricing');
+      if (pricingElem) {
+        pricingElem.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+        return;
+      }
+    }
+    setIsPlansModalOpen(true);
+    setIsOpen(false);
+  };
+
+  const handleSelectPlan = (planName) => {
+    if (!isLoggedIn) {
+      setIsPlansModalOpen(false);
+      openAuthModal();
+      return;
+    }
+    setCheckoutNotice(`Redirecting to secure bKash / SSLCommerz gateway for ${planName} Plan...`);
+    setTimeout(() => {
+      setCheckoutNotice(null);
+      setIsPlansModalOpen(false);
+    }, 2500);
   };
 
   return (
@@ -74,7 +110,7 @@ export default function Navbar() {
             Home
           </Link>
 
-          {/* 2. IELTS Dropdown (Animated Trigger for High Click Through) */}
+          {/* 2. IELTS Dropdown */}
           <div
             className="relative"
             ref={dropdownRef}
@@ -91,18 +127,15 @@ export default function Navbar() {
                   : 'bg-white/80 dark:bg-zinc-900/80 text-slate-800 dark:text-zinc-100 border border-slate-200/90 dark:border-zinc-700/80 shadow-sm hover:shadow-md hover:shadow-[#0097B2]/15 hover:border-[#0097B2]/50 hover:bg-white dark:hover:bg-zinc-800'
               }`}
             >
-              {/* Soft Pulsing Ambient Backdrop Ring */}
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0097B2] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0097B2]"></span>
               </span>
 
-              {/* IELTS Primary Text Label */}
               <span className="relative z-10 font-black tracking-wide text-slate-900 dark:text-white group-hover/ielts:text-[#0097B2] dark:group-hover/ielts:text-[#1AB0CB] transition-colors">
                 IELTS
               </span>
 
-              {/* Minimal Text Pill Tag */}
               <span className="relative z-10 px-1.5 py-0.5 text-[9px] font-black tracking-widest uppercase rounded-full bg-[#0097B2]/10 dark:bg-[#0097B2]/20 text-[#0097B2] dark:text-[#1AB0CB] group-hover/ielts:bg-[#0097B2] group-hover/ielts:text-white transition-all">
                 PREP
               </span>
@@ -144,9 +177,9 @@ export default function Navbar() {
 
           {/* 3. Community */}
           <Link
-            to="/dashboard"
+            to="/community"
             className={`px-4 py-1.5 text-xs sm:text-sm font-extrabold rounded-full transition-all duration-200 ${
-              location.pathname === '/dashboard'
+              location.pathname === '/community'
                 ? 'bg-white dark:bg-zinc-800 text-[#0097B2] dark:text-[#1AB0CB] shadow-xs'
                 : 'text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-zinc-800/50'
             }`}
@@ -158,9 +191,10 @@ export default function Navbar() {
         {/* ── RIGHT: Plans | Sign In | Theme Toggle ─────────────────── */}
         <div className="hidden md:flex items-center space-x-3">
           
-          {/* Plans Button */}
-          <Link
-            to="/dashboard"
+          {/* Functional Plans Button */}
+          <button
+            type="button"
+            onClick={handlePlansClick}
             id="purchase-btn"
             className="relative group overflow-hidden px-5 py-2 rounded-full text-xs font-black text-white transition-all duration-200 active:scale-95 cursor-pointer shadow-md shadow-[#0097B2]/25 hover:shadow-lg hover:shadow-[#0097B2]/35 border-t border-white/20"
             style={{ background: 'linear-gradient(135deg, #0097B2 0%, #004B59 100%)' }}
@@ -170,7 +204,7 @@ export default function Navbar() {
               <span>Plans</span>
               <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full">🏷️</span>
             </span>
-          </Link>
+          </button>
 
           {/* Sign In / Profile */}
           {isLoggedIn ? (
@@ -283,18 +317,166 @@ export default function Navbar() {
               </Link>
 
               <div className="pt-2 border-t border-slate-100 dark:border-zinc-900">
-                <Link
-                  to="/plans"
-                  onClick={() => setIsOpen(false)}
-                  className="block text-center bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-[#0097B2]/25"
+                <button
+                  type="button"
+                  onClick={handlePlansClick}
+                  className="w-full text-center bg-gradient-to-r from-[#0097B2] to-[#004B59] text-white py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-[#0097B2]/25 cursor-pointer"
                 >
                   Plans 🏷️
-                </Link>
+                </button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ─────────────────────────────────────────────────────────────
+         INTERACTIVE PLANS & PRICING MODAL (PORTAL TO BODY)
+         ───────────────────────────────────────────────────────────── */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {isPlansModalOpen && (
+            <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-slate-900/80 dark:bg-black/85 backdrop-blur-md"
+                onClick={() => setIsPlansModalOpen(false)}
+              />
+
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="bg-white dark:bg-[#0d242b] border border-slate-200 dark:border-[#0097B2]/30 rounded-3xl p-6 sm:p-8 w-full max-w-4xl relative z-10 shadow-2xl max-h-[90vh] overflow-y-auto space-y-6 my-auto"
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsPlansModalOpen(false)}
+                  className="absolute top-6 right-6 p-2 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                {/* Header */}
+                <div className="text-center space-y-2">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/10 text-[#0097B2] dark:text-cyan-300 border border-[#0097B2]/30">
+                    Edwaay Membership Plans
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                    Choose Your Target Prep Plan
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 max-w-lg mx-auto font-medium">
+                    Unlock full simulated mock tests, section-wise practice, and AI speaking feedback.
+                  </p>
+                </div>
+
+                {checkoutNotice && (
+                  <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold text-center animate-pulse">
+                    {checkoutNotice}
+                  </div>
+                )}
+
+                {/* 3 PRICING CARDS GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                  
+                  {/* 1. Free Starter */}
+                  <div className="p-6 rounded-2xl bg-slate-50 dark:bg-[#091b20] border border-slate-200 dark:border-zinc-800 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-slate-400">STARTER</span>
+                        <Zap className="w-5 h-5 text-[#0097B2]" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-slate-900 dark:text-white">Free Starter</h3>
+                        <div className="flex items-baseline gap-1 mt-1">
+                          <span className="text-3xl font-black text-slate-900 dark:text-white">0</span>
+                          <span className="text-xs font-bold text-slate-400">BDT / Forever</span>
+                        </div>
+                      </div>
+                      <ul className="space-y-2 text-xs font-medium text-slate-600 dark:text-zinc-300 pt-2 border-t border-slate-200 dark:border-zinc-800">
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#0097B2]" /> Level 1 Free Units (1-6)</li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#0097B2]" /> Vocab Chart Matrix</li>
+                        <li className="flex items-center gap-2 text-slate-400"><X className="w-4 h-4" /> Full Mock Tests (Locked)</li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => setIsPlansModalOpen(false)}
+                      className="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 text-xs font-bold cursor-pointer"
+                    >
+                      Current Plan
+                    </button>
+                  </div>
+
+                  {/* 2. Essential */}
+                  <div className="p-6 rounded-2xl bg-white dark:bg-[#0d242b] border border-slate-200 dark:border-zinc-700 space-y-4 flex flex-col justify-between shadow-md">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-[#0097B2] dark:text-cyan-300">POPULAR</span>
+                        <Target className="w-5 h-5 text-[#0097B2]" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-slate-900 dark:text-white">Essential</h3>
+                        <div className="flex items-baseline gap-1 mt-1">
+                          <span className="text-3xl font-black text-slate-900 dark:text-white">10,000</span>
+                          <span className="text-xs font-bold text-slate-400">BDT</span>
+                        </div>
+                      </div>
+                      <ul className="space-y-2 text-xs font-medium text-slate-600 dark:text-zinc-300 pt-2 border-t border-slate-200 dark:border-zinc-800">
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#0097B2]" /> All Level 1-6 Units Unlocked</li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#0097B2]" /> Full Mock Tests</li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#0097B2]" /> Speaking & Writing AI</li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => handleSelectPlan('Essential')}
+                      className="w-full py-2.5 rounded-xl bg-[#004B59] hover:bg-[#003843] text-white text-xs font-bold shadow-md cursor-pointer transition-all"
+                    >
+                      Select Essential
+                    </button>
+                  </div>
+
+                  {/* 3. Lifetime Pro (Highlighted) */}
+                  <div className="p-6 rounded-2xl bg-gradient-to-b from-[#091b20] via-[#0d242b] to-[#061317] border-2 border-[#0097B2] space-y-4 flex flex-col justify-between shadow-xl relative overflow-hidden text-white">
+                    <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-[#0097B2] text-[9px] font-black uppercase">
+                      BEST VALUE
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-amber-400">LIFETIME PRO</span>
+                        <Crown className="w-5 h-5 text-amber-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-white">Lifetime Pro</h3>
+                        <div className="flex items-baseline gap-1 mt-1">
+                          <span className="text-3xl font-black text-white">12,000</span>
+                          <span className="text-xs font-bold text-cyan-300">BDT (Was 25k)</span>
+                        </div>
+                      </div>
+                      <ul className="space-y-2 text-xs font-medium text-zinc-200 pt-2 border-t border-cyan-500/20">
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-cyan-400" /> Unlimited Mock Tests</li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-cyan-400" /> University & Scholarship Finder</li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-cyan-400" /> 1-on-1 Academic Mentorship</li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => handleSelectPlan('Lifetime Pro')}
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#0097B2] to-[#004B59] hover:from-[#00788E] hover:to-[#0097B2] text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-[#0097B2]/30 cursor-pointer transition-all"
+                    >
+                      Upgrade to Lifetime
+                    </button>
+                  </div>
+
+                </div>
+
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
     </header>
   );
 }

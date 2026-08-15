@@ -434,7 +434,7 @@ export default function StudyRoadmap() {
     <section
       ref={containerRef}
       id="study-roadmap"
-      className="relative bg-slate-900/90 dark:bg-[#050508] py-8 sm:py-12 lg:py-16 border-t border-slate-800/80 min-h-screen overflow-hidden"
+      className="relative bg-slate-50 dark:bg-[#050508] py-8 sm:py-12 lg:py-16 border-t border-slate-200 dark:border-slate-800/80 min-h-screen overflow-hidden"
     >
       {/* Background Glows */}
       <div className="absolute top-10 left-1/3 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#0097B2]/10 dark:bg-[#0097B2]/15 rounded-full blur-[100px] pointer-events-none" />
