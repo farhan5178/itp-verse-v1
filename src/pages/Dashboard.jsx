@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import HeroOnboarding from '../components/home/HeroOnboarding/index';
+import StructuredInteractiveLessons from '../components/home/StructuredInteractiveLessons';
 import {
   BookOpen,
   Trophy,
@@ -114,7 +115,8 @@ const navbarModulesCards = [
     color: 'from-cyan-500/20 to-[#0097B2]/30 text-[#0097B2] dark:text-cyan-300',
     borderColor: 'border-[#0097B2]/40 hover:border-[#0097B2]',
     btnText: 'Start Lessons',
-    actionType: 'scroll-skills',
+    actionType: 'navigate',
+    href: '/lessons',
   },
   {
     id: 'mock-tests',
@@ -212,7 +214,7 @@ export default function Dashboard() {
     } else if (module.actionType === 'vocab-modal') {
       setIsVocabModalOpen(true);
     } else if (module.actionType === 'scroll-skills') {
-      const el = document.getElementById('skills-progress');
+      const el = document.getElementById('structured-lessons') || document.getElementById('skills-progress');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
@@ -360,6 +362,9 @@ export default function Dashboard() {
           })}
         </div>
       </motion.div>
+
+      {/* ── Gamified Pathway: Structured Interactive Lessons ── */}
+      <StructuredInteractiveLessons />
 
       {/* ── Interactive Modal: Your University & Scholarship Match Journey ── */}
       <AnimatePresence>

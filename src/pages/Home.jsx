@@ -6,6 +6,7 @@ import WhyEdwaay from '../components/home/WhyEdwaay';
 import AISpeakingDemo from '../components/home/AISpeakingDemo';
 import FeaturesSection from '../components/home/FeaturesSection';
 import StudyRoadmap from '../components/home/StudyRoadmap';
+import StructuredInteractiveLessons from '../components/home/StructuredInteractiveLessons';
 import UniversityFinder from '../components/home/UniversityFinder';
 import PricingSection from '../components/home/PricingSection';
 import SuccessStories from '../components/home/SuccessStories';
@@ -31,6 +32,7 @@ export default function Home() {
           <AISpeakingDemo />
           <FeaturesSection />
           <StudyRoadmap />
+          <StructuredInteractiveLessons />
           <UniversityFinder />
           <PricingSection />
           <SuccessStories />

@@ -13,13 +13,13 @@ const faqItems = [
   {
     id: 2,
     question: 'Which exams are supported?',
-    answer: 'ITPverse primarily focuses on TOEFL ITP (Level 1 & Level 2), IELTS Academic & General Training, and TOEFL iBT preparation with section-specific practice modules and realistic exam simulators.',
+    answer: 'Edwaay primarily focuses on TOEFL ITP (Level 1 & Level 2), IELTS Academic & General Training, and TOEFL iBT preparation with section-specific practice modules and realistic exam simulators.',
     category: 'Exams',
   },
   {
     id: 3,
     question: 'Can I practice on mobile?',
-    answer: 'Absolutely. ITPverse is completely responsive across mobile smartphones, tablets, laptops, and desktops. You can record speaking responses and take mock practice tests directly from your browser on any mobile device.',
+    answer: 'Absolutely. Edwaay is completely responsive across mobile smartphones, tablets, laptops, and desktops. You can record speaking responses and take mock practice tests directly from your browser on any mobile device.',
     category: 'General',
   },
   {
@@ -36,8 +36,8 @@ const faqItems = [
   },
   {
     id: 6,
-    question: 'Can beginners use ITPverse?',
-    answer: 'Yes, ITPverse is designed for all proficiency levels from A2 to C2. Our diagnostic test assesses your baseline score and creates a step-by-step personalized roadmap tailored specifically to your target score.',
+    question: 'Can beginners use Edwaay?',
+    answer: 'Yes, Edwaay is designed for all proficiency levels from A2 to C2. Our diagnostic test assesses your baseline score and creates a step-by-step personalized roadmap tailored specifically to your target score.',
     category: 'General',
   },
 ];

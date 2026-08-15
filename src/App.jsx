@@ -11,6 +11,7 @@ import UniversityDetailsPage from './pages/UniversityDetailsPage';
 import MockTest from './pages/MockTest';
 import Results from './pages/Results';
 import VocabChartPage from './pages/VocabChartPage';
+import LessonsPage from './pages/LessonsPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/lessons" element={<LessonsPage />} />
               <Route path="/university-finder" element={<UniversityFinderPage />} />
               <Route path="/university-details/:id" element={<UniversityDetailsPage />} />
               <Route path="/vocab-chart" element={<VocabChartPage />} />

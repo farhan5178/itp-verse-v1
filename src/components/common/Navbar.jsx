@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import EdwaayLogo from './EdwaayLogo';
 
 const ieltsDropdownItems = [
-  { id: 'lessons', label: 'Lessons', icon: BookOpen, href: '/dashboard' },
+  { id: 'lessons', label: 'Lessons', icon: BookOpen, href: '/lessons' },
   { id: 'mock-tests', label: 'Mock Tests', icon: FileText, href: '/mock-test' },
   { id: 'practice', label: 'Practice Questions', icon: Target, href: '/mock-test' },
   { id: 'vocab', label: 'Vocab Chart 🔠', icon: HelpCircle, href: '/vocab-chart' },

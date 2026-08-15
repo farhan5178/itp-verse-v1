@@ -28,7 +28,7 @@ const featureList = [
   {
     id: 3,
     title: 'See real results',
-    description: "With as little as 30 minutes a day, we guarantee you'll see real progress on ITPverse. It's that good!",
+    description: "With as little as 30 minutes a day, we guarantee you'll see real progress on Edwaay. It's that good!",
     previewType: 'results',
     activeHighlight: 'quiz'
   },
@@ -62,7 +62,7 @@ export default function WhyITPverse() {
             transition={{ duration: 0.5 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight"
           >
-            Why <span className="text-[#F59E0B] dark:text-[#FBBF24]">ITPverse?</span>
+            Why <span className="text-[#F59E0B] dark:text-[#FBBF24]">Edwaay?</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 16 }}

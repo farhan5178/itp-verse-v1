@@ -967,7 +967,7 @@ export default function FeaturesSection() {
                       </div>
                       <div>
                         <span className="text-xs font-black text-slate-900 dark:text-white block">Official Band 8.0 Readiness Seal</span>
-                        <span className="text-[10px] text-slate-400 font-bold">Issued by ITP-Verse Academic Board</span>
+                        <span className="text-[10px] text-slate-400 font-bold">Issued by Edwaay Academic Board</span>
                       </div>
                     </div>
                     <span className="px-3 py-1 rounded-xl bg-sky-500 text-white text-[10px] font-black">Verified QR</span>

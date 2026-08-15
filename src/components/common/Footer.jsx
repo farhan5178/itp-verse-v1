@@ -160,7 +160,7 @@ export default function Footer() {
 
         {/* Bottom Bar / Copyright & Developer Credit */}
         <div className="pt-8 border-t border-slate-800 dark:border-dark-700/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-500">
-          <p>© {currentYear} Edwaay / ITP-Verse. All rights reserved.</p>
+          <p>© {currentYear} Edwaay. All rights reserved.</p>
           
           <p className="font-medium text-slate-400 dark:text-zinc-400">
             Designed & Developed by{' '}
