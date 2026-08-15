@@ -44,10 +44,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Phenomenon',
       ipa: "/fə'nɒmɪnən/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'I',
+      tagType: 'ielts',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'IELTS RECOMMENDED',
       definition: 'A fact or situation that is observed to exist or happen, especially one whose cause is in question.',
       banglaTitle: 'ঘটনা / প্রাকৃতিক প্রতিক্রিয়া',
       banglaDesc: 'পর্যবেক্ষণযোগ্য কোনো বিশেষ ঘটনা বা প্রাকৃতিক প্রকাশ।',
@@ -57,10 +57,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Empirical',
       ipa: "/ɪm'pɪrɪkl/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Based on, concerned with, or verifiable by observation or experience rather than theory.',
       banglaTitle: 'অভিজ্ঞতালব্ধ / পর্যবেক্ষণমূলক',
       banglaDesc: 'বাস্তব পরীক্ষা ও পর্যবেক্ষণের ওপর ভিত্তি করে তৈরি প্রমাণ।',
@@ -70,10 +70,10 @@ const matrixVocabData = [
     adverbs: {
       word: 'Methodically',
       ipa: "/mə'θɒdɪkli/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADVERBS',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'In an orderly, systematic, and logical manner according to a strict procedure.',
       banglaTitle: 'পদ্ধতিগতভাবে / সুশৃঙ্খলভাবে',
       banglaDesc: 'কোনো কাজ নিয়মমাফিক ও শৃঙ্খলার সাথে সম্পন্ন করা।',
@@ -88,10 +88,10 @@ const matrixVocabData = [
     verbs: {
       word: 'Catalyze',
       ipa: "/'kætəlaɪz/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'VERBS',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Cause an action or process to begin or accelerate significantly.',
       banglaTitle: 'উত্তেজিত বা ত্বরান্বিত করা',
       banglaDesc: 'কোন পরিবর্তন বা প্রক্রিয়াকে দ্রুত বাড়িয়ে তোলা।',
@@ -101,10 +101,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Paradigm',
       ipa: "/'pærədaɪm/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'A typical example, pattern, or overarching model of something.',
       banglaTitle: 'মডেল / মানদণ্ড কাঠামো',
       banglaDesc: 'চিন্তাভাবনা বা ব্যবস্থার সাধারণ আদর্শ কাঠামো।',
@@ -127,10 +127,10 @@ const matrixVocabData = [
     adverbs: {
       word: 'Seamlessly',
       ipa: "/'siːmləsli/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADVERBS',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Smoothly and continuously, with no apparent gaps, spaces, or difficulties.',
       banglaTitle: 'নির্বিঘ্নে / স্বাচ্ছন্দ্যে',
       banglaDesc: 'কোনোরকম বাধা বা সমস্যা ছাড়া নিখুঁতভাবে সমন্বিত হওয়া।',
@@ -150,7 +150,6 @@ const matrixVocabData = [
       pos: 'VERBS',
       badge: 'IELTS RECOMMENDED',
       definition: 'Rise and fall irregularly in number, value, or amount.',
-      bangla: 'ওঠানামা করা / পরিবর্তিত হওয়া',
       banglaTitle: 'ওঠানামা করা / পরিবর্তিত হওয়া',
       banglaDesc: 'মূল্য বা সংখ্যার অনিয়মিত পরিবর্তন ঘটা।',
       example: 'Fuel prices fluctuate unpredictably based on international geopolitical conflicts.',
@@ -159,10 +158,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Surplus',
       ipa: "/'sɜːpləs/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'I',
+      tagType: 'ielts',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'IELTS RECOMMENDED',
       definition: 'An amount of something left over when requirements have been met.',
       banglaTitle: 'উদ্বৃত্ত / বাড়তি সম্পদ',
       banglaDesc: 'প্রয়োজনের অতিরিক্ত বা অবশিষ্টাংশ।',
@@ -185,10 +184,10 @@ const matrixVocabData = [
     adverbs: {
       word: 'Exponentially',
       ipa: "/ˌekspə'nenʃəli/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADVERBS',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'At an increasingly rapid rate in proportion to the growing total size.',
       banglaTitle: 'আশঙ্কাজনক দ্রুতগতিতে',
       banglaDesc: 'ক্রমাগত দ্বিগুণ বা বহুগুণ হারে বৃদ্ধি পাওয়া।',
@@ -203,10 +202,10 @@ const matrixVocabData = [
     verbs: {
       word: 'Assimilate',
       ipa: "/ə'sɪmɪleɪt/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'VERBS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Take in and fully understand information, ideas, or absorb into a cultural group.',
       banglaTitle: 'আত্মস্থ করা / মানিয়ে নেওয়া',
       banglaDesc: 'নতুন সংস্কৃতি বা জ্ঞান পূর্ণাঙ্গভাবে গ্রহণ করা।',
@@ -229,10 +228,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Prevalent',
       ipa: "/'prevələnt/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Widespread in a particular area or at a particular time.',
       banglaTitle: 'প্রচলিত / বহুল বিস্তৃত',
       banglaDesc: 'চারপাশে যা সচরাচর দেখা যায়।',
@@ -260,10 +259,10 @@ const matrixVocabData = [
     verbs: {
       word: 'Delineate',
       ipa: "/dɪ'lɪnieɪt/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'VERBS',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Describe or portray something precisely in detail.',
       banglaTitle: 'স্পষ্টভাবে তুলে ধরা / বর্ণনা করা',
       banglaDesc: 'কোনো বিষয় সুন্দরভাবে মানচিত্র বা বিবরণে রূপ দেওয়া।',
@@ -273,10 +272,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Aesthetic',
       ipa: "/iːs'θetɪk/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'I',
+      tagType: 'ielts',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'IELTS RECOMMENDED',
       definition: 'A set of principles underlying and guiding the work of a particular artist or artistic movement.',
       banglaTitle: 'নান্দনিকতা / সৌন্দর্যবোধ',
       banglaDesc: 'শিল্পের সৌন্দর্য ও শৈল্পিক মানদণ্ডের অনুভূতি।',
@@ -299,10 +298,10 @@ const matrixVocabData = [
     adverbs: {
       word: 'Profoundly',
       ipa: "/prə'faʊndli/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADVERBS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'To a profound, deep, or intense degree; greatly.',
       banglaTitle: 'গভীরভাবে / অত্যন্ত সংবেদনশীলভাবে',
       banglaDesc: 'খুবই মানসিকভাবে বা গভীরভাবে প্রভাবিত করা।',
@@ -330,10 +329,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Cognition',
       ipa: "/kɒɡ'nɪʃn/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'The mental action or process of acquiring knowledge and understanding through thought.',
       banglaTitle: 'জ্ঞানীয় ক্ষমতা / উপলব্ধি',
       banglaDesc: 'চিন্তা ও অভিজ্ঞতার মাধ্যমে জ্ঞানার্জনের মানসিক ক্ষমতা।',
@@ -343,10 +342,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Chronic',
       ipa: "/'krɒnɪk/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Persisting for a long time or constantly recurring in health condition.',
       banglaTitle: 'দীর্ঘস্থায়ী / স্থায়ী রোগ',
       banglaDesc: 'যা দীর্ঘদিন ধরে চলতে থাকে বা বারবার ফিরে আসে।',
@@ -374,10 +373,10 @@ const matrixVocabData = [
     verbs: {
       word: 'Sanction',
       ipa: "/'sæŋkʃn/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'VERBS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Give official permission or approval for an action.',
       banglaTitle: 'অনুমোদন দেওয়া / আইনি সম্মতি',
       banglaDesc: 'সরকারি বা আইনি অনুমোদন প্রদান করা।',
@@ -400,10 +399,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Mandatory',
       ipa: "/'mændətəri/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Required by law or rules; compulsory for all participants.',
       banglaTitle: 'বাধ্যতামূলক / আবশ্যিক',
       banglaDesc: 'আইন বা নিয়ম অনুযায়ী যা সবার করা আবশ্যক।',
@@ -444,10 +443,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Bias',
       ipa: "/'baɪəs/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'I',
+      tagType: 'ielts',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'IELTS RECOMMENDED',
       definition: 'Inclination or prejudice for or against one person or group, especially in a way considered unfair.',
       banglaTitle: 'পক্ষপাত / পূর্বপ্রবণতা',
       banglaDesc: 'অযৌক্তিক বা পক্ষপাতমূলক মনোভাব।',
@@ -457,10 +456,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Credible',
       ipa: "/'kredəbl/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Able to be believed; convincing and trustworthy source.',
       banglaTitle: 'বিশ্বস্ত / গ্রহণযোগ্য',
       banglaDesc: 'যাকে বিশ্বাস করা যায় বা যা নির্ভর করার যোগ্য।',
@@ -470,10 +469,10 @@ const matrixVocabData = [
     adverbs: {
       word: 'Ambiguously',
       ipa: "/æm'bɪɡjuəsli/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADVERBS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'In a way that is open to more than one interpretation; vaguely.',
       banglaTitle: 'দ্ব্যর্থকভাবে / অস্পষ্টভাবে',
       banglaDesc: 'একাধিক অর্থ প্রকাশ করে এমন অস্পষ্ট মন্তব্য।',
@@ -501,10 +500,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Depletion',
       ipa: "/dɪ'pliːʃn/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'I',
+      tagType: 'ielts',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'IELTS RECOMMENDED',
       definition: 'Reduction in the number or quantity of natural resources.',
       banglaTitle: 'ক্ষয় / শূন্যতা',
       banglaDesc: 'প্রাকৃতিক সম্পদের অনিয়মিত ব্যবহারের ফলে হ্রাস।',
@@ -514,10 +513,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Sustainable',
       ipa: "/sə'steɪnəbl/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Able to be maintained at a certain rate or level without exhausting resources.',
       banglaTitle: 'টেকসই / টেকসই জীবনধারা',
       banglaDesc: 'পরিবেশের ক্ষতি না করে দীর্ঘদিন ধরে বজায় রাখার উপযোগী।',
@@ -558,10 +557,10 @@ const matrixVocabData = [
     nouns: {
       word: 'Premise',
       ipa: "/'premɪs/",
-      tag: 'T',
-      tagType: 'toefl',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'NOUNS',
-      badge: 'TOEFL ACADEMIC',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'A previous statement or proposition from which another is inferred as a conclusion.',
       banglaTitle: 'মূল ভিত্তি / অনুমান বাক্য',
       banglaDesc: 'যে ধারণার ওপর নির্ভর করে যুক্তির সিদ্ধান্ত নেওয়া হয়।',
@@ -571,10 +570,10 @@ const matrixVocabData = [
     adjectives: {
       word: 'Inherent',
       ipa: "/ɪn'hɪərənt/",
-      tag: 'P',
-      tagType: 'pte',
+      tag: 'B',
+      tagType: 'band8',
       pos: 'ADJECTIVES',
-      badge: 'PTE MASTERY',
+      badge: 'BAND 8.0+ ADVANCED',
       definition: 'Existing in something as a permanent, essential, or characteristic attribute.',
       banglaTitle: 'সহজাত / অন্তর্নিহিত',
       banglaDesc: 'স্বাভাবিকভাবে বা জন্মগতভাবে কোনো জিনিসের মূল বৈশিষ্ট্য।',
@@ -608,7 +607,7 @@ export default function VocabChartPage() {
   const [speed, setSpeed] = useState(0.9);
 
   // Active Exam Filter Pill
-  const [examFilter, setExamFilter] = useState('ALL EXAMS'); // 'ALL EXAMS' | 'IELTS' | 'TOEFL' | 'PTE'
+  const [examFilter, setExamFilter] = useState('ALL VOCABULARY');
 
   // Search Query
   const [searchQuery, setSearchQuery] = useState('');
@@ -724,7 +723,7 @@ export default function VocabChartPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search word, definition, exam or theme..."
+              placeholder="Search word, definition or theme..."
               className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-slate-50 dark:bg-[#091b20] border border-slate-200 dark:border-zinc-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0097B2]"
             />
           </div>
@@ -769,14 +768,13 @@ export default function VocabChartPage() {
           </div>
         </div>
 
-        {/* ── EXAM FILTER PILLS BAR ── */}
+        {/* ── EXAM FILTER PILLS BAR (Cleaned: Removed TOEFL Academic & PTE Mastery) ── */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-8 text-xs font-black">
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
             {[
-              { id: 'ALL EXAMS', label: 'ALL EXAMS', color: 'bg-slate-900 text-white' },
+              { id: 'ALL VOCABULARY', label: 'ALL VOCABULARY', color: 'bg-slate-900 text-white' },
               { id: 'IELTS', label: '🔴 IELTS CORE', color: 'bg-rose-500/10 text-rose-500 border border-rose-500/30' },
-              { id: 'TOEFL', label: '🟢 TOEFL ACADEMIC', color: 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30' },
-              { id: 'PTE', label: '🟡 PTE MASTERY', color: 'bg-amber-500/10 text-amber-500 border border-amber-500/30' }
+              { id: 'BAND8', label: '🟡 BAND 8.0+ ADVANCED', color: 'bg-amber-500/10 text-amber-500 border border-amber-500/30' }
             ].map((f) => (
               <button
                 key={f.id}
@@ -803,12 +801,11 @@ export default function VocabChartPage() {
           </button>
         </div>
 
-
         {/* ── 2-COLUMN MAIN LAYOUT: MATRIX GRID (LEFT) & INSPECTOR PANEL (RIGHT) ── */}
         {activeMainTab === 'chart' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* ── LEFT SIDE: INTERACTIVE MATRIX GRID TABLE (8 COLS) ── */}
+            {/* ── LEFT SIDE: INTERACTIVE MATRIX GRID TABLE (7 COLS) ── */}
             <div className="lg:col-span-7 space-y-4">
               <div className="rounded-3xl bg-white dark:bg-[#0d242b] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-xl overflow-hidden">
                 
@@ -834,7 +831,7 @@ export default function VocabChartPage() {
                       {/* 4 Cell Columns: Verbs, Nouns, Adjectives, Adverbs */}
                       {[row.verbs, row.nouns, row.adjectives, row.adverbs].map((item, cellIdx) => {
                         const isSelected = selectedWord.word === item.word;
-                        const isMatchFilter = examFilter === 'ALL EXAMS' || item.badge.includes(examFilter);
+                        const isMatchFilter = examFilter === 'ALL VOCABULARY' || examFilter === 'ALL EXAMS' || (examFilter === 'IELTS' && item.tagType === 'ielts') || (examFilter === 'BAND8' && item.tagType === 'band8');
                         const isMatchSearch = !searchQuery || item.word.toLowerCase().includes(searchQuery.toLowerCase());
 
                         return (
@@ -866,7 +863,7 @@ export default function VocabChartPage() {
                             {/* Tag Badge Pill */}
                             <div className="flex justify-end mt-1">
                               <span className={`w-4 h-4 rounded-full text-[9px] font-black flex items-center justify-center text-white ${
-                                item.tagType === 'ielts' ? 'bg-rose-500' : item.tagType === 'toefl' ? 'bg-emerald-500' : 'bg-amber-500'
+                                item.tagType === 'ielts' ? 'bg-rose-500' : 'bg-amber-500'
                               }`}>
                                 {item.tag}
                               </span>
@@ -898,133 +895,123 @@ export default function VocabChartPage() {
               </div>
             </div>
 
-
-            {/* ── RIGHT SIDE: SELECTED WORD INSPECTOR PANEL (5 COLS) ── */}
+            {/* ── RIGHT SIDE: WORD INSPECTOR PANEL (5 COLS) ── */}
             <div className="lg:col-span-5 sticky top-24">
-              <motion.div
-                key={selectedWord.word}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0d242b] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-2xl space-y-6"
-              >
-                {/* Header Badges & Bookmark */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-[10px] font-black uppercase">
+              {selectedWord && (
+                <div className="p-6 rounded-3xl bg-white dark:bg-[#0d242b] border border-slate-200/80 dark:border-[#0097B2]/30 shadow-xl space-y-6">
+                  
+                  {/* Top Badge & Audio Trigger */}
+                  <div className="flex items-center justify-between">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                      selectedWord.tagType === 'ielts'
+                        ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30'
+                        : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                    }`}>
                       {selectedWord.badge}
                     </span>
-                    <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 text-[10px] font-black uppercase">
-                      {selectedWord.pos}
-                    </span>
-                  </div>
 
-                  <button
-                    type="button"
-                    onClick={() => toggleBookmark(selectedWord.word)}
-                    className={`p-2.5 rounded-full border transition-all cursor-pointer ${
-                      bookmarks.includes(selectedWord.word)
-                        ? 'bg-amber-500/20 text-amber-500 border-amber-500/40'
-                        : 'bg-slate-100 dark:bg-zinc-800 text-slate-400 border-slate-200 dark:border-zinc-700'
-                    }`}
-                  >
-                    <Bookmark className={`w-4 h-4 ${bookmarks.includes(selectedWord.word) ? 'fill-current' : ''}`} />
-                  </button>
-                </div>
-
-                {/* Headword & IPA Key */}
-                <div>
-                  <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
-                    {selectedWord.word}
-                  </h2>
-                  <p className="text-xs font-mono text-slate-400 mt-1">
-                    IPA Key: <span className="text-[#0097B2] font-bold">{selectedWord.ipa}</span>
-                  </p>
-                </div>
-
-                {/* Listen Pronunciation Audio Box */}
-                <div className="p-4 rounded-2xl bg-[#E6F5F7] dark:bg-[#0097B2]/15 border border-[#0097B2]/30 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
                     <button
                       type="button"
-                      onClick={() => playAudio(selectedWord.word)}
-                      className="w-10 h-10 rounded-xl bg-[#0097B2] text-white flex items-center justify-center shadow-md hover:scale-105 transition-transform cursor-pointer"
+                      onClick={() => toggleBookmark(selectedWord.word)}
+                      className="p-2 rounded-full bg-slate-100 dark:bg-[#091b20] text-slate-600 dark:text-zinc-400 hover:text-amber-500 transition-colors cursor-pointer"
                     >
-                      <Volume2 className="w-5 h-5" />
+                      <Bookmark className={`w-4 h-4 ${bookmarks.includes(selectedWord.word) ? 'fill-amber-500 text-amber-500' : ''}`} />
                     </button>
-                    <div>
-                      <p className="text-xs font-black text-[#004B59] dark:text-cyan-300">Listen Pronunciation</p>
-                      <p className="text-[10px] text-slate-500 dark:text-zinc-400 uppercase font-bold">
-                        DIALECT: {accent} ACCENT ({speed}X)
-                      </p>
+                  </div>
+
+                  {/* Word Title & Pronunciation */}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                        {selectedWord.word}
+                      </h2>
+
+                      <button
+                        type="button"
+                        onClick={() => playAudio(selectedWord.word)}
+                        className="p-3 rounded-2xl bg-[#0097B2] hover:bg-[#00788E] text-white shadow-md transition-all cursor-pointer active:scale-95"
+                      >
+                        <Volume2 className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 mt-1">
+                      <span className="text-xs font-mono text-[#0097B2] dark:text-cyan-300 font-extrabold">
+                        {selectedWord.ipa}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">
+                        {selectedWord.pos}
+                      </span>
                     </div>
                   </div>
 
-                  <span className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#091b20] text-[#0097B2] text-[10px] font-black uppercase border border-[#0097B2]/30">
-                    {accent} VOICE
-                  </span>
-                </div>
-
-                {/* English Meaning & Definition */}
-                <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">MEANING & DEFINITION</span>
-                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#091b20] border border-slate-100 dark:border-zinc-800 text-xs text-slate-700 dark:text-zinc-200 font-medium leading-relaxed">
-                    {selectedWord.definition}
+                  {/* Definition */}
+                  <div className="space-y-1.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                      ENGLISH DEFINITION
+                    </span>
+                    <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-700 dark:text-zinc-200 bg-slate-50 dark:bg-[#091b20] p-3.5 rounded-2xl border border-slate-100 dark:border-zinc-800">
+                      "{selectedWord.definition}"
+                    </p>
                   </div>
-                </div>
 
-                {/* Bengali Explanation Box (বাংলা অর্থ ও ব্যাখ্যা) */}
-                <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/40 space-y-2 text-xs">
-                  <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-black text-[10.5px]">
-                    BENGALI EXPLANATION (বাংলা অর্থ ও ব্যাখ্যা)
-                  </span>
-                  <p className="font-black text-sm text-emerald-800 dark:text-emerald-200">
-                    {selectedWord.banglaTitle}
-                  </p>
-                  <p className="text-emerald-700 dark:text-emerald-300/80 font-medium leading-relaxed">
-                    {selectedWord.banglaDesc}
-                  </p>
-                </div>
+                  {/* Bangla Translation Card */}
+                  {selectedWord.banglaTitle && (
+                    <div className="p-4 rounded-2xl bg-cyan-500/10 dark:bg-[#0097B2]/15 border border-[#0097B2]/30 space-y-1">
+                      <div className="flex items-center justify-between text-[10px] font-black text-[#0097B2] dark:text-cyan-300">
+                        <span>বাংলা অর্থ ও ব্যাখ্যা</span>
+                        <span>BANGLA GUIDE</span>
+                      </div>
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                        {selectedWord.banglaTitle}
+                      </h4>
+                      <p className="text-xs text-slate-600 dark:text-zinc-300 font-medium">
+                        {selectedWord.banglaDesc}
+                      </p>
+                    </div>
+                  )}
 
-                {/* Example of Sentence */}
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase text-slate-400">
-                    <span>EXAMPLE OF SENTENCE</span>
-                    <button
-                      type="button"
-                      onClick={() => playAudio(selectedWord.example)}
-                      className="text-[#0097B2] hover:underline cursor-pointer flex items-center gap-1"
-                    >
-                      ▶ READ ALOUD
-                    </button>
+                  {/* Contextual Sentence Example */}
+                  <div className="space-y-1.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                      ACADEMIC EXAMPLE SENTENCE
+                    </span>
+                    <p className="text-xs sm:text-sm font-semibold italic text-slate-800 dark:text-zinc-100 bg-slate-50 dark:bg-[#091b20] p-3.5 rounded-2xl border border-slate-100 dark:border-zinc-800">
+                      "{selectedWord.example}"
+                    </p>
                   </div>
-                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#091b20] border border-slate-100 dark:border-zinc-800 text-xs text-slate-800 dark:text-zinc-200 italic font-semibold leading-relaxed">
-                    "{selectedWord.example}"
-                  </div>
-                </div>
 
-                {/* High Score Synonyms */}
-                <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">HIGH SCORE SYNONYMS</span>
-                  <div className="flex flex-wrap gap-2 text-xs font-bold">
-                    {selectedWord.synonyms.map((syn, synIdx) => (
-                      <span
-                        key={synIdx}
-                        onClick={() => playAudio(syn)}
-                        className="px-3 py-1.5 rounded-xl bg-cyan-50/70 dark:bg-[#0097B2]/20 text-[#0097B2] dark:text-cyan-300 border border-[#0097B2]/30 flex items-center gap-1 cursor-pointer hover:bg-[#0097B2] hover:text-white transition-all"
-                      >
-                        ⭐ {syn}
+                  {/* Synonyms */}
+                  {selectedWord.synonyms && selectedWord.synonyms.length > 0 && (
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                        HIGH-BAND SYNONYMS
                       </span>
-                    ))}
-                  </div>
-                </div>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedWord.synonyms.map((syn, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-3 py-1 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 text-xs font-bold border border-slate-200 dark:border-zinc-700"
+                          >
+                            {syn}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                {/* Footer Metadata */}
-                <div className="pt-4 border-t border-slate-100 dark:border-zinc-800 flex justify-between items-center text-[10.5px] font-bold text-slate-400">
-                  <span>Total Bookmarks: {bookmarks.length} words</span>
-                  <span>Category: {selectedWord.category}</span>
-                </div>
+                  {/* Practice Action CTA */}
+                  <button
+                    type="button"
+                    onClick={() => navigate('/mock-test')}
+                    className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#0097B2] to-[#004B59] hover:from-[#00788E] hover:to-[#0097B2] text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-[#0097B2]/25 cursor-pointer flex items-center justify-center gap-2 transition-all border border-white/20"
+                  >
+                    <span>Practice Word Drills</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
 
-              </motion.div>
+                </div>
+              )}
             </div>
 
           </div>
